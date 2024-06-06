@@ -13,13 +13,11 @@ public partial class Booking
 
     public int ServiceId { get; set; }
 
-    public int StatusId { get; set; }
+    public string Status { get; set; } = null!;
 
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();
 
     public virtual Service Service { get; set; } = null!;
-
-    public virtual Status Status { get; set; } = null!;
 
     public virtual Student Student { get; set; } = null!;
 

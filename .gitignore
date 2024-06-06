@@ -14,6 +14,9 @@
 *.userosscache
 *.sln.docstates
 
+# .gitignore
+
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
@@ -72,6 +75,9 @@ ScaffoldingReadMe.txt
 
 # StyleCop
 StyleCopReport.xml
+
+# .gitignore
+appsettings.json
 
 # Files built by Visual Studio
 *_i.c
