@@ -9,8 +9,6 @@ public partial class Achievement
 
     public int TutorId { get; set; }
 
-    public string Achievement1 { get; set; } = null!;
-
     public string Certificate { get; set; } = null!;
 
     public virtual Tutor Tutor { get; set; } = null!;
