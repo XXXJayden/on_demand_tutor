@@ -7,9 +7,9 @@ public partial class Moderator
 {
     public int ModId { get; set; }
 
-    public int TutorId { get; set; }
+    public string Fullname { get; set; } = null!;
 
-    public decimal Price { get; set; }
+    public string Password { get; set; } = null!;
 
-    public virtual Tutor Tutor { get; set; } = null!;
+    public string Email { get; set; } = null!;
 }
