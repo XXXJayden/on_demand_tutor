@@ -9,5 +9,10 @@ namespace Repositories.Tutors
         public void DeleteTutorService(int id) => TutorServiceDAO.DeleteTutorService(id);
         public void AddTutorService(TutorService tutorService) => TutorServiceDAO.AddTutorService(tutorService);
         public void UpdateTutorService(TutorService tutorService) => TutorServiceDAO.UpdateTutorService(tutorService);
+
+        public void AddTutorService()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

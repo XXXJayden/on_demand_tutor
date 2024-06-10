@@ -1,4 +1,5 @@
-﻿namespace Services.Tutors
+﻿using BusinessObjects.Models;
+namespace Services.Tutors
 {
     public interface ITutorService
     {
