@@ -1,9 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
 
-namespace BusinessObjects.Models;
+namespace DataAccessLayer;
 
 public partial class OnDemandTutorDbContext : DbContext
 {
