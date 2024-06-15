@@ -23,7 +23,5 @@ public partial class Tutor
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
-    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
-
     public virtual ICollection<TutorService> TutorServices { get; set; } = new List<TutorService>();
 }
