@@ -15,7 +15,13 @@ public partial class Booking
 
     public string Status { get; set; } = null!;
 
+    public DateOnly? DateStart { get; set; }
+
+    public DateOnly? DateEnd { get; set; }
+
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();
+
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
 
     public virtual Service Service { get; set; } = null!;
 

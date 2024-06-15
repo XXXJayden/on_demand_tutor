@@ -7,7 +7,7 @@ public partial class Feedback
 {
     public int FbId { get; set; }
 
-    public int TutorId { get; set; }
+    public int BookingId { get; set; }
 
     public int StudentId { get; set; }
 
@@ -15,7 +15,5 @@ public partial class Feedback
 
     public string Detail { get; set; } = null!;
 
-    public virtual Student Student { get; set; } = null!;
-
-    public virtual Tutor Tutor { get; set; } = null!;
+    public virtual Booking Booking { get; set; } = null!;
 }
