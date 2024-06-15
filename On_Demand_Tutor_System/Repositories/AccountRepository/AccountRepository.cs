@@ -22,7 +22,7 @@ namespace Repositories.AccountRepository
 
         public async Task<Student> RegisterAsStudent(string email, string password)
         {
-            _accountDAO.RegisterAsStudent(email, password);
+           return await _accountDAO.RegisterAsStudent(email, password);
         }
     }
 }
