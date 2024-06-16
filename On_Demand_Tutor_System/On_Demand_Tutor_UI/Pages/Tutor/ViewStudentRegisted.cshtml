@@ -1,0 +1,55 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Tutor.ViewStudentRegistedModel
+
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "ViewStudentRegisted";
+}
+
+<h1>View Student Booking</h1>
+
+<div>
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].DateStart)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].DateEnd)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].ServiceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].StudentName)
+                </th>
+
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.BookingTutor)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateStart)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.DateEnd)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ServiceName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
