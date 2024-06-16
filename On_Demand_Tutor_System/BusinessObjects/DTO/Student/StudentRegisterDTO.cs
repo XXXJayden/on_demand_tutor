@@ -9,14 +9,14 @@ namespace BusinessObjects.DTO.Student
 {
     public class StudentRegisterDTO
     {
-        [Required]
-        [EmailAddress]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
 
         public string Phone { get; set; }

@@ -10,11 +10,14 @@ namespace BusinessObjects.DTO.Tutor
 {
     public class TutorRegisterDTO
     {
+        [Required(ErrorMessage = "You must enter your name")]
+
         public string Fullname { get; set; } = null!;
 
-        [Required]
+        [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; } = null!;
-        [Required]
+        [Required(ErrorMessage = "Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; } = null!;
 
         public string Status { get; set; } = User.Active;
