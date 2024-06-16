@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Repositories.AccountRepository;
 using Services.AccountService;
 using Services.Sercurity;
+using Services.BookingService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +22,8 @@ builder.Services.AddDbContext<OnDemandTutorDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("DBDefault"));
 });
+
+builder.Services.AddScoped<IBookingService, BookingService>();
 
 var app = builder.Build();
 

@@ -432,3 +432,17 @@
     padding-right: 0;
     border-right: none;
 }
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+.flex-fill {
+    flex: 1 1 auto;
+}
