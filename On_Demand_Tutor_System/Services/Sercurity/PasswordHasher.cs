@@ -11,13 +11,13 @@ namespace Services.Sercurity
     {
         public string HashPassword(string password)
         {
-            using (SHA256 sha256 = SHA256.Create())
+            using (SHA1 sha1 = SHA1.Create())
             {
                 // Convert the password string to a byte array
                 byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
 
                 // Compute the hash value of the password bytes
-                byte[] hashBytes = sha256.ComputeHash(passwordBytes);
+                byte[] hashBytes = sha1.ComputeHash(passwordBytes);
 
                 // Convert the hash bytes to a hexadecimal string
                 StringBuilder sb = new StringBuilder();
