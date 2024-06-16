@@ -6,47 +6,45 @@
     ViewData["Title"] = "ViewStudentRegisted";
 }
 
-<h1>View Student Booking</h1>
+<h1 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px;">View Student Bookings</h1>
 
-<div>
-    <table class="table">
+<div style="display: flex; justify-content: center;">
+    <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif;">
         <thead>
-            <tr>
-
-                <th>
+            <tr style="background-color: #34495e; color: white; text-align: left;">
+                <th style="padding: 10px; border: 1px solid #ddd;">
                     @Html.DisplayNameFor(model => model.BookingTutor[0].DateStart)
                 </th>
-                <th>
+                <th style="padding: 10px; border: 1px solid #ddd;">
                     @Html.DisplayNameFor(model => model.BookingTutor[0].DateEnd)
                 </th>
-                <th>
+                <th style="padding: 10px; border: 1px solid #ddd;">
                     @Html.DisplayNameFor(model => model.BookingTutor[0].ServiceName)
                 </th>
-                <th>
+                <th style="padding: 10px; border: 1px solid #ddd;">
                     @Html.DisplayNameFor(model => model.BookingTutor[0].StudentName)
                 </th>
-
-                <th>Details</th>
+                <th style="padding: 10px; border: 1px solid #ddd;">Details</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var item in Model.BookingTutor)
             {
-                <tr>
-                    <td>
+                <tr style="border: 1px solid #ddd; background-color: #f9f9f9;">
+                    <td style="padding: 10px; border: 1px solid #ddd;">
                         @Html.DisplayFor(modelItem => item.DateStart)
                     </td>
-                    <td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
                         @Html.DisplayFor(modelItem => item.DateEnd)
                     </td>
-                    <td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
                         @Html.DisplayFor(modelItem => item.ServiceName)
                     </td>
-                    <td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
                         @Html.DisplayFor(modelItem => item.StudentName)
                     </td>
-                    <td>
-                        <a asp-page="./Details" asp-route-id="@item.Id" class="btn btn-primary">View</a>
+                    <td style="padding: 10px; border: 1px solid #ddd; text-align:center">
+                        <a asp-page="./ViewBookingDetails" asp-route-id="@item.Id" style="background-color: #2980b9; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; display: inline-block;">View</a>
                     </td>
                 </tr>
             }
