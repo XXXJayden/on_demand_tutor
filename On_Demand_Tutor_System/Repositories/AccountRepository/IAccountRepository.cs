@@ -17,6 +17,6 @@ namespace Repositories.AccountRepository
 
         Task<bool> EmailExistsAsync(string email);
 
-        Task<Tutor> RegisterAsTutor(string email, string password, string fullName, string description, string major);
+        Task<Tutor> AddTutorAsync(Tutor tutor);
     }
 }

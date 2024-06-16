@@ -3,8 +3,8 @@ using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Repositories.AccountRepository;
 using Services.AccountService;
-using Services.Sercurity;
 using Services.BookingService;
+using Services.Sercurity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +15,13 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<BookingDAO>();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 
 
@@ -37,7 +44,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

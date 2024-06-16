@@ -38,6 +38,13 @@ namespace DataAccessLayer
             return student;
         }
 
+        public async Task<Tutor> AddTutorAsync(Tutor tutor)
+        {
+            _context.Tutors.Add(tutor);
+            await _context.SaveChangesAsync();
+            return tutor;
+        }
+
         public async Task<Student> GetStudentByEmailAsync(string email)
         {
             return await _context.Students.FirstOrDefaultAsync(s => s.Email == email);
@@ -48,24 +55,6 @@ namespace DataAccessLayer
             return await _context.Students.AnyAsync(s => s.Email == email);
         }
 
-        public async Task<Tutor> RegisterAsTutor(string email, string password, string fullName, string description, string major)
-        {
-            var tutor = new Tutor
-            {
-                Email = email,
-                Password = password,
-                Fullname = fullName,
-                Description = description,
-                Major = major,
-                Status = "Active",
-                Achievements = null,
-                Bookings = null,
-                TutorServices = null
-            };
-            _context.Tutors.Add(tutor);
-            await _context.SaveChangesAsync();
-            return tutor;
-        }
 
     }
 }

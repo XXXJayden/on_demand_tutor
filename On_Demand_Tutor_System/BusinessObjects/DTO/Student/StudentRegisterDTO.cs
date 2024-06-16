@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObjects.DTOs
+namespace BusinessObjects.DTO.Student
 {
     public class StudentRegisterDTO
     {
