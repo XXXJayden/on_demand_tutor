@@ -1,9 +1,5 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -24,12 +20,31 @@ namespace DataAccessLayer
             return listBookings;
         }
 
+        public static List<Booking> GetAllBookingTutor()
+        {
+            var listBookings = new List<Booking>();
+            try
+            {
+                using var context = new OnDemandTutorDbContext();
+                listBookings = context.Bookings
+                    .Include(x => x.Tutor)
+                    .Include(x => x.Student)
+                    .Include(x => x.Service)
+                    .ToList();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+            return listBookings;
+        }
+
         public static Booking GetBookingById(int id)
         {
             using var context = new OnDemandTutorDbContext();
             return context.Bookings.FirstOrDefault(c => c.Id == id);
         }
-        
+
 
         public static void AddBooking(Booking b)
         {
