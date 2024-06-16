@@ -36,10 +36,11 @@ namespace Repositories.AccountRepository
             return await _accountDAO.EmailExistsAsync(email);
         }
 
-        public async Task<Tutor> RegisterAsTutor(string email, string password, string fullName, string description, string major)
+        public async Task<Tutor> AddTutorAsync(Tutor tutor)
         {
-            return await _accountDAO.RegisterAsTutor(email, password, fullName, description, major);
+            return await _accountDAO.AddTutorAsync(tutor);
         }
+
 
     }
 }

@@ -1,26 +1,23 @@
-﻿using BusinessObjects.DTO.Student;
+﻿using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 using Services.AccountService;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Net;
 using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.AccountPages
 {
-    public class StudentRegisterModel : PageModel
+    public class TutorRegisterModel : PageModel
     {
         private readonly IAccountService accountService;
 
-        public StudentRegisterModel(IAccountService accountService)
+        public TutorRegisterModel(IAccountService accountservice)
         {
-            this.accountService = accountService;
+            this.accountService = accountservice;
         }
 
         public IActionResult OnGet()
@@ -29,7 +26,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
         }
 
         [BindProperty]
-        public StudentRegisterDTO Student { get; set; }
+        public TutorRegisterDTO Tutor { get; set; }
 
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
@@ -38,14 +35,13 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             {
                 return Page();
             }
-
-            if (await accountService.EmailExistsAsync(Student.Email) == true)
+            if (await accountService.EmailExistsAsync(Tutor.Email) == true)
             {
-                ModelState.AddModelError("Student.Email", "An account with this email already exists.");
+                ModelState.AddModelError("Tutor.Email", "An account with this email already exists.");
                 return Page();
             }
 
-            await accountService.RegisterStudentAsync(Student);
+            await accountService.RegisterTutorAsync(Tutor);
 
             return RedirectToPage("/Index");
         }

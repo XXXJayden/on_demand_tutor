@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTOs;
+﻿using BusinessObjects.DTO.Student;
+using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Models;
 using Repositories.AccountRepository;
 using Services.Sercurity;
@@ -52,15 +53,31 @@ namespace Services.AccountService
             return student;
         }
 
+        public async Task<Tutor> RegisterTutorAsync(TutorRegisterDTO registerDTO)
+        {
+            var hashedPassword = _hasher.HashPassword(registerDTO.Password);
+
+            var tutor = new Tutor
+            {
+                Email = registerDTO.Email,
+                Password = hashedPassword,
+                Fullname = registerDTO.Fullname,
+                Major = registerDTO.Major,
+                Status = registerDTO.Status,
+                Description = registerDTO.Description
+            };
+
+            await _repo.AddTutorAsync(tutor);
+
+            return tutor;
+        }
+
+
+
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _repo.EmailExistsAsync(email);
         }
 
-        public Task<Tutor> RegisterAsTutor(string email, string password, string fullName, string description, string major)
-        {
-            password = _hasher.HashPassword(password);
-            return _repo.RegisterAsTutor(email, password, fullName, description, major);
-        }
     }
 }
