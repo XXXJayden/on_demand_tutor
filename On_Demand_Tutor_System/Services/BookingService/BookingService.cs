@@ -36,6 +36,11 @@ namespace Services.BookingService
             return bookingRepository.GetBookingById(id);
         }
 
+        public Booking GetDetailsBookingById(int id)
+        {
+            return bookingRepository.GetDetailsBookingById(id);
+        }
+
         public void UpdateBooking(Booking booking)
         {
             bookingRepository.UpdateBooking(booking);

@@ -10,5 +10,7 @@ namespace Services.BookingService
         void UpdateBooking(Booking booking);
         List<Booking> GetAllBookingTutor();
         void DeleteBooking(Booking booking);
+
+        Booking GetDetailsBookingById(int id);
     }
 }

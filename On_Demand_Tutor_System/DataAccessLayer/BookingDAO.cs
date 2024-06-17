@@ -45,6 +45,25 @@ namespace DataAccessLayer
             return context.Bookings.FirstOrDefault(c => c.Id == id);
         }
 
+        public static Booking GetDetailsBookingById(int id)
+        {
+            using var context = new OnDemandTutorDbContext();
+            return context.Bookings
+                  .Include(b => b.Student)
+                  .Include(x => x.Service)
+                  .FirstOrDefault(c => c.Id == id);
+        }
+
+        public static Booking GetBookingByStudent(int id)
+        {
+            using var context = new OnDemandTutorDbContext();
+            return context.Bookings
+                  .Include(b => b.Student)
+                  .Include(x => x.Service)
+                  .FirstOrDefault(c => c.Id == id);
+        }
+
+
 
         public static void AddBooking(Booking b)
         {
