@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Repositories.BookingRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.BookingService
 {
@@ -28,7 +23,12 @@ namespace Services.BookingService
 
         public List<Booking> GetAllBooking()
         {
-            return bookingRepository.GetAllBooking();   
+            return bookingRepository.GetAllBooking();
+        }
+
+        public List<Booking> GetAllBookingTutor()
+        {
+            return bookingRepository.GetAllBookingTutor();
         }
 
         public Booking GetBookingById(int id)
@@ -38,7 +38,7 @@ namespace Services.BookingService
 
         public void UpdateBooking(Booking booking)
         {
-            bookingRepository.UpdateBooking(booking);   
+            bookingRepository.UpdateBooking(booking);
         }
     }
 }
