@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-using BusinessObjects.Models;
+﻿using BusinessObjects.Models;
 
 namespace Repositories.BookingRepository
 {
@@ -14,8 +8,10 @@ namespace Repositories.BookingRepository
         Booking GetBookingById(int id);
         void AddBooking(Booking booking);
         void UpdateBooking(Booking booking);
-
+        List<Booking> GetAllBookingTutor();
         void DeleteBooking(Booking booking);
         //Booking GetBookingByName(string name);
+
+        Booking GetDetailsBookingById(int id);
     }
 }
