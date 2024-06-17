@@ -1,0 +1,54 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.AccountPages.TutorRegisterModel
+
+@{
+    ViewData["Title"] = "TutorRegister";
+}
+
+<h1>Register as a Tutor</h1>
+
+<h4>Tutor</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Tutor.Fullname" class="control-label"></label>
+                <input asp-for="Tutor.Fullname" class="form-control" />
+                <span asp-validation-for="Tutor.Fullname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tutor.Password" class="control-label"></label>
+                <input asp-for="Tutor.Password" class="form-control" />
+                <span asp-validation-for="Tutor.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tutor.Email" class="control-label"></label>
+                <input asp-for="Tutor.Email" class="form-control" />
+                <span asp-validation-for="Tutor.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tutor.Description" class="control-label"></label>
+                <input asp-for="Tutor.Description" class="form-control" />
+                <span asp-validation-for="Tutor.Description" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Tutor.Major" class="control-label"></label>
+                <input asp-for="Tutor.Major" class="form-control" />
+                <span asp-validation-for="Tutor.Major" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

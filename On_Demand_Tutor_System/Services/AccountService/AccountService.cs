@@ -1,4 +1,6 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO.Student;
+using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Models;
 using Repositories.AccountRepository;
 using Services.Sercurity;
 using System;
@@ -19,15 +21,63 @@ namespace Services.AccountService
             _hasher = hasher;
         }
 
-        public Task<Student> LoginAsStudent(string email, string password)
-        {
-            return _repo.LoginAsStudent(email, password);
-        }
-
-        public Task<Student> RegisterAsStudent(string email, string password)
+        public Task<(object account, string type)> GetAccount(string email, string password)
         {
             password = _hasher.HashPassword(password);
-            return _repo.RegisterAsStudent(email, password);
+            return _repo.GetAccount(email, password);
         }
+
+        public async Task<Student> RegisterStudentAsync(StudentRegisterDTO registerDTO)
+        {
+            var existingStudent = await _repo.GetStudentByEmailAsync(registerDTO.Email);
+            if (existingStudent != null)
+            {
+                throw new InvalidOperationException("A student with the given email already exists.");
+            }
+
+            var hashedPassword = _hasher.HashPassword(registerDTO.Password);
+
+            var student = new Student
+            {
+                Email = registerDTO.Email,
+                Password = hashedPassword,
+                Phone = registerDTO.Phone,
+                Fullname = registerDTO.FullName,
+                Address = registerDTO.Address,
+                Grade = registerDTO.Grade,
+                Status = registerDTO.Status
+            };
+
+            await _repo.AddStudentAsync(student);
+
+            return student;
+        }
+
+        public async Task<Tutor> RegisterTutorAsync(TutorRegisterDTO registerDTO)
+        {
+            var hashedPassword = _hasher.HashPassword(registerDTO.Password);
+
+            var tutor = new Tutor
+            {
+                Email = registerDTO.Email,
+                Password = hashedPassword,
+                Fullname = registerDTO.Fullname,
+                Major = registerDTO.Major,
+                Status = registerDTO.Status,
+                Description = registerDTO.Description
+            };
+
+            await _repo.AddTutorAsync(tutor);
+
+            return tutor;
+        }
+
+
+
+        public async Task<bool> EmailExistsAsync(string email)
+        {
+            return await _repo.EmailExistsAsync(email);
+        }
+
     }
 }
