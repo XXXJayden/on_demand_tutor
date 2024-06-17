@@ -11,5 +11,7 @@ namespace Repositories.BookingRepository
         List<Booking> GetAllBookingTutor();
         void DeleteBooking(Booking booking);
         //Booking GetBookingByName(string name);
+
+        Booking GetDetailsBookingById(int id);
     }
 }
