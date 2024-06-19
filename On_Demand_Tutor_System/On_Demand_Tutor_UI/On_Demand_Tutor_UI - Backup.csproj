@@ -7,13 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Pages\StudentPages\**" />
-    <Content Remove="Pages\StudentPages\**" />
-    <EmbeddedResource Remove="Pages\StudentPages\**" />
-    <None Remove="Pages\StudentPages\**" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="8.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -28,13 +21,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BusinessObjects\BusinessObjects.csproj" />
-    <ProjectReference Include="..\DataAccessLayer\DataAccessLayer.csproj" />
-    <ProjectReference Include="..\Repositories\Repositories.csproj" />
     <ProjectReference Include="..\Services\Services.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 </Project>
