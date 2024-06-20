@@ -1,4 +1,3 @@
-using Services.BookingService;
 using BusinessObjects.Models;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +5,7 @@ using Repositories.AccountRepository;
 using Services.AccountService;
 using Services.BookingService;
 using Services.Sercurity;
+using Services.TutorServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAccountRepository, AccountRepository>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<BookingDAO>();
+builder.Services.AddScoped<ITutorAccountService, TutorAccountService>();
 
 builder.Services.AddSession(options =>
 {
