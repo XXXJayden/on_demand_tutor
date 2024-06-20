@@ -19,6 +19,8 @@ public partial class Booking
 
     public DateOnly? DateEnd { get; set; }
 
+    public string PaymentMethods { get; set; } = null!;
+
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

@@ -54,7 +54,7 @@ public partial class OnDemandTutorDbContext : DbContext
     {
         modelBuilder.Entity<Achievement>(entity =>
         {
-            entity.HasKey(e => e.AchievementId).HasName("PK__Achievem__276330E0281E6C74");
+            entity.HasKey(e => e.AchievementId).HasName("PK__Achievem__276330E0648B4242");
 
             entity.ToTable("Achievement");
 
@@ -67,16 +67,19 @@ public partial class OnDemandTutorDbContext : DbContext
             entity.HasOne(d => d.Tutor).WithMany(p => p.Achievements)
                 .HasForeignKey(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Achieveme__Tutor__2A4B4B5E");
+                .HasConstraintName("FK__Achieveme__Tutor__3C69FB99");
         });
 
         modelBuilder.Entity<Booking>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Booking__3214EC27DDC57138");
+            entity.HasKey(e => e.Id).HasName("PK__Booking__3214EC2711B940E5");
 
             entity.ToTable("Booking");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.PaymentMethods)
+                .HasMaxLength(25)
+                .IsUnicode(false);
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
             entity.Property(e => e.Status)
                 .HasMaxLength(25)
@@ -87,22 +90,22 @@ public partial class OnDemandTutorDbContext : DbContext
             entity.HasOne(d => d.Service).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.ServiceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Booking__Service__32E0915F");
+                .HasConstraintName("FK__Booking__Service__44FF419A");
 
             entity.HasOne(d => d.Student).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.StudentId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Booking__Student__30F848ED");
+                .HasConstraintName("FK__Booking__Student__4316F928");
 
             entity.HasOne(d => d.Tutor).WithMany(p => p.Bookings)
                 .HasForeignKey(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Booking__TutorID__31EC6D26");
+                .HasConstraintName("FK__Booking__TutorID__440B1D61");
         });
 
         modelBuilder.Entity<BookingSchedule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__BookingS__3214EC278A4A77C4");
+            entity.HasKey(e => e.Id).HasName("PK__BookingS__3214EC27E06D84E6");
 
             entity.ToTable("BookingSchedule");
 
@@ -113,17 +116,17 @@ public partial class OnDemandTutorDbContext : DbContext
             entity.HasOne(d => d.Booking).WithMany(p => p.BookingSchedules)
                 .HasForeignKey(d => d.BookingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BookingSc__Booki__3A81B327");
+                .HasConstraintName("FK__BookingSc__Booki__4CA06362");
 
             entity.HasOne(d => d.Sc).WithMany(p => p.BookingSchedules)
                 .HasForeignKey(d => d.ScId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__BookingSch__ScID__3B75D760");
+                .HasConstraintName("FK__BookingSch__ScID__4D94879B");
         });
 
         modelBuilder.Entity<Feedback>(entity =>
         {
-            entity.HasKey(e => e.FbId).HasName("PK__Feedback__36769D6C167C61F6");
+            entity.HasKey(e => e.FbId).HasName("PK__Feedback__36769D6CB579EFC0");
 
             entity.Property(e => e.FbId).HasColumnName("FbID");
             entity.Property(e => e.BookingId).HasColumnName("BookingID");
@@ -133,12 +136,12 @@ public partial class OnDemandTutorDbContext : DbContext
             entity.HasOne(d => d.Booking).WithMany(p => p.Feedbacks)
                 .HasForeignKey(d => d.BookingId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Feedbacks__Booki__35BCFE0A");
+                .HasConstraintName("FK__Feedbacks__Booki__47DBAE45");
         });
 
         modelBuilder.Entity<Moderator>(entity =>
         {
-            entity.HasKey(e => e.ModId).HasName("PK__Moderato__FB1F178723183422");
+            entity.HasKey(e => e.ModId).HasName("PK__Moderato__FB1F1787253BD1A0");
 
             entity.ToTable("Moderator");
 
@@ -154,7 +157,7 @@ public partial class OnDemandTutorDbContext : DbContext
 
         modelBuilder.Entity<Schedule>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Schedule__3214EC27A939A44D");
+            entity.HasKey(e => e.Id).HasName("PK__Schedule__3214EC27B0C53E75");
 
             entity.ToTable("Schedule");
 
@@ -167,12 +170,11 @@ public partial class OnDemandTutorDbContext : DbContext
 
         modelBuilder.Entity<Service>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__Service__3214EC27B9F23CA1");
+            entity.HasKey(e => e.Id).HasName("PK__Service__3214EC278987E19A");
 
             entity.ToTable("Service");
 
             entity.Property(e => e.Id).HasColumnName("ID");
-            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.Service1)
                 .HasMaxLength(255)
                 .HasColumnName("Service");
@@ -180,7 +182,7 @@ public partial class OnDemandTutorDbContext : DbContext
 
         modelBuilder.Entity<Student>(entity =>
         {
-            entity.HasKey(e => e.StudentId).HasName("PK__Student__32C52A79F90D0033");
+            entity.HasKey(e => e.StudentId).HasName("PK__Student__32C52A79BE9A2DCF");
 
             entity.ToTable("Student");
 
@@ -204,7 +206,7 @@ public partial class OnDemandTutorDbContext : DbContext
 
         modelBuilder.Entity<Tutor>(entity =>
         {
-            entity.HasKey(e => e.TutorId).HasName("PK__Tutor__77C70FC22C7A2C55");
+            entity.HasKey(e => e.TutorId).HasName("PK__Tutor__77C70FC2BB19FDB2");
 
             entity.ToTable("Tutor");
 
@@ -214,6 +216,9 @@ public partial class OnDemandTutorDbContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false);
             entity.Property(e => e.Fullname).HasMaxLength(255);
+            entity.Property(e => e.Grade)
+                .HasMaxLength(50)
+                .IsUnicode(false);
             entity.Property(e => e.Major).HasMaxLength(255);
             entity.Property(e => e.Password)
                 .HasMaxLength(255)
@@ -223,23 +228,24 @@ public partial class OnDemandTutorDbContext : DbContext
 
         modelBuilder.Entity<TutorService>(entity =>
         {
-            entity.HasKey(e => e.Id).HasName("PK__TutorSer__3214EC27F45E6182");
+            entity.HasKey(e => e.Id).HasName("PK__TutorSer__3214EC27CF45DE98");
 
             entity.ToTable("TutorService");
 
             entity.Property(e => e.Id).HasColumnName("ID");
+            entity.Property(e => e.Price).HasColumnType("decimal(10, 2)");
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
             entity.Property(e => e.TutorId).HasColumnName("TutorID");
 
             entity.HasOne(d => d.Service).WithMany(p => p.TutorServices)
                 .HasForeignKey(d => d.ServiceId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TutorServ__Servi__2D27B809");
+                .HasConstraintName("FK__TutorServ__Servi__3F466844");
 
             entity.HasOne(d => d.Tutor).WithMany(p => p.TutorServices)
                 .HasForeignKey(d => d.TutorId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__TutorServ__Tutor__2E1BDC42");
+                .HasConstraintName("FK__TutorServ__Tutor__403A8C7D");
         });
 
         OnModelCreatingPartial(modelBuilder);

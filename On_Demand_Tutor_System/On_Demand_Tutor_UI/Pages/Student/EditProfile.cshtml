@@ -1,0 +1,66 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Student.EditProfileModel
+
+@{
+    ViewData["Title"] = "EditProfile";
+}
+
+<h1>EditProfile</h1>
+@if (TempData["SuccessMessage"] != null)
+{
+    <script>
+        window.onload = function () {
+            alert("@TempData["SuccessMessage"]");
+            window.location.href = '/Index';
+        };
+    </script>
+}
+<h4>Student</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div class="form-group">
+                <label asp-for="Student.FullName" class="control-label"></label>
+                <input asp-for="Student.FullName" class="form-control" />
+                <span asp-validation-for="Student.FullName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Password" class="control-label"></label>
+                <input asp-for="Student.Password" class="form-control" />
+                <span asp-validation-for="Student.Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Phone" class="control-label"></label>
+                <input asp-for="Student.Phone" class="form-control" />
+                <span asp-validation-for="Student.Phone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Email" class="control-label"></label>
+                <input asp-for="Student.Email" class="form-control" />
+                <span asp-validation-for="Student.Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Address" class="control-label"></label>
+                <input asp-for="Student.Address" class="form-control" />
+                <span asp-validation-for="Student.Address" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Student.Grade" class="control-label"></label>
+                <input asp-for="Student.Grade" class="form-control" />
+                <span asp-validation-for="Student.Grade" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="/Index">Back to Index</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
