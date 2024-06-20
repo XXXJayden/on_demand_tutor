@@ -1,13 +1,6 @@
-﻿using BusinessObjects.Models;
-using DataAccessLayer;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Services.AccountService;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.AccountPages
 {
@@ -50,7 +43,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 }
                 else if (type == "Tutor")
                 {
-                    return RedirectToPage("./TutorDashboard");
+                    return RedirectToPage("/Index");
                 }
             }
 

@@ -1,23 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.DTO.Booking;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using BusinessObjects.Models;
-using BusinessObjects.DTO.Booking;
 using Services.BookingService;
+using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
     public class ViewProcessingTeachingModel : PageModel
     {
         private readonly IBookingService _bookingService;
+        private readonly ITutorAccountService _tutorService;
 
-        public ViewProcessingTeachingModel(IBookingService bookingService)
+        public ViewProcessingTeachingModel(IBookingService bookingService, ITutorAccountService tutorService)
         {
             _bookingService = bookingService;
+            _tutorService = tutorService;
         }
 
         public IList<ProcessingTeachingRespone> ProcessingTeach { get; set; } = default!;
@@ -25,7 +21,9 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         public async Task OnGetAsync()
         {
 
-            var allbookingList = _bookingService.GetAllBookingTutor();
+            var accountTutor = HttpContext.Session.GetString("UserEmail");
+            var allTutor = _tutorService.GetTutorByEmail(accountTutor);
+            var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.TutorId.Equals(allTutor.TutorId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals("Approved"))
                                             .Select(x => new ProcessingTeachingRespone
