@@ -16,5 +16,11 @@ namespace On_Demand_Tutor_UI.Pages
         {
 
         }
+
+        public IActionResult OnGetLogout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToPage();
+        }
     }
 }
