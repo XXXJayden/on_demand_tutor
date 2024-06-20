@@ -2,11 +2,11 @@
 GO
 
 -- Thêm dữ liệu vào bảng Tutor
-INSERT INTO Tutor (Fullname, Password, Email, Status, Description, Major)
+INSERT INTO Tutor (Fullname, Password, Email, Status, Description, Major, Grade)
 VALUES
-('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics'),
-('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics'),
-('Emily Johnson', 'password789', 'emily.johnson@example.com', 'Inactive', 'Experienced in Chemistry', 'Chemistry');
+('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics','10th'),
+('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics','11th'),
+('Emily Johnson', 'password789', 'emily.johnson@example.com', 'Inactive', 'Experienced in Chemistry', 'Chemistry','12th');
 GO
 
 -- Thêm dữ liệu vào bảng Student
@@ -18,12 +18,15 @@ VALUES
 GO
 
 -- Thêm dữ liệu vào bảng Service
-INSERT INTO Service (Service, Price)
+INSERT INTO Service (Service)
 VALUES
-('Math Tutoring', 50.00),
-('Physics Tutoring', 60.00),
-('Chemistry Tutoring', 55.00);
+(N'Ôn kiến thức cơ bản'),
+(N'Ôn thi, giải đề'),
+(N'Làm báo bài'),
+(N'Kiến thức học vượt')
 GO
+
+
 
 -- Thêm dữ liệu vào bảng Achievement
 INSERT INTO Achievement (TutorID, Certificate)
@@ -34,20 +37,26 @@ VALUES
 GO
 
 -- Thêm dữ liệu vào bảng TutorService
-INSERT INTO TutorService (ServiceID, TutorID)
+INSERT INTO TutorService (ServiceID, TutorID, Price)
 VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+(1, 1, 100000),
+(2, 1, 200000),
+(3, 1, 300000),
+(1, 2, 100000),
+(2, 2, 200000),
+(3, 2, 300000),
+(1, 3, 100000),
+(2, 3, 200000),
+(3, 3, 300000);
 GO
 
 -- Thêm dữ liệu vào bảng Booking
-INSERT INTO Booking (StudentID, TutorID, ServiceID, Status, DateStart, DateEnd)
+INSERT INTO Booking (StudentID, TutorID, ServiceID, Status, DateStart, DateEnd, PaymentMethods)
 VALUES
-(1, 1, 1, 'Completed', '2024-01-01', '2024-01-31'),
-(2, 2, 2, 'Pending', '2024-02-01', '2024-02-28'),
-(3, 3, 3, 'Cancelled', '2024-03-01', '2024-03-31'),
-(3, 2, 1, 'Approved', '2024-03-01', '2024-03-31');
+(1, 1, 1, 'Completed', '2024-01-01', '2024-01-31','Online'),
+(2, 2, 2, 'Pending', '2024-02-01', '2024-02-28','Offline'),
+(3, 3, 3, 'Cancelled', '2024-03-01', '2024-03-31','Online'),
+(3, 2, 1, 'Approved', '2024-03-01', '2024-03-31','Offline');
 GO
 
 -- Thêm dữ liệu vào bảng Feedbacks

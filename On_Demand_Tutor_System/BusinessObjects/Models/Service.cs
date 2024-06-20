@@ -9,8 +9,6 @@ public partial class Service
 
     public string Service1 { get; set; } = null!;
 
-    public decimal Price { get; set; }
-
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
 
     public virtual ICollection<TutorService> TutorServices { get; set; } = new List<TutorService>();
