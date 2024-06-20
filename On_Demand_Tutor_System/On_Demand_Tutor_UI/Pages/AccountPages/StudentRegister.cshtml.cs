@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using On_Demand_Tutor_UI.Validator;
 using Services.AccountService;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.AccountPages
 {
-    public class StudentRegisterModel : PageModel
+    public class StudentRegisterModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
 
@@ -34,6 +35,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            TrimModelStrings(Student);
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -46,8 +48,9 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             }
 
             await accountService.RegisterStudentAsync(Student);
+            TempData["SuccessMessage"] = "You have registered successfully! Please login!";
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/AccountPages/LoginPage");
         }
     }
 }

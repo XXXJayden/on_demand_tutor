@@ -3,6 +3,7 @@ using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using On_Demand_Tutor_UI.Validator;
 using Services.AccountService;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.AccountPages
 {
-    public class TutorRegisterModel : PageModel
+    public class TutorRegisterModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
 
@@ -31,6 +32,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
+            TrimModelStrings(Tutor);
             if (!ModelState.IsValid)
             {
                 return Page();
@@ -42,6 +44,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             }
 
             await accountService.RegisterTutorAsync(Tutor);
+            TempData["SuccessMessage"] = "You have registered successfully. Please login.";
 
             return RedirectToPage("/Index");
         }

@@ -19,12 +19,17 @@ namespace BusinessObjects.DTO.Student
         [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
 
+        [Required(ErrorMessage = "You must enter your phone number")]
+        [Phone(ErrorMessage = "Invalid phone number")]
         public string Phone { get; set; }
 
+        [Required(ErrorMessage = "You must enter your address")]
         public string Address { get; set; }
 
+        [Required(ErrorMessage = "You must enter your grade")]
         public string Grade { get; set; }
 
+        [Required(ErrorMessage = "You must enter your current grade")]
         public string Status = "Active";
     }
 }

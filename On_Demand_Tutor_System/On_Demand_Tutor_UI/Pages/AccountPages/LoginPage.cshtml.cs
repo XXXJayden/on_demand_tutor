@@ -3,6 +3,7 @@ using DataAccessLayer;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using On_Demand_Tutor_UI.Validator;
 using Services.AccountService;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.AccountPages
 {
-    public class LoginPageModel : PageModel
+    public class LoginPageModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
 
@@ -52,6 +53,11 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 {
                     return RedirectToPage("./TutorDashboard");
                 }
+            }
+            if (account == null)
+            {
+                ModelState.AddModelError(string.Empty, "Wrong email or password!");
+                return Page();
             }
 
             return RedirectToPage("/Error");
