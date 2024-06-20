@@ -1,19 +1,15 @@
 ﻿using BusinessObjects.Models;
 using Repositories.TutorRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.TutorServices
 {
-    public class TutorService : ITutorService
+    public class TutorAccountService : ITutorAccountService
     {
         private readonly ITutorRepository _tutorRepository;
 
-        public TutorService() { 
-        _tutorRepository = new TutorRepository();
+        public TutorAccountService()
+        {
+            _tutorRepository = new TutorRepository();
         }
         public List<Tutor> GetAllTutor()
         {
@@ -34,6 +30,11 @@ namespace Services.TutorServices
         public Tutor GetTutorById(short tutorId)
         {
             return _tutorRepository.GetTutorById(tutorId);
+        }
+
+        public Tutor GetTutorByEmail(string tutorEmail)
+        {
+            return _tutorRepository.GetTutorByEmail(tutorEmail);
         }
     }
 }

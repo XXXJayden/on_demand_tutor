@@ -1,9 +1,36 @@
+using BusinessObjects.Models;
+using DataAccessLayer;
+using Microsoft.EntityFrameworkCore;
+using Repositories.AccountRepository;
+using Services.AccountService;
 using Services.BookingService;
+using Services.Sercurity;
+using Services.TutorServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<AccountDAO>();
+builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+builder.Services.AddScoped<IAccountService, AccountService>();
+builder.Services.AddScoped<PasswordHasher>();
+builder.Services.AddScoped<BookingDAO>();
+builder.Services.AddScoped<ITutorAccountService, TutorAccountService>();
+
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
+
+builder.Services.AddDbContext<OnDemandTutorDbContext>(options =>
+{
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DBDefault"));
+});
 
 builder.Services.AddScoped<IBookingService, BookingService>();
 
@@ -19,7 +46,7 @@ if (!app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();
-
+app.UseSession();
 app.UseRouting();
 
 app.UseAuthorization();

@@ -1,4 +1,5 @@
 ﻿<!DOCTYPE html>
+@RenderSection("Scripts", required: false)
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -39,8 +40,8 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <div class="navbar-nav ms-auto p-4 p-lg-0">
-                        <a href="/Tutor/ViewStudentRegisted" class="nav-item nav-link active">Home</a>
-                        <a href="about.html" class="nav-item nav-link">About</a>
+                        <a href="/Tutor/ViewStudentRegisted" class="nav-item nav-link active">View Student Booking</a>
+                        <a href="/Tutor/ViewProcessingTeaching" class="nav-item nav-link">View Student Learning</a>
                         <a href="courses.html" class="nav-item nav-link">Courses</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Pages</a>
@@ -52,7 +53,7 @@
                         </div>
                         <a href="contact.html" class="nav-item nav-link">Contact</a>
                     </div>
-                    <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="/AccountPages/LoginPage" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </nav>
         </header>
@@ -60,6 +61,7 @@
         <main role="main" class="flex-fill">
             <div class="container">
                 @RenderBody()
+                <a href="../AccountPages/StudentRegister" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </main>
 
@@ -90,22 +92,22 @@
                         <h4 class="text-white mb-3">Gallery</h4>
                         <div class="row g-2 pt-2">
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-1.jpg" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-2.jpg" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-3.jpg" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-2.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-2.jpg" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-3.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-3.jpg" alt="">
                             </div>
                             <div class="col-4">
-                                <img class="img-fluid bg-light p-1" src="img/course-1.jpg" alt="">
+                                <img class="img-fluid bg-light p-1" src="~/img/course-1.jpg" alt="">
                             </div>
                         </div>
                     </div>
@@ -118,6 +120,7 @@
                         </div>
                     </div>
                 </div>
+                @* <a href="" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a> *@
             </div>
             <div class="container">
                 <div class="copyright">

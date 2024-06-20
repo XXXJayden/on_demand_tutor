@@ -1,9 +1,4 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -22,6 +17,12 @@ namespace DataAccessLayer
                 throw new Exception(ex.Message);
             }
             return listTutor;
+        }
+        public static Tutor GetTutorByEmail(string tutorEmail)
+        {
+            using var db = new OnDemandTutorDbContext();
+            return
+                db.Tutors.FirstOrDefault(c => c.Email.Equals(tutorEmail));
         }
         public static void SaveTutor(Tutor tutor)
         {
