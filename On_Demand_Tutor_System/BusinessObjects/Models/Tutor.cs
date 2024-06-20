@@ -19,6 +19,8 @@ public partial class Tutor
 
     public string Major { get; set; } = null!;
 
+    public string Grade { get; set; } = null!;
+
     public virtual ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
