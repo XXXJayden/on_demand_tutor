@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Repositories.StudentRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.StudentServices
 {
@@ -36,5 +31,34 @@ namespace Services.StudentServices
             return await _studentRepository.GetStudentsAsync();
         }
 
+        public List<Student> GetAllStudent()
+        {
+            return _studentRepository.GetAllStudent();
+        }
+
+        public Student GetStudentByEmail(string studentEmail)
+        {
+            return _studentRepository.GetStudentByEmail(studentEmail);
+        }
+
+        public void SaveStudent(Student student)
+        {
+            _studentRepository.SaveStudent(student);
+        }
+
+        public void UpdateStudent(Student student)
+        {
+            _studentRepository.UpdateStudent(student);
+        }
+
+        public void DeleteStudent(int studentId)
+        {
+            _studentRepository.DeleteStudent(studentId);
+        }
+
+        public Student GetStudentById(int studentId)
+        {
+            return _studentRepository.GetStudentById(studentId);
+        }
     }
 }

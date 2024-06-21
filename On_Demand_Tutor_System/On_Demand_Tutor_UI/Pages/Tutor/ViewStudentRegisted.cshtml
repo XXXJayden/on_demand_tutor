@@ -24,6 +24,12 @@
                 <th style="padding: 10px; border: 1px solid #ddd;">
                     @Html.DisplayNameFor(model => model.BookingTutor[0].StudentName)
                 </th>
+                <th style="padding: 10px; border: 1px solid #ddd;">
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].PaymentMethods)
+                </th>
+                <th style="padding: 10px; border: 1px solid #ddd;">
+                    @Html.DisplayNameFor(model => model.BookingTutor[0].Schedules)
+                </th>
                 <th style="padding: 10px; border: 1px solid #ddd;">Details</th>
             </tr>
         </thead>
@@ -42,6 +48,17 @@
                     </td>
                     <td style="padding: 10px; border: 1px solid #ddd;">
                         @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td style="padding: 10px; border: 1px solid #ddd;">
+                        @Html.DisplayFor(modelItem => item.PaymentMethods)
+                    </td>
+                    <td style ="padding: 10px; border: 1px solid #ddd;">  
+                        <ul>
+                            @foreach(var slot in item.Schedules)
+                            {
+                                @slot
+                            }
+                        </ul>
                     </td>
                     <td style="padding: 10px; border: 1px solid #ddd; text-align:center">
                         <a asp-page="./ViewBookingDetails" asp-route-id="@item.Id" style="background-color: #2980b9; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; display: inline-block;">View</a>

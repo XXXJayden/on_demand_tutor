@@ -30,6 +30,8 @@ namespace DataAccessLayer
                     .Include(x => x.Tutor)
                     .Include(x => x.Student)
                     .Include(x => x.Service)
+                    .Include(x => x.BookingSchedules)
+                    .ThenInclude(bs => bs.Sc)
                     .ToList();
             }
             catch (Exception ex)
