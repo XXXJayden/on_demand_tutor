@@ -48,6 +48,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             {
                 HttpContext.Session.SetString("UserType", type);
                 HttpContext.Session.SetString("UserEmail", Email);
+                bool isLoggedIn = HttpContext.Session.GetString("UserEmail") != null;
                 if (type == "Student")
                 {
                     return RedirectToPage("/Index");

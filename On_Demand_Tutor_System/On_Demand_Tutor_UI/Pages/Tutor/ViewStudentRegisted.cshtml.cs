@@ -32,7 +32,6 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                                                 ServiceName = x.Service.Service1,
                                                 DateStart = x.DateStart,
                                                 DateEnd = x.DateEnd
-
                                             });
             BookingTutor = bookingList.ToList();
         }
