@@ -12,7 +12,8 @@ CREATE TABLE Tutor (
     Email VARCHAR(255) NOT NULL,
     Status NVARCHAR(50) NOT NULL,
 	Description NVARCHAR(255),
-    Major NVARCHAR(255) NOT NULL
+    Major NVARCHAR(255) NOT NULL,
+	Grade VARCHAR(50) NOT NULL
 );
 GO
 
@@ -35,7 +36,6 @@ GO
 CREATE TABLE Service (
     ID INT PRIMARY KEY IDENTITY(1,1),
     Service NVARCHAR(255) NOT NULL,
-    Price DECIMAL(10, 2) NOT NULL
 );
 GO
 
@@ -54,6 +54,7 @@ CREATE TABLE TutorService (
     ID INT PRIMARY KEY IDENTITY(1,1),
     ServiceID INT NOT NULL,
     TutorID INT NOT NULL,
+    Price DECIMAL(10, 2) NOT NULL,
     FOREIGN KEY (ServiceID) REFERENCES Service(ID),
     FOREIGN KEY (TutorID) REFERENCES Tutor(TutorID)
 );
@@ -68,7 +69,7 @@ CREATE TABLE Booking (
     Status VARCHAR(25) NOT NULL,
 	DateStart Date,
 	DateEnd Date,
-
+	PaymentMethods VARCHAR(25) NOT NULL,
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
     FOREIGN KEY (TutorID) REFERENCES Tutor(TutorID),
     FOREIGN KEY (ServiceID) REFERENCES Service(ID)

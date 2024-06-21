@@ -2,9 +2,11 @@ using BusinessObjects.Models;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Repositories.AccountRepository;
+using Repositories.StudentRepositories;
 using Services.AccountService;
 using Services.BookingService;
 using Services.Sercurity;
+using Services.StudentServices;
 using Services.TutorServices;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -17,6 +19,10 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<PasswordHasher>();
 builder.Services.AddScoped<BookingDAO>();
 builder.Services.AddScoped<ITutorAccountService, TutorAccountService>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<StudentDAO>();
+
 
 builder.Services.AddSession(options =>
 {
@@ -25,6 +31,7 @@ builder.Services.AddSession(options =>
     options.Cookie.IsEssential = true;
 });
 
+builder.Services.AddHttpContextAccessor();
 
 
 builder.Services.AddDbContext<OnDemandTutorDbContext>(options =>

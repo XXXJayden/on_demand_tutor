@@ -7,14 +7,12 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.DTO.Student
 {
-    public class StudentRegisterDTO
+    public class StudentUpdateDTO
     {
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; }
-
-        [Required(ErrorMessage = "Password is required")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
@@ -28,8 +26,5 @@ namespace BusinessObjects.DTO.Student
 
         [Required(ErrorMessage = "You must enter your grade")]
         public string Grade { get; set; }
-
-        [Required(ErrorMessage = "You must enter your current grade")]
-        public string Status = "Active";
     }
 }
