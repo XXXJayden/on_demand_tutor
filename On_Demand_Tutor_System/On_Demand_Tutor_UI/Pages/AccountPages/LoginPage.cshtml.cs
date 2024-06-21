@@ -49,13 +49,10 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                     return RedirectToPage("/Index");
                 }
             }
-            if (account == null)
-            {
-                ModelState.AddModelError(string.Empty, "Wrong email or password!");
-                return Page();
-            }
 
-            return RedirectToPage("/Error");
+            ModelState.AddModelError(string.Empty, "Wrong email or password!");
+            return Page();
+            
         }
     }
 }
