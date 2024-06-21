@@ -1,6 +1,4 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using On_Demand_Tutor_UI.Validator;
 using Services.AccountService;
 
@@ -9,10 +7,13 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
     public class LoginPageModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
+        private readonly IConfiguration _configuration;
 
-        public LoginPageModel(IAccountService accountService)
+
+        public LoginPageModel(IAccountService accountService, IConfiguration configuration)
         {
             this.accountService = accountService;
+            _configuration = configuration;
         }
 
         public IActionResult OnGet()
@@ -31,6 +32,14 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             if (!ModelState.IsValid)
             {
                 return Page();
+            }
+            var adminEmail = _configuration["AdminAccount:Email"];
+            var adminPassword = _configuration["AdminAccount:Password"];
+            if (Email == adminEmail && Password == adminPassword)
+            {
+                HttpContext.Session.SetString("UserRole", "Admin");
+                HttpContext.Session.SetString("UserEmail", Email);
+                return RedirectToPage("/Admin/Admin_Index");
             }
 
             var (account, type) = await accountService.GetAccount(Email, Password);
