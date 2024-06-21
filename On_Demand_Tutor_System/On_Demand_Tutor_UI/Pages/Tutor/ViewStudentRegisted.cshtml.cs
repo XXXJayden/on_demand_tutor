@@ -31,7 +31,9 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                                                 StudentName = x.Student.Fullname,
                                                 ServiceName = x.Service.Service1,
                                                 DateStart = x.DateStart,
-                                                DateEnd = x.DateEnd
+                                                DateEnd = x.DateEnd,
+                                                PaymentMethods = x.PaymentMethods,
+                                                Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
                                             });
             BookingTutor = bookingList.ToList();
         }

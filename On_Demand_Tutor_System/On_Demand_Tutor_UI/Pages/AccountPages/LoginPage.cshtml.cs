@@ -55,7 +55,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 }
                 else if (type == "Tutor")
                 {
-                    return RedirectToPage("/Index");
+                    return RedirectToPage("/Tutor/Tutor_Index");
                 }
             }
             if (account == null)

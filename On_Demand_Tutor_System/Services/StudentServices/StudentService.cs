@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Repositories.StudentRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.StudentServices
 {
@@ -34,11 +29,6 @@ namespace Services.StudentServices
         public async Task<List<Student>> GetStudentsAsync()
         {
             return await _studentRepository.GetStudentsAsync();
-        }
-
-        public StudentService()
-        {
-            _studentRepository = new StudentRepository();
         }
 
         public List<Student> GetAllStudent()

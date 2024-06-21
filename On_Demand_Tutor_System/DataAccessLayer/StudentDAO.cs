@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
@@ -42,8 +37,6 @@ namespace DataAccessLayer
         {
             return _context.Students.Any(e => e.StudentId == id);
         }
-    }
-}
         public static List<Student> GetAllStudent()
         {
             var listStudent = new List<Student>();
