@@ -1,0 +1,49 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Student.LookingTutorModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "LookingTutor";
+}
+
+<h1 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px; margin-top: 20px">Looking for tutor</h1>
+
+<div style="display: flex; justify-content: center;">
+    <form method="post" style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <div style="margin-bottom: 20px;">
+            <label for="Grade" style="display: block; margin-bottom: 5px; color: #34495e;">Grade</label>
+            <select id="Grade" name="Grade" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Grade</option>
+                @for (int i = 6; i <= 12; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="Subject" style="display: block; margin-bottom: 5px; color: #34495e;">Subject</label>
+            <select id="Subject" name="Subject" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Subject</option>
+                <option value="Math">Math</option>
+                <option value="Literature">Literature</option>
+                <option value="English">English</option>
+                <option value="Physical">Physical</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
+                <!-- Add more subjects as needed -->
+            </select>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="Service" style="display: block; margin-bottom: 5px; color: #34495e;">Service</label>
+            <select id="Service" name="Service" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Service</option>
+                @foreach (var service in Model.Services)
+                {
+                    <option value="@service.Id">@service.Service1</option>
+                }
+            </select>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" style="background-color: #2980b9; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; border: none;">Tìm kiếm</button>
+        </div>
+    </form>
+</div>
