@@ -19,6 +19,9 @@ namespace Repositories.ScheduleRepository
         public List<Schedule> GetAllSchedule()
             => ScheduleDAO.GetAllSchedule();
 
+        public Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+            => ScheduleDAO.GetAvailableSlotsAsync(tutorId, date);   
+
         public Schedule GetScheduleById(int id)
             => ScheduleDAO.GetScheduleById(id);
 

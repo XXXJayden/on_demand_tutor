@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,22 @@ namespace DataAccessLayer
 {
     public class ScheduleDAO
     {
+        public static async Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+        {
+            using var context = new OnDemandTutorDbContext();
+
+            var bookedSlots = await context.BookingSchedules
+                .Where(bs => bs.Booking.TutorId == tutorId && bs.Sc.Date == date)
+                .Select(bs => bs.Sc.Slot)
+                .ToListAsync();
+
+            var allSlots = new List<string> { "Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5", "Slot 6" };
+
+            var availableSlots = allSlots.Except(bookedSlots).ToList();
+
+            return availableSlots;
+        }
+
         public static List<Schedule> GetAllSchedule()
         {
             var listSchedules = new List<Schedule>();

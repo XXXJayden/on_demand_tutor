@@ -6,6 +6,7 @@ using Repositories.ServiceRepository;
 using Repositories.StudentRepositories;
 using Services.AccountService;
 using Services.BookingService;
+using Services.ScheduleService;
 using Services.Sercurity;
 using Services.ServiceServices;
 using Services.StudentServices;
@@ -26,6 +27,7 @@ builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<StudentDAO>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IServiceServices, ServiceService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 
 
 builder.Services.AddSession(options =>
