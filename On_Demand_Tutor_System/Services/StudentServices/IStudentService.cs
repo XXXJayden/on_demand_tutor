@@ -13,5 +13,11 @@ namespace Services.StudentServices
         Task<Student> UpdateStudentAsync(Student student);
         Task<Student> GetStudentByIdAsync(int id);
         Task<List<Student>> GetStudentsAsync();
+        List<Student> GetAllStudent();
+        Student GetStudentByEmail(string studentEmail);
+        void SaveStudent(Student student);
+        void UpdateStudent(Student student);
+        void DeleteStudent(int studentId);
+        Student GetStudentById(int studentId);
     }
 }
