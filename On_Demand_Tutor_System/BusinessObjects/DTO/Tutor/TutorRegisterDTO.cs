@@ -28,5 +28,8 @@ namespace BusinessObjects.DTO.Tutor
 
         [Required(ErrorMessage = "You must enter your major")]
         public string Major { get; set; } = null!;
+
+        [Required(ErrorMessage = "You must enter your Grade")]
+        public string Grade { get; set; } = null!;
     }
 }

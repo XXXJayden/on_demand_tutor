@@ -5,40 +5,53 @@
     ViewData["Title"] = "Login";
 }
 
-<h1>Login</h1>
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
-}
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Login</h1>
+                </div>
+                <div class="card-body">
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success">
+                            @TempData["SuccessMessage"]
+                        </div>
+                    }
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Email" class="control-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Password" class="control-label"></label>
+                            <input asp-for="Password" class="form-control" type="password" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-block">Login</button>
+                        </div>
+                        <div class="text-center mt-3">
+                            <a asp-page="/AccountPages/ForgotPasswordRequest" class="btn btn-link">Forgot Your Password?</a>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <p>Don't have an account?</p>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <a asp-page="/AccountPages/StudentRegister" class="btn btn-secondary btn-block">Register as Student</a>
+                        </div>
+                        <div class="col-md-6">
+                            <a asp-page="/AccountPages/TutorRegister" class="btn btn-secondary btn-block">Register as Tutor</a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" type="password" />
-                <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Login" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
-</div>
-
-<div class="mt-3">
-    <p>You don't have an account?</p>
-    <div>
-        <a asp-page="/AccountPages/StudentRegister" class="btn btn-secondary">Register as Student</a>
-        <a asp-page="/AccountPages/TutorRegister" class="btn btn-secondary ml-2">Register as Tutor</a>
+        </div>
     </div>
 </div>
 

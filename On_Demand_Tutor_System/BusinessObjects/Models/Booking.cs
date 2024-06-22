@@ -1,4 +1,7 @@
-﻿namespace BusinessObjects.Models;
+﻿using System;
+using System.Collections.Generic;
+
+namespace BusinessObjects.Models;
 
 public partial class Booking
 {
@@ -15,6 +18,8 @@ public partial class Booking
     public DateOnly? DateStart { get; set; }
 
     public DateOnly? DateEnd { get; set; }
+
+    public string PaymentMethods { get; set; } = null!;
 
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();
 

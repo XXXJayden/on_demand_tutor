@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessObjects.Models;
@@ -6,7 +7,6 @@ namespace BusinessObjects.Models;
 public partial class Tutor
 {
     public int TutorId { get; set; }
-
     public string Fullname { get; set; } = null!;
 
     public string Password { get; set; } = null!;
@@ -18,6 +18,8 @@ public partial class Tutor
     public string? Description { get; set; }
 
     public string Major { get; set; } = null!;
+
+    public string Grade { get; set; } = null!;
 
     public virtual ICollection<Achievement> Achievements { get; set; } = new List<Achievement>();
 

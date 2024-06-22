@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessObjects.Models;

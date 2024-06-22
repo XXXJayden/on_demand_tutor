@@ -2,58 +2,64 @@
 @model On_Demand_Tutor_UI.Pages.AccountPages.StudentRegisterModel
 
 @{
-    ViewData["Title"] = "StudentRegister";
+    ViewData["Title"] = "Student Registration";
 }
 
-<h1>Register as a student</h1>
-
-<h4>Student</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form method="post">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Student.FullName" class="control-label"></label>
-                <input asp-for="Student.FullName" class="form-control" />
-                <span asp-validation-for="Student.FullName" class="text-danger"></span>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h1 class="text-center">Register as a Student</h1>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Student.FullName" class="control-label"></label>
+                            <input asp-for="Student.FullName" class="form-control" />
+                            <span asp-validation-for="Student.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Student.Email" class="control-label"></label>
+                            <input asp-for="Student.Email" class="form-control" />
+                            <span asp-validation-for="Student.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Student.Password" class="control-label"></label>
+                            <input asp-for="Student.Password" class="form-control" type="password" />
+                            <span asp-validation-for="Student.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Student.Phone" class="control-label"></label>
+                            <input asp-for="Student.Phone" class="form-control" />
+                            <span asp-validation-for="Student.Phone" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Student.Grade" class="control-label"></label>
+                            <input asp-for="Student.Grade" class="form-control" />
+                            <span asp-validation-for="Student.Grade" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Student.Address" class="control-label"></label>
+                            <textarea asp-for="Student.Address" class="form-control" rows="3"></textarea>
+                            <span asp-validation-for="Student.Address" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">Register</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="card-footer text-center">
+                    <a asp-page="/AccountPages/LoginPage">Back to Login</a>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="Student.Password" class="control-label"></label>
-                <input asp-for="Student.Password" class="form-control" />
-                <span asp-validation-for="Student.Password" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Student.Phone" class="control-label"></label>
-                <input asp-for="Student.Phone" class="form-control" />
-                <span asp-validation-for="Student.Phone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Student.Email" class="control-label"></label>
-                <input asp-for="Student.Email" class="form-control" />
-                <span asp-validation-for="Student.Email" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Student.Address" class="control-label"></label>
-                <input asp-for="Student.Address" class="form-control" />
-                <span asp-validation-for="Student.Address" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Student.Grade" class="control-label"></label>
-                <input asp-for="Student.Grade" class="form-control" />
-                <span asp-validation-for="Student.Grade" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+        </div>
     </div>
 </div>
 
-<div>
-    <a asp-page="Index">Back to List</a>
-</div>
-
 @section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
