@@ -5,6 +5,7 @@ using Repositories.AccountRepository;
 using Repositories.StudentRepositories;
 using Services.AccountService;
 using Services.BookingService;
+using Services.ModService;
 using Services.EmailService;
 using Services.Sercurity;
 using Services.StudentServices;
@@ -23,6 +24,7 @@ builder.Services.AddScoped<ITutorAccountService, TutorAccountService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<StudentDAO>();
+builder.Services.AddScoped<IModService, ModService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 
 

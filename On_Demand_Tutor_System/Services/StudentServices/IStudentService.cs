@@ -1,9 +1,4 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.StudentServices
 {
@@ -17,7 +12,7 @@ namespace Services.StudentServices
         Student GetStudentByEmail(string studentEmail);
         void SaveStudent(Student student);
         void UpdateStudent(Student student);
-        void DeleteStudent(int studentId);
+        void DeleteStudent(short studentId);
         Student GetStudentById(int studentId);
     }
 }
