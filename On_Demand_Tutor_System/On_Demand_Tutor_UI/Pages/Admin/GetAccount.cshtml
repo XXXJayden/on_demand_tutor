@@ -1,0 +1,108 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Admin.GetAccountModel
+
+@{
+    ViewData["Title"] = "Get Account";
+}
+
+<h1>Get Account</h1>
+
+<form method="get">
+    <div class="form-group">
+        <label for="accountType">Select Account Type:</label>
+        <select id="accountType" name="Input" class="form-control" onchange="this.form.submit()">
+            <option value="">--Select--</option>
+            @if (Model.Input == "1")
+            {
+                <option value="1" selected>Tutor</option>
+            }
+            else
+            {
+                <option value="1">Tutor</option>
+            }
+            @if (Model.Input == "2")
+            {
+                <option value="2" selected>Moderator</option>
+            }
+            else
+            {
+                <option value="2">Moderator</option>
+            }
+            @if (Model.Input == "3")
+            {
+                <option value="3" selected>Student</option>
+            }
+            else
+            {
+                <option value="3">Student</option>
+            }
+        </select>
+    </div>
+</form>
+
+<p>
+    <a asp-page="Create">Create New Account</a>
+</p>
+
+@if (Model.GetAccountDTO is not null && Model.GetAccountDTO.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Full Name</th>
+                <th>Email</th>
+                @if (Model.Input == "1" || Model.Input == "3")
+                {
+                    <th>Status</th>
+                    <th>Grade</th>
+                }
+
+                @if (Model.Input == "1")
+                {
+                    <th>Major</th>
+                    <th>Description</th>
+                }
+
+                @if (Model.Input == "3")
+                { 
+                    <th>Address</th>
+                    <th>Phone</th>
+                }
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.GetAccountDTO)
+            {
+                <tr>
+                    <td>@item.FullName</td>
+                    <td>@item.Email</td>
+                    @if (Model.Input == "1" || Model.Input == "3")
+                    {
+                        <td>@item.Status</td>                 
+                        <td>@item.Grade</td>
+                    }
+
+                    @if (Model.Input == "1")
+                    {
+                        <td>@item.Major</td>
+                        <td>@item.Description</td>
+                    }
+
+                    @if (Model.Input == "3")
+                    {
+                        <td>@item.Address</td>
+                        <td>@item.Phone</td>
+                    }
+                    <td>
+                        <a asp-page="/Admin/DeleteAccount" asp-route-role="@item.Role" asp-route-id="@item.Id">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>No accounts found.</p>
+}
