@@ -1,21 +1,16 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DataAccessLayer
 {
     public class ScheduleDAO
     {
-        public static async Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+        public static async Task<List<string>> GetAvailableSlotsAsync(int tutorId)
         {
             using var context = new OnDemandTutorDbContext();
 
             var bookedSlots = await context.BookingSchedules
-                .Where(bs => bs.Booking.TutorId == tutorId && bs.Sc.Date == date)
+                .Where(bs => bs.Booking.TutorId == tutorId)
                 .Select(bs => bs.Sc.Slot)
                 .ToListAsync();
 

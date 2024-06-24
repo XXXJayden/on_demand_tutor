@@ -1,5 +1,5 @@
 
-﻿using BusinessObjects.Enums.User;
+using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 
 using Microsoft.EntityFrameworkCore;
@@ -75,7 +75,7 @@ namespace DataAccessLayer
             {
                 throw new InvalidOperationException($"Tutor with ID {tutorId} not found.");
             }
-            tutor.Status = User.InActive;
+            tutor.Status = UserStatus.InActive;
 
             try
             {
@@ -90,5 +90,6 @@ namespace DataAccessLayer
                 throw new Exception("An unexpected error occurred.", ex);
             }
         }
+
     }
 }

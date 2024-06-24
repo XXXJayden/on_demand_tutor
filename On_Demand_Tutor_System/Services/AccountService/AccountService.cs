@@ -3,11 +3,6 @@ using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Models;
 using Repositories.AccountRepository;
 using Services.Sercurity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.AccountService
 {
@@ -65,7 +60,8 @@ namespace Services.AccountService
                 Major = registerDTO.Major,
                 Status = registerDTO.Status,
                 Description = registerDTO.Description,
-                Grade = registerDTO.Grade
+                Grade = registerDTO.Grade,
+                Avatar = ""
             };
 
             await _repo.AddTutorAsync(tutor);

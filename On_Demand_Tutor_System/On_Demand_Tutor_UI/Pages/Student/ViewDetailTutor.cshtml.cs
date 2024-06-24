@@ -1,13 +1,8 @@
 using BusinessObjects.DTO.Tutor;
-using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.ScheduleService;
-using Services.Tutors;
 using Services.TutorServices;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
@@ -52,7 +47,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             if (date.HasValue)
             {
                 string dateString = date.Value.ToString("yyyy-MM-dd");
-                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId, dateString);
+                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId);
             }
 
             return Page();

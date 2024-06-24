@@ -67,20 +67,26 @@ namespace DataAccessLayer
 
         public static void DeleteMod(int modId)
         {
-            try
-            {
-                using var context = new OnDemandTutorDbContext();
-                var mod = context.Moderators.FirstOrDefault(c => c.ModId == modId);
-                if (mod != null)
-                {
-                    context.Moderators.Remove(mod);
-                    context.SaveChanges();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
-            }
+            //using var context = new OnDemandTutorDbContext();
+            //var mod = context.Moderators.FirstOrDefault(c => c.ModId == modId);
+            //if (mod == null)
+            //{
+            //    throw new InvalidOperationException($"Tutor with ID {modId} not found.");
+            //}
+            //mod.Status = UserStatus.InActive;
+
+            //try
+            //{
+            //    context.SaveChanges();
+            //}
+            //catch (DbUpdateException dbe)
+            //{
+            //    throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
+            //}
+            //catch (Exception ex)
+            //{
+            //    throw new Exception("An unexpected error occurred.", ex);
+            //}
         }
     }
 }

@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Repositories.ScheduleRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ScheduleService
 {
@@ -32,9 +27,9 @@ namespace Services.ScheduleService
             return scheduleRepository.GetAllSchedule();
         }
 
-        public Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+        public Task<List<string>> GetAvailableSlotsAsync(int tutorId)
         {
-            return scheduleRepository.GetAvailableSlotsAsync(tutorId, date);
+            return scheduleRepository.GetAvailableSlotsAsync(tutorId);
         }
 
         public Schedule GetScheduleById(int id)

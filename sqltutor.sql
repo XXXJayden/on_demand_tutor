@@ -1,4 +1,4 @@
-﻿Create database OnDemandTutorDB
+Create database OnDemandTutorDB
 
 GO
 USE OnDemandTutorDB
@@ -13,7 +13,8 @@ CREATE TABLE Tutor (
     Status NVARCHAR(50) NOT NULL,
 	Description NVARCHAR(255),
     Major NVARCHAR(255) NOT NULL,
-	Grade VARCHAR(50) NOT NULL
+	Grade VARCHAR(50) NOT NULL, 
+    Avatar VARCHAR(255) NOT NULL,
 );
 GO
 
@@ -90,7 +91,6 @@ GO
 -- Tạo bảng Schedule
 CREATE TABLE Schedule (
     ID INT PRIMARY KEY IDENTITY(1,1),
-    Date NVARCHAR(25) NOT NULL,
     Slot VARCHAR(50) NOT NULL
 );
 GO
@@ -100,6 +100,7 @@ CREATE TABLE BookingSchedule (
     ID INT PRIMARY KEY IDENTITY(1,1),
     BookingID INT NOT NULL,
     ScID INT NOT NULL,
+	Date NVARCHAR(25) NOT NULL,
     FOREIGN KEY (BookingID) REFERENCES Booking(ID),
     FOREIGN KEY (ScID) REFERENCES Schedule(ID)
 );
@@ -110,7 +111,8 @@ CREATE TABLE Moderator (
     ModID INT PRIMARY KEY IDENTITY(1,1),
     Fullname NVARCHAR(255) NOT NULL,
 	Password VARCHAR(50) NOT NULL,
-    Email VARCHAR(255) NOT NULL
+    Email VARCHAR(255) NOT NULL,
+    Status VARCHAR(25) NOT NULL,
 );
 GO
 CREATE TABLE PasswordResetTokens(
@@ -121,5 +123,4 @@ CREATE TABLE PasswordResetTokens(
 	[ExpirationDate] [datetime] NOT NULL,
 	[IsUsed] [bit] NOT NULL,
 	[CreatedDate] [datetime] NOT NULL,
-   	
 )
