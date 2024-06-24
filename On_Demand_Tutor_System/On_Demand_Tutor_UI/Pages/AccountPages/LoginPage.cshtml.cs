@@ -26,6 +26,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
         [BindProperty]
         public string Password { get; set; }
 
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,6 +34,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             {
                 return Page();
             }
+
             var adminEmail = _configuration["AdminAccount:Email"];
             var adminPassword = _configuration["AdminAccount:Password"];
             if (Email == adminEmail && Password == adminPassword)
@@ -42,29 +44,27 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 return RedirectToPage("/Admin/Admin_Index");
             }
 
-            var (account, type) = await accountService.GetAccount(Email, Password);
+            var (account, type, status) = await accountService.GetAccount(Email, Password);
 
-            if (account != null)
+            if (account == null || status == "Inactive")
             {
-                HttpContext.Session.SetString("UserType", type);
-                HttpContext.Session.SetString("UserEmail", Email);
-                bool isLoggedIn = HttpContext.Session.GetString("UserEmail") != null;
-                if (type == "Student")
-                {
-                    return RedirectToPage("/Index");
-                }
-                else if (type == "Tutor")
-                {
-                    return RedirectToPage("/Tutor/Tutor_Index");
-                }
+                return RedirectToPage("/Error");
             }
-            if (account == null)
+
+            HttpContext.Session.SetString("UserType", type);
+            HttpContext.Session.SetString("UserEmail", Email);
+
+            if (type == "Student")
             {
-                ModelState.AddModelError(string.Empty, "Wrong email or password!");
-                return Page();
+                return RedirectToPage("/Index");
+            }
+            else if (type == "Tutor")
+            {
+                return RedirectToPage("/Tutor/Tutor_Index");
             }
 
             return RedirectToPage("/Error");
         }
+
     }
 }
