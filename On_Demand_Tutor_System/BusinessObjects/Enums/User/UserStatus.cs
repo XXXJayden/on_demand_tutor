@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Enums.User
 {
-    public class User
+    public class UserStatus
     {
         public static readonly string Active = "Active";
         public static readonly string InActive = "InActive";

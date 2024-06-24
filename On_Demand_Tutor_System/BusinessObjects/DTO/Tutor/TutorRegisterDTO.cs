@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Enums.User;
+﻿using BusinessObjects.DTO.Student;
+using BusinessObjects.Enums.User;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -21,7 +22,7 @@ namespace BusinessObjects.DTO.Tutor
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; } = null!;
 
-        public string Status { get; set; } = User.Active;
+        public string Status { get; set; } = UserStatus.Active;
 
         [Required(ErrorMessage = "You must enter self introduction")]
         public string? Description { get; set; }
@@ -29,7 +30,18 @@ namespace BusinessObjects.DTO.Tutor
         [Required(ErrorMessage = "You must enter your major")]
         public string Major { get; set; } = null!;
 
-        [Required(ErrorMessage = "You must enter your Grade")]
-        public string Grade { get; set; } = null!;
+        [Required(ErrorMessage = "You must enter your grade")]
+        [CustomValidation(typeof(StudentRegisterDTO), "ValidateGrade")]
+        public string Grade { get; set; }
+
+        public static ValidationResult ValidateGrade(string grade, ValidationContext context)
+        {
+            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 6 && gradeValue <= 12)
+            {
+                return ValidationResult.Success;
+            }
+            return new ValidationResult("Grade must be between 6 and 12");
+        }
+
     }
 }

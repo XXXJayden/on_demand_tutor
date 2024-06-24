@@ -2,12 +2,15 @@ using BusinessObjects.Models;
 using DataAccessLayer;
 using Microsoft.EntityFrameworkCore;
 using Repositories.AccountRepository;
+using Repositories.ServiceRepository;
 using Repositories.StudentRepositories;
 using Services.AccountService;
 using Services.BookingService;
+using Services.ScheduleService;
 using Services.ModService;
 using Services.EmailService;
 using Services.Sercurity;
+using Services.ServiceServices;
 using Services.StudentServices;
 using Services.TutorServices;
 
@@ -24,6 +27,9 @@ builder.Services.AddScoped<ITutorAccountService, TutorAccountService>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<StudentDAO>();
+builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
+builder.Services.AddScoped<IServiceServices, ServiceService>();
+builder.Services.AddScoped<IScheduleService, ScheduleService>();
 builder.Services.AddScoped<IModService, ModService>();
 builder.Services.AddScoped<IEmailService, EmailService>();
 

@@ -37,6 +37,7 @@ namespace Services.BookingScheduleService
             return bookingScheduleRepository.GetBookingScheduleById(id);
         }
 
+
         public void UpdateBookingSchedule(BookingSchedule bookingSchedule)
         {
             bookingScheduleRepository.UpdateBookingSchedule(bookingSchedule);

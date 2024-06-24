@@ -1,5 +1,7 @@
+
 ﻿using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
+
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
@@ -12,7 +14,9 @@ namespace DataAccessLayer
             try
             {
                 using var context = new OnDemandTutorDbContext();
-                listTutor = context.Tutors.ToList();
+                listTutor = context.Tutors.Include(x => x.TutorServices)
+                    .ThenInclude(sv => sv.Service).ToList();
+
             }
             catch (Exception ex)
             {
@@ -56,9 +60,12 @@ namespace DataAccessLayer
         }
         public static Tutor GetTutorById(int tutorId)
         {
-            using var db = new OnDemandTutorDbContext();
-            return
-                db.Tutors.FirstOrDefault(c => c.TutorId.Equals(tutorId));
+            using var context = new OnDemandTutorDbContext();
+            return context.Tutors
+                            .Include(t => t.TutorServices)
+                             .ThenInclude(ts => ts.Service)
+                            .Include(t => t.Achievements)
+                            .FirstOrDefault(t => t.TutorId == tutorId);
         }
         public static void DeleteTutor(short tutorId)
         {

@@ -22,6 +22,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         {
             var accountTutor = HttpContext.Session.GetString("UserEmail");
             var allTutor = _tutorService.GetTutorByEmail(accountTutor);
+            if (allTutor == null) { return ; }
             var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.TutorId.Equals(allTutor.TutorId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals("Pending"))

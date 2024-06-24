@@ -32,6 +32,11 @@ namespace Services.ScheduleService
             return scheduleRepository.GetAllSchedule();
         }
 
+        public Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+        {
+            return scheduleRepository.GetAvailableSlotsAsync(tutorId, date);
+        }
+
         public Schedule GetScheduleById(int id)
         {
             return scheduleRepository.GetScheduleById(id);

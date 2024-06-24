@@ -15,5 +15,6 @@ namespace Repositories.BookingScheduleRepository
         void UpdateBookingSchedule(BookingSchedule bookingSchedule);
 
         void DeleteBookingSchedule(BookingSchedule bookingSchedule);
+        
     }
 }

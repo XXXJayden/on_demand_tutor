@@ -27,9 +27,18 @@ namespace BusinessObjects.DTO.Student
         public string Address { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
+        [CustomValidation(typeof(StudentRegisterDTO), "ValidateGrade")]
         public string Grade { get; set; }
 
-        [Required(ErrorMessage = "You must enter your current grade")]
         public string Status = "Active";
+
+        public static ValidationResult ValidateGrade(string grade, ValidationContext context)
+        {
+            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 6 && gradeValue <= 12)
+            {
+                return ValidationResult.Success;
+            }
+            return new ValidationResult("Grade must be between 6 and 12");
+        }
     }
 }
