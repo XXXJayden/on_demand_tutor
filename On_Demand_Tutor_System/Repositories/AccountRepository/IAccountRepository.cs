@@ -18,5 +18,11 @@ namespace Repositories.AccountRepository
         Task<bool> EmailExistsAsync(string email);
 
         Task<Tutor> AddTutorAsync(Tutor tutor);
+        Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token);
+        Task<bool> ResetPasswordAsync(string token, string userType, string newPassword);
+        Task<string?> GetUserTypeByTokenAsync(string token);
+        Task<string?> GetUserTypeByEmailAsync(string email);
+
+
     }
 }

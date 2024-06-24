@@ -113,3 +113,13 @@ CREATE TABLE Moderator (
     Email VARCHAR(255) NOT NULL
 );
 GO
+CREATE TABLE PasswordResetTokens(
+	[TokenId] [int] IDENTITY(1,1) NOT NULL,
+	[Token] [nvarchar](255) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[UserType] [nvarchar](50) NOT NULL,
+	[ExpirationDate] [datetime] NOT NULL,
+	[IsUsed] [bit] NOT NULL,
+	[CreatedDate] [datetime] NOT NULL,
+   	
+)

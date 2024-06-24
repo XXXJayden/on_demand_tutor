@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.DTO;
+using System;
 using System.Collections.Generic;
 
 namespace BusinessObjects.Models;
@@ -6,7 +7,6 @@ namespace BusinessObjects.Models;
 public partial class Tutor
 {
     public int TutorId { get; set; }
-
     public string Fullname { get; set; } = null!;
 
     public string Password { get; set; } = null!;

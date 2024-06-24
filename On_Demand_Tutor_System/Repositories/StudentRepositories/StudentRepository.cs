@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using DataAccessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.StudentRepositories
 {
@@ -39,7 +34,7 @@ namespace Repositories.StudentRepositories
         public List<Student> GetAllStudent() => StudentDAO.GetAllStudent();
         public void SaveStudent(Student student) => StudentDAO.SaveStudent(student);
         public void UpdateStudent(Student student) => StudentDAO.UpdateStudent(student);
-        public void DeleteStudent(int studentId) => StudentDAO.DeleteStudent(studentId);
+        public void DeleteStudent(short studentId) => StudentDAO.DeleteStudent(studentId);
         public Student GetStudentById(int studentId) => StudentDAO.GetStudentById(studentId);
         public Student GetStudentByEmail(string studentEmail) => StudentDAO.GetStudentByEmail(studentEmail);
     }

@@ -51,7 +51,7 @@ namespace Services.StudentServices
             _studentRepository.UpdateStudent(student);
         }
 
-        public void DeleteStudent(int studentId)
+        public void DeleteStudent(short studentId)
         {
             _studentRepository.DeleteStudent(studentId);
         }

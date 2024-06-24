@@ -44,9 +44,9 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             }
 
             await accountService.RegisterTutorAsync(Tutor);
-            TempData["SuccessMessage"] = "You have registered successfully. Please login.";
+            TempData["SuccessMessage"] = "You have registered successfully. Please login!";
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/AccountPages/LoginPage");
         }
     }
 }

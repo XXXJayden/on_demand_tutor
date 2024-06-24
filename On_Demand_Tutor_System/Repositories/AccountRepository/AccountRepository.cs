@@ -41,6 +41,25 @@ namespace Repositories.AccountRepository
             return await _accountDAO.AddTutorAsync(tutor);
         }
 
+        public async Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token)
+        {
+            return await _accountDAO.GenerateAndStoreTokenAsync(email, userType, token);
+        }
+
+        public async Task<bool> ResetPasswordAsync(string token, string userType, string newPassword)
+        {
+            return await _accountDAO.ResetPasswordAsync(token, userType, newPassword);
+        }
+
+        public async Task<string?> GetUserTypeByTokenAsync(string token)
+        {
+            return await _accountDAO.GetUserTypeByTokenAsync(token);
+        }
+
+        public async Task<string?> GetUserTypeByEmailAsync(string email)
+        {
+            return await _accountDAO.GetUserTypeByEmailAsync(email);
+        }
 
     }
 }
