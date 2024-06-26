@@ -10,32 +10,18 @@
 <form method="get">
     <div class="form-group">
         <label for="accountType">Select Account Type:</label>
-        <select id="accountType" name="Input" class="form-control" onchange="this.form.submit()">
+        <select id="accountType" name="InputRole" class="form-control" onchange="this.form.submit()">
             <option value="">--Select--</option>
-            @if (Model.Input == "1")
-            {
-                <option value="1" selected>Tutor</option>
-            }
-            else
-            {
-                <option value="1">Tutor</option>
-            }
-            @if (Model.Input == "2")
-            {
-                <option value="2" selected>Moderator</option>
-            }
-            else
-            {
-                <option value="2">Moderator</option>
-            }
-            @if (Model.Input == "3")
-            {
-                <option value="3" selected>Student</option>
-            }
-            else
-            {
-                <option value="3">Student</option>
-            }
+            <option value="1" selected="@(Model.InputRole == "1")">Tutor</option>
+            <option value="2" selected="@(Model.InputRole == "2")">Moderator</option>
+            <option value="3" selected="@(Model.InputRole == "3")">Student</option>
+        </select>
+
+        <label for="accountStatus">Select Account Status:</label>
+        <select id="accountStatus" name="InputStatus" class="form-control" onchange="this.form.submit()">
+            <option value="">--Select--</option>
+            <option value="1" selected="@(Model.InputStatus == "1")">Active</option>
+            <option value="2" selected="@(Model.InputStatus == "2")">InActive</option>
         </select>
     </div>
 </form>
@@ -44,27 +30,26 @@
     <a asp-page="Create">Create New Account</a>
 </p>
 
-@if (Model.GetAccountDTO is not null && Model.GetAccountDTO.Any())
+@if (Model.GetAccountDTO != null && Model.GetAccountDTO.Any())
 {
     <table class="table">
         <thead>
             <tr>
                 <th>Full Name</th>
                 <th>Email</th>
-                @if (Model.Input == "1" || Model.Input == "3")
+                <th>Status</th>
+                @if (Model.InputRole == "1" || Model.InputRole == "3")
                 {
-                    <th>Status</th>
+                    
                     <th>Grade</th>
                 }
-
-                @if (Model.Input == "1")
+                @if (Model.InputRole == "1")
                 {
                     <th>Major</th>
                     <th>Description</th>
                 }
-
-                @if (Model.Input == "3")
-                { 
+                @if (Model.InputRole == "3")
+                {
                     <th>Address</th>
                     <th>Phone</th>
                 }
@@ -77,25 +62,24 @@
                 <tr>
                     <td>@item.FullName</td>
                     <td>@item.Email</td>
-                    @if (Model.Input == "1" || Model.Input == "3")
+                    <td>@item.Status</td>
+                    @if (Model.InputRole == "1" || Model.InputRole == "3")
                     {
-                        <td>@item.Status</td>                 
+                        
                         <td>@item.Grade</td>
                     }
-
-                    @if (Model.Input == "1")
+                    @if (Model.InputRole == "1")
                     {
                         <td>@item.Major</td>
                         <td>@item.Description</td>
                     }
-
-                    @if (Model.Input == "3")
+                    @if (Model.InputRole == "3")
                     {
                         <td>@item.Address</td>
                         <td>@item.Phone</td>
                     }
                     <td>
-                        <a asp-page="/Admin/DeleteAccount" asp-route-role="@item.Role" asp-route-id="@item.Id">Delete</a>
+                        <a asp-page="/Admin/DeleteAccount" asp-route-role="@item.Role" asp-route-id="@item.Id">Change Status</a>
                     </td>
                 </tr>
             }

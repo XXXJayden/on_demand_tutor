@@ -1,4 +1,6 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Enums.User;
+using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -67,26 +69,26 @@ namespace DataAccessLayer
 
         public static void DeleteMod(int modId)
         {
-            //using var context = new OnDemandTutorDbContext();
-            //var mod = context.Moderators.FirstOrDefault(c => c.ModId == modId);
-            //if (mod == null)
-            //{
-            //    throw new InvalidOperationException($"Tutor with ID {modId} not found.");
-            //}
-            //mod.Status = UserStatus.InActive;
+            using var context = new OnDemandTutorDbContext();
+            var mod = context.Moderators.FirstOrDefault(c => c.ModId == modId);
+            if (mod == null)
+            {
+                throw new InvalidOperationException($"Tutor with ID {modId} not found.");
+            }
+            mod.Status = UserStatus.InActive;
 
-            //try
-            //{
-            //    context.SaveChanges();
-            //}
-            //catch (DbUpdateException dbe)
-            //{
-            //    throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
-            //}
-            //catch (Exception ex)
-            //{
-            //    throw new Exception("An unexpected error occurred.", ex);
-            //}
+            try
+            {
+                context.SaveChanges();
+            }
+            catch (DbUpdateException dbe)
+            {
+                throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("An unexpected error occurred.", ex);
+            }
         }
     }
 }

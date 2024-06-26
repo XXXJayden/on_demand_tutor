@@ -102,7 +102,14 @@ namespace DataAccessLayer
             {
                 throw new InvalidOperationException($"Student with ID {studentId} not found.");
             }
-            student.Status = UserStatus.InActive;
+            if (student.Status.Equals(UserStatus.InActive))
+            {
+                student.Status = UserStatus.Active;
+            }
+            else
+            {
+                student.Status = UserStatus.InActive;
+            }
 
             try
             {
