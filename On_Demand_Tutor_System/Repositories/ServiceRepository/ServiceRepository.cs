@@ -11,5 +11,7 @@ namespace Repositories.ServiceRepository
     public class ServiceRepository : IServiceRepository
     {
         public List<Service> GetAllService() => ServiceDAO.GetAllServices();
+        public Service GetServiceIdByName(string Name) => ServiceDAO.GetServiceByName(Name);
+
     }
 }

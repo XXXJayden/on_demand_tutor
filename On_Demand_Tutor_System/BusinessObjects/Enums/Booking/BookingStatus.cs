@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Enums.Booking
 {
-    public class Booking
+    public class BookingStatus
     {
         public static readonly string Complete = "Complete";
         public static readonly string Pending = "Pending";
