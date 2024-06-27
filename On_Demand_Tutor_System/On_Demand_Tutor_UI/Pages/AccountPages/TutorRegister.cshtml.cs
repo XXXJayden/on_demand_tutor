@@ -39,7 +39,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             }
             if (await accountService.EmailExistsAsync(Tutor.Email) == true)
             {
-                ModelState.AddModelError("Tutor.Email", "An account with this email already exists.");
+                ModelState.AddModelError("Tutor.Email", "An account with this email already exists");
                 return Page();
             }
 

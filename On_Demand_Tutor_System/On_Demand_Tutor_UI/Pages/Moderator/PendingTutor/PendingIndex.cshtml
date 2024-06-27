@@ -1,0 +1,51 @@
+﻿@page
+@model PendingIndexModel
+
+@{
+    ViewData["Title"] = "Pending Tutors";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Pending Tutors</h1>
+
+    <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Pending Tutor List</h5>
+        </div>
+        <div class="card-body">
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead class="table-light">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PendingTutors[0].FullName)</th>
+                            <th>@Html.DisplayNameFor(model => model.PendingTutors[0].Email)</th>
+                            <th>@Html.DisplayNameFor(model => model.PendingTutors[0].Status)</th>
+                            <th>@Html.DisplayNameFor(model => model.PendingTutors[0].Major)</th>
+                            <th>@Html.DisplayNameFor(model => model.PendingTutors[0].Grade)</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.PendingTutors)
+                        {
+                            <tr>
+                                <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                <td>
+                                    <span class="badge bg-@(item.Status == "Pending" ? "warning" : "secondary")">
+                                        @Html.DisplayFor(modelItem => item.Status)
+                                    </span>
+                                </td>
+                                <td>@Html.DisplayFor(modelItem => item.Major)</td>
+                                <td>@Html.DisplayFor(modelItem => item.Grade)</td>
+                                <td>
+                                    <a asp-page="./PendingDetails" asp-route-id="@item.TutorId" class="btn btn-sm btn-info">Details</a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

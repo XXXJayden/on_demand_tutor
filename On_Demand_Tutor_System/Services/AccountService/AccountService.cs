@@ -16,7 +16,7 @@ namespace Services.AccountService
             _hasher = hasher;
         }
 
-        public Task<(object account, string type)> GetAccount(string email, string password)
+        public Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
             password = _hasher.HashPassword(password);
             return _repo.GetAccount(email, password);
@@ -74,6 +74,11 @@ namespace Services.AccountService
             return await _repo.EmailExistsAsync(email);
         }
 
+        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        {
+            return await _repo.PhoneNumberExistsAsync(phone);
+        }
+
         public async Task<bool> ResetPasswordAsync(string token, string userType, string newPassword)
         {
             var hashedPassword = _hasher.HashPassword(newPassword);
@@ -94,8 +99,6 @@ namespace Services.AccountService
         {
             return await _repo.GetUserTypeByEmailAsync(email);
         }
-
-
 
     }
 }

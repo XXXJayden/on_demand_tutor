@@ -11,14 +11,14 @@ namespace Services.AccountService
 {
     public interface IAccountService
     {
-        Task<(object account, string type)> GetAccount(string email, string password);
+        Task<(object account, string type, string status)> GetAccount(string email, string password);
 
         Task<Student> RegisterStudentAsync(StudentRegisterDTO student);
 
         Task<Tutor> RegisterTutorAsync(TutorRegisterDTO tutor);
 
         Task<bool> EmailExistsAsync(string email);
-
+        Task<bool> PhoneNumberExistsAsync(string phone);
         Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token);
         Task<bool> ResetPasswordAsync(string token, string userType, string newPassword);
 
