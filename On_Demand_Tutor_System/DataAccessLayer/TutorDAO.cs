@@ -75,5 +75,52 @@ namespace DataAccessLayer
                 throw new Exception(ex.Message);
             }
         }
+
+        public static List<Tutor> GetTutorByIncompleteStatus()
+        {
+            using var db = new OnDemandTutorDbContext();
+            return db.Tutors.Where(c => c.Status == "Incomplete").ToList();
+        }
+
+        public static async Task<List<Tutor>> GetTutorByPendingStatus()
+        {
+            using var db = new OnDemandTutorDbContext();
+            return db.Tutors.Where(c => c.Status == "Pending").ToList();
+        }
+
+        public static Tutor ChangeStatusToPending(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Pending";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+        public static Tutor ChangeStatusToIncomplete(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Incomplete";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+        public static Tutor ChangeStatusToActive(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Active";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+
     }
 }

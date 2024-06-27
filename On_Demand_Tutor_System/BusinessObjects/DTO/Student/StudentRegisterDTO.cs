@@ -23,7 +23,7 @@ namespace BusinessObjects.DTO.Student
         [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
 
-        [ValidPhoneNumber(ErrorMessage = "Invalid phone number format.")]
+        [ValidPhoneNumber(ErrorMessage = "Invalid phone number format")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "You must enter your address")]

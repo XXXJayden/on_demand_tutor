@@ -29,6 +29,11 @@ namespace DataAccessLayer
                 return (tutor, "Tutor", "Active");
             }
 
+            var moderator = await _context.Moderators.FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
+            if (moderator != null)
+            {
+                return (moderator, "Moderator", string.Empty);
+            }
             return (null, string.Empty, string.Empty);
         }
 
@@ -88,7 +93,6 @@ namespace DataAccessLayer
 
             return null;
         }
-
 
         public async Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token)
         {
@@ -169,8 +173,6 @@ namespace DataAccessLayer
 
             return true;
         }
-
-
 
 
     }

@@ -46,6 +46,11 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
 
             var (account, type, status) = await accountService.GetAccount(Email, Password);
 
+
+            if (account != null && type == "Moderator" && status == string.Empty)
+            {
+                return RedirectToPage("/Moderator/Index");
+            }
             if (account == null || status == "Inactive")
             {
                 return RedirectToPage("/Error");
@@ -61,6 +66,10 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             else if (type == "Tutor")
             {
                 return RedirectToPage("/Tutor/Tutor_Index");
+            }
+            else if (type == "Moderator")
+            {
+                return RedirectToPage("/Moderator/Index");
             }
 
             return RedirectToPage("/Error");

@@ -23,7 +23,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Moderator\" />
     <Folder Include="wwwroot\img\" />
   </ItemGroup>
 

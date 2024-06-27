@@ -21,7 +21,7 @@ namespace BusinessObjects.DTO.Tutor
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; } = null!;
 
-        public string Status { get; set; } = User.Pending;
+        public string Status { get; set; } = User.Incomplete;
 
         [Required(ErrorMessage = "You must enter self introduction")]
         public string? Description { get; set; }
