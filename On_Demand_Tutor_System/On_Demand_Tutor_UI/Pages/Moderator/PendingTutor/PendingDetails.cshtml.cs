@@ -24,7 +24,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
 
         public async Task<IActionResult> OnGetAsync(short id)
         {
-            var tutor = await _tutorAccountService.GetTutorById(id);
+            var tutor = _tutorAccountService.GetTutorById(id);
 
             if (id == null)
             {

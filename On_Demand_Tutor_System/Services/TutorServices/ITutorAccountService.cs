@@ -10,7 +10,7 @@ namespace Services.TutorServices
         void SaveTutor(Tutor tutor);
         void UpdateTutor(Tutor tutor);
         void DeleteTutor(short tutorId);
-        Task<Tutor> GetTutorById(short tutorId);
+        Tutor GetTutorById(short tutorId);
         Task<List<TutorViewDTO>> GetTutorByIncompleteStatus();
         Task<List<TutorViewDTO>> GetTutorByPendingStatus();
         Task<Tutor> ChangeStatusToIncomplete(int tutorId);

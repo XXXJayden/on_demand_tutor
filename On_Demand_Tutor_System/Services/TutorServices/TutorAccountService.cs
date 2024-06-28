@@ -28,7 +28,7 @@ namespace Services.TutorServices
         {
             _tutorRepository.DeleteTutor(tutorId);
         }
-        public async Task<Tutor> GetTutorById(short tutorId)
+        public Tutor GetTutorById(short tutorId)
         {
             return _tutorRepository.GetTutorById(tutorId);
         }

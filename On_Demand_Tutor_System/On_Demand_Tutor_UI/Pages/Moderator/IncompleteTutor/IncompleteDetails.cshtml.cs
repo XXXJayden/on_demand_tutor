@@ -28,7 +28,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.IncompleteTutor
                 return NotFound();
             }
 
-            var tutor = await _tutorAccountService.GetTutorById(id);
+            var tutor = _tutorAccountService.GetTutorById(id);
             if (tutor == null)
             {
                 return NotFound();

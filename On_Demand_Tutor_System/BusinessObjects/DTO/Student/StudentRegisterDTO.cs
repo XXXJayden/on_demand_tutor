@@ -34,8 +34,7 @@ namespace BusinessObjects.DTO.Student
         public string Grade { get; set; }
 
         [Required(ErrorMessage = "You must enter your current grade")]
-        public string Status = User.Active;
-        public string Status = "Active";
+        public string Status = UserStatus.Incomplete;
 
         public static ValidationResult ValidateGrade(string grade, ValidationContext context)
         {
