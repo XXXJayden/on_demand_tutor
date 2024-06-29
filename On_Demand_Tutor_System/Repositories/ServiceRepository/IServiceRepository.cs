@@ -10,5 +10,6 @@ namespace Repositories.ServiceRepository
     public interface IServiceRepository
     {
         List<Service> GetAllService();
+        Service GetServiceIdByName(string Name);
     }
 }

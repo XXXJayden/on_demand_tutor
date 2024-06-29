@@ -10,5 +10,6 @@ namespace Services.ServiceServices
     public interface IServiceServices
     {
         List<Service> GetAllServices();
+        Service GetServiceIdByName(string Name);
     }
 }

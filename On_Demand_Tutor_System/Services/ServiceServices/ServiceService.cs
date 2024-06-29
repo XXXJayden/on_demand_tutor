@@ -22,5 +22,9 @@ namespace Services.ServiceServices
         {
             return _serviceRepository.GetAllService();
         }
+        public Service GetServiceIdByName(string Name)
+        {
+            return _serviceRepository.GetServiceIdByName(Name);
+        }
     }
 }

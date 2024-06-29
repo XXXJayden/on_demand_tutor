@@ -1,0 +1,45 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Tutor.UploadAchievementModel
+@{
+}
+<h2>Upload Your Certificate</h2>
+
+<form method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <label for="certificate">Certificate:</label>
+        <input type="file" id="certificate" name="certificate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Upload</button>
+</form>
+
+@if (Model.Message != null)
+{
+    <div class="alert alert-info">@Model.Message</div>
+}
+
+<form method="post" asp-page-handler="Delete">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Certificate</th>
+                <th>Select</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Achievement.Count; i++)
+            {
+                if (i % 3 == 0)
+                {
+                    <tr></tr>
+                }
+            <td>
+                <img src="@Model.Achievement[i].Certificate" style="max-width: 200px; max-height: 200px;" />
+            </td>
+                @*             <td>
+        <input type="checkbox" name="selectedCertificates" value="@Model.Achievement[i].Id" />
+        </td> *@
+            }
+        </tbody>
+    </table>
+    <button type="submit" class="btn btn-danger">Delete Selected</button>
+</form>

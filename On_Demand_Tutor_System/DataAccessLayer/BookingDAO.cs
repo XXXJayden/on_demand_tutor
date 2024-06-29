@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer

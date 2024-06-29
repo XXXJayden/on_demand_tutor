@@ -26,6 +26,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
         [BindProperty]
         public string Password { get; set; }
 
+
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -33,6 +34,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             {
                 return Page();
             }
+
             var adminEmail = _configuration["AdminAccount:Email"];
             var adminPassword = _configuration["AdminAccount:Password"];
             if (Email == adminEmail && Password == adminPassword)
@@ -42,26 +44,38 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 return RedirectToPage("/Admin/Admin_Index");
             }
 
-            var (account, type) = await accountService.GetAccount(Email, Password);
+            var (account, type, status) = await accountService.GetAccount(Email, Password);
 
-            if (account != null)
+
+            if (account != null && type == "Moderator" && status == string.Empty)
             {
-                HttpContext.Session.SetString("UserType", type);
-                HttpContext.Session.SetString("UserEmail", Email);
-                bool isLoggedIn = HttpContext.Session.GetString("UserEmail") != null;
-                if (type == "Student")
-                {
-                    return RedirectToPage("/Index");
-                }
-                else if (type == "Tutor")
-                {
-                    return RedirectToPage("/Tutor/Tutor_Index");
-                }
+                return RedirectToPage("/Moderator/Index");
+            }
+            if (account == null || status == "Inactive")
+            {
+                return RedirectToPage("/Error");
+            }
+
+            HttpContext.Session.SetString("UserType", type);
+            HttpContext.Session.SetString("UserEmail", Email);
+
+            if (type == "Student")
+            {
+                return RedirectToPage("/Index");
+            }
+            else if (type == "Tutor")
+            {
+                return RedirectToPage("/Tutor/Tutor_Index");
+            }
+            else if (type == "Moderator")
+            {
+                return RedirectToPage("/Moderator/Index");
             }
 
             ModelState.AddModelError(string.Empty, "Wrong email or password!");
             return Page();
             
         }
+
     }
 }

@@ -1,16 +1,20 @@
 ﻿using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
+using BusinessObjects.Enums;
+using BusinessObjects.Enums.Booking;
 
 namespace DataAccessLayer
 {
     public class ScheduleDAO
     {
-        public static async Task<List<string>> GetAvailableSlotsAsync(int tutorId)
+        public static async Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
         {
             using var context = new OnDemandTutorDbContext();
 
+
             var bookedSlots = await context.BookingSchedules
-                .Where(bs => bs.Booking.TutorId == tutorId)
+                .Where(bs => bs.Date.Equals(date) && bs.Booking.TutorId == tutorId)
+                .Where(bs => bs.Booking.Status != BookingStatus.Complete)
                 .Select(bs => bs.Sc.Slot)
                 .ToListAsync();
 
@@ -20,6 +24,13 @@ namespace DataAccessLayer
 
             return availableSlots;
         }
+
+        public static Schedule GetSlotIdByName(string name)
+        {
+            using var db = new OnDemandTutorDbContext();
+            return
+                db.Schedules.FirstOrDefault(c => c.Slot.Equals(name));
+        } 
 
         public static List<Schedule> GetAllSchedule()
         {
