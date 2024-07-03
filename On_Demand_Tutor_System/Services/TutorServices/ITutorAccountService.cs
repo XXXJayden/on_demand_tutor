@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Models;
 
 namespace Services.TutorServices
 {
@@ -10,5 +11,12 @@ namespace Services.TutorServices
         void UpdateTutor(Tutor tutor);
         void DeleteTutor(short tutorId);
         Tutor GetTutorById(short tutorId);
+        Task<List<TutorViewDTO>> GetTutorByIncompleteStatus();
+        Task<List<TutorViewDTO>> GetTutorByPendingStatus();
+        Task<Tutor> ChangeStatusToIncomplete(int tutorId);
+        Task<Tutor> ChangeStatusToPending(int tutorId);
+        Task<Tutor> ChangeStatusToActive(int tutorId);
+
+
     }
 }

@@ -22,7 +22,7 @@ namespace BusinessObjects.DTO.Tutor
         [EmailAddress(ErrorMessage = "Invalid email address")]
         public string Email { get; set; } = null!;
 
-        public string Status { get; set; } = UserStatus.Active;
+        public string Status { get; set; } = UserStatus.Incomplete;
 
         [Required(ErrorMessage = "You must enter self introduction")]
         public string? Description { get; set; }

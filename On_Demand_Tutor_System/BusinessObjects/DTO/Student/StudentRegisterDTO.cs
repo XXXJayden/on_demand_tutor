@@ -1,9 +1,13 @@
-﻿using System;
+﻿using BusinessObjects.CustomAttribute;
+using BusinessObjects.Enums.User;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
+
 
 namespace BusinessObjects.DTO.Student
 {
@@ -19,8 +23,7 @@ namespace BusinessObjects.DTO.Student
         [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
 
-        [Required(ErrorMessage = "You must enter your phone number")]
-        [Phone(ErrorMessage = "Invalid phone number")]
+        [ValidPhoneNumber(ErrorMessage = "Invalid phone number format")]
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "You must enter your address")]
@@ -30,7 +33,8 @@ namespace BusinessObjects.DTO.Student
         [CustomValidation(typeof(StudentRegisterDTO), "ValidateGrade")]
         public string Grade { get; set; }
 
-        public string Status = "Active";
+        [Required(ErrorMessage = "You must enter your current grade")]
+        public string Status = UserStatus.Incomplete;
 
         public static ValidationResult ValidateGrade(string grade, ValidationContext context)
         {

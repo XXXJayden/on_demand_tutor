@@ -15,23 +15,26 @@ namespace DataAccessLayer
         }
 
 
-        public async Task<(object account, string type)> GetAccount(string email, string password)
+        public async Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
-            var student = await _context.Students
-                .FirstOrDefaultAsync(s => s.Email == email && s.Password == password);
-            if (student != null)
+            var student = await _context.Students.FirstOrDefaultAsync(s => s.Email == email && s.Password == password);
+            if (student != null && student.Status == "Active")
             {
-                return (student, "Student");
+                return (student, "Student", "Active");
             }
 
-            var tutor = await _context.Tutors
-                .FirstOrDefaultAsync(t => t.Email == email && t.Password == password);
-            if (tutor != null)
+            var tutor = await _context.Tutors.FirstOrDefaultAsync(t => t.Email == email && t.Password == password);
+            if (tutor != null && tutor.Status == "Active")
             {
-                return (tutor, "Tutor");
+                return (tutor, "Tutor", "Active");
             }
 
-            return (null, string.Empty);
+            var moderator = await _context.Moderators.FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
+            if (moderator != null)
+            {
+                return (moderator, "Moderator", string.Empty);
+            }
+            return (null, string.Empty, string.Empty);
         }
 
         public async Task<Student> AddStudentAsync(Student student)
@@ -56,6 +59,11 @@ namespace DataAccessLayer
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _context.Students.AnyAsync(s => s.Email == email);
+        }
+
+        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        {
+            return await _context.Students.AnyAsync(s => s.Phone == phone);
         }
 
         public async Task<string?> GetUserTypeByTokenAsync(string token)
@@ -85,7 +93,6 @@ namespace DataAccessLayer
 
             return null;
         }
-
 
         public async Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token)
         {
@@ -161,13 +168,11 @@ namespace DataAccessLayer
                 _context.Tutors.Update(tutor);
             }
 
-            _context.PasswordResetTokens.Remove(tokenRecord);
+            tokenRecord.IsUsed = true;
             await _context.SaveChangesAsync();
 
             return true;
         }
-
-
 
 
     }

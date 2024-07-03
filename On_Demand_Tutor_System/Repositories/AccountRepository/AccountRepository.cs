@@ -16,7 +16,7 @@ namespace Repositories.AccountRepository
             _accountDAO = accountDAO;
         }
 
-        public async Task<(object account, string type)> GetAccount(string email, string password)
+        public async Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
             return await _accountDAO.GetAccount(email, password);
         }
@@ -34,6 +34,11 @@ namespace Repositories.AccountRepository
         public async Task<bool> EmailExistsAsync(string email)
         {
             return await _accountDAO.EmailExistsAsync(email);
+        }
+
+        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        {
+            return await _accountDAO.PhoneNumberExistsAsync(phone);
         }
 
         public async Task<Tutor> AddTutorAsync(Tutor tutor)

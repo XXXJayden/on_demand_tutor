@@ -46,6 +46,11 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 ModelState.AddModelError("Student.Email", "An account with this email already exists.");
                 return Page();
             }
+            if (await accountService.PhoneNumberExistsAsync(Student.Phone) == true)
+            {
+                ModelState.AddModelError("Student.Phone", "An account with this phone number already exists.");
+                return Page();
+            }
 
             await accountService.RegisterStudentAsync(Student);
             TempData["SuccessMessage"] = "You have registered successfully! Please login!";

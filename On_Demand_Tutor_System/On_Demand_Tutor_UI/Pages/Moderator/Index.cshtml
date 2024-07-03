@@ -1,0 +1,46 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Moderator.IndexModel
+
+@{
+    ViewData["Title"] = "Moderator Dashboard";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Moderator Dashboard</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-user-clock fa-3x mb-3 text-primary"></i>
+                                    <h5 class="card-title">Pending Tutors</h5>
+                                    <p class="card-text">Review and manage tutors awaiting approval.</p>
+                                    <a class="btn btn-primary btn-block" asp-page="/Moderator/PendingTutor/PendingIndex">
+                                        Manage Pending Tutors
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-user-edit fa-3x mb-3 text-secondary"></i>
+                                    <h5 class="card-title">Incomplete Tutors</h5>
+                                    <p class="card-text">Review tutor's incomplete profiles.</p>
+                                    <a class="btn btn-secondary btn-block" asp-page="/Moderator/IncompleteTutor/IncompleteIndex">
+                                        Manage Incomplete Tutors
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

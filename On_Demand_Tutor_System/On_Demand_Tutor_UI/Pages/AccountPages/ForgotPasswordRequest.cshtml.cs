@@ -38,7 +38,8 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 if (userType == null)
                 {
                     TempData["Message"] = "Please choose Forgot Password again to reset your password";
-                    return RedirectToPage("/Index");
+                    return Page();
+                    //return RedirectToPage("/Index");
                 }
 
                 var token = await GeneratePasswordResetTokenAsync(Email,
@@ -52,7 +53,8 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                         protocol: Request.Scheme);
 
                     await _emailService.SendEmailAsync(Email, "Reset Your Password",
-                        $"Please reset your password by clicking {resetLink} This link will expire in 24 hours.");
+                        $"Please reset your password by clicking {resetLink} .'" +
+                        $"This link will expire in 24 hours.");
                 }
 
                 TempData["ErrorMessage"] = "If an account exists for the email address, a reset link has been sent.";
