@@ -71,7 +71,9 @@ namespace On_Demand_Tutor_UI.Pages.Student
         public async Task<IActionResult> OnPostAsync()
         {
             LoadTutor(SearchTutor);
+            Services = _serviceServices.GetAllServices(); 
             return Page();
         }
     }
+
 }

@@ -4,6 +4,7 @@ using Google.Cloud.Storage.V1;
 using MimeKit.Cryptography;
 using System;
 using System.IO;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI
@@ -43,5 +44,25 @@ namespace On_Demand_Tutor_UI
             UrlSigner urlSigner = UrlSigner.FromServiceAccountPath("Firebase/service-account-file.json");
             return urlSigner.Sign(_bucketName, fileName, duration);
         }
+        public async Task DeleteFileAsync(string fileName)
+        {
+            try
+            {
+                if (fileName.StartsWith("https://"))
+                {
+                    var uri = new Uri(fileName);
+                    fileName = WebUtility.UrlDecode(Path.GetFileName(uri.LocalPath));
+                }
+
+                await _storageClient.DeleteObjectAsync(_bucketName, fileName);
+            }
+            catch (Google.GoogleApiException ex)
+            {
+                throw new Exception($"Error deleting file {fileName} from Firebase Storage: {ex.Message}");
+            }
+        }
+
+
+
     }
 }

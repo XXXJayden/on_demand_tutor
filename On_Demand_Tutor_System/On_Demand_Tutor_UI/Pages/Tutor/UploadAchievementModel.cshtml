@@ -2,44 +2,56 @@
 @model On_Demand_Tutor_UI.Pages.Tutor.UploadAchievementModel
 @{
 }
-<h2>Upload Your Certificate</h2>
 
-<form method="post" enctype="multipart/form-data">
-    <div class="form-group">
-        <label for="certificate">Certificate:</label>
+<h2 class="mb-4">Upload Your Certificate</h2>
+
+<form method="post" enctype="multipart/form-data" asp-page-handler="Upload">
+    <div class="mb-3">
+        <label for="certificate" class="form-label">Certificate:</label>
         <input type="file" id="certificate" name="certificate" class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Upload</button>
 </form>
 
-@if (Model.Message != null)
+
+@if (!string.IsNullOrEmpty(Model.Message))
 {
-    <div class="alert alert-info">@Model.Message</div>
+    <div class="alert alert-info mt-3">@Model.Message</div>
 }
 
-<form method="post" asp-page-handler="Delete">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Certificate</th>
-                <th>Select</th>
-            </tr>
-        </thead>
-        <tbody>
-            @for (int i = 0; i < Model.Achievement.Count; i++)
-            {
-                if (i % 3 == 0)
+@if (Model.Achievements.Any())
+{
+    <form method="post" asp-page-handler="Delete">
+        <table class="table mt-4">
+            <thead>
+                <tr>
+                    <th>Certificate</th>
+                    <th>Select</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Achievements.Count; i++)
                 {
-                    <tr></tr>
+                    <tr>
+                        <td>
+                            <img src="@Model.Achievements[i].Certificate" style="max-width: 200px; max-height: 200px;" />
+                        </td>
+                        <td>
+                            <input type="checkbox" name="selectedCertificates" value="@Model.Achievements[i].AchievementId" />
+                        </td>
+                    </tr>
                 }
-            <td>
-                <img src="@Model.Achievement[i].Certificate" style="max-width: 200px; max-height: 200px;" />
-            </td>
-                @*             <td>
-        <input type="checkbox" name="selectedCertificates" value="@Model.Achievement[i].Id" />
-        </td> *@
-            }
-        </tbody>
-    </table>
-    <button type="submit" class="btn btn-danger">Delete Selected</button>
-</form>
+            </tbody>
+        </table>
+        <button type="submit" class="btn btn-danger">Delete Selected</button>
+    </form>
+
+}
+else
+{
+    <div class="alert alert-info mt-3">No achievements found.</div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
