@@ -1,0 +1,104 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Tutor.EditProfileModel
+
+@{
+    ViewData["Title"] = "Edit Profile";
+}
+
+<style>
+    .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .card {
+        width: 100%;
+        max-width: 600px; 
+        padding: 20px;
+        margin: 20px;
+    }
+</style>
+
+<h1 class="text-center my-4">Edit Profile</h1>
+
+<div class="center-content">
+    <div class="card">
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <i class="fas fa-check-circle"></i> @TempData["SuccessMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <i class="fas fa-exclamation-circle"></i> @TempData["ErrorMessage"]
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        }
+
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data" asp-page-handler="UploadAvatar">
+                <div class="form-group">
+                    <label for="Avatar" class="form-label">Upload Avatar:</label>
+                    <input type="file" id="Avatar" name="Avatar" class="form-control-file" />
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Upload</button>
+            </form>
+
+            <form method="post" asp-page-handler="UpdateProfile">
+                <div class="form-group mb-3">
+                    <label for="avatarPreview" class="form-label">Current Avatar:</label>
+                    <div id="avatarPreview">
+                        <img src="@Model.TutorAvatar.Avatar" alt="Avatar" class="img-thumbnail" style="max-width: 200px; max-height: 200px;" />
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.FullName" class="form-label"></label>
+                    <input asp-for="TutorProfile.FullName" class="form-control" />
+                    <span asp-validation-for="TutorProfile.FullName" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.Password" class="form-label"></label>
+                    <input asp-for="TutorProfile.Password" type="password" class="form-control" />
+                    <span asp-validation-for="TutorProfile.Password" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.Description" class="form-label"></label>
+                    <textarea asp-for="TutorProfile.Description" class="form-control"></textarea>
+                    <span asp-validation-for="TutorProfile.Description" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.Email" class="form-label"></label>
+                    <input asp-for="TutorProfile.Email" type="email" class="form-control" />
+                    <span asp-validation-for="TutorProfile.Email" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.Major" class="form-label"></label>
+                    <input asp-for="TutorProfile.Major" class="form-control" />
+                    <span asp-validation-for="TutorProfile.Major" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <label asp-for="TutorProfile.Grade" class="form-label"></label>
+                    <input asp-for="TutorProfile.Grade" class="form-control" />
+                    <span asp-validation-for="TutorProfile.Grade" class="text-danger"></span>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="submit" value="Save" class="btn btn-success" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="text-center mt-3">
+    <a asp-page="./Tutor_Index" class="btn btn-secondary">Back to Index</a>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+}

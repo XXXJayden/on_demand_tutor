@@ -1,10 +1,13 @@
 using BusinessObjects.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.AchievementServices;
 using Services.TutorServices;
-using System.Linq;
+using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
@@ -17,8 +20,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
         public UploadAchievementModel(FireBaseStorage fireBaseStorage,
             IAchievementService achievementService,
-            ITutorAccountService tutorAccountService
-            )
+            ITutorAccountService tutorAccountService)
         {
             _fireBaseStorage = fireBaseStorage;
             _achievementService = achievementService;
@@ -26,33 +28,32 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         }
 
         [BindProperty]
-        public int TutorId { get; set; }
+        public short TutorId { get; set; }
 
         [BindProperty]
         public IFormFile Certificate { get; set; }
 
         public string Message { get; set; }
 
-        public IList<Achievement> Achievement { get; set; } = default!;
+        public IList<Achievement> Achievements { get; set; } = new List<Achievement>();
 
         public async Task OnGetAsync()
         {
             var accountTutor = HttpContext.Session.GetString("UserEmail");
-            var allTutor = _tutorService.GetTutorByEmail(accountTutor);
-            var certificate = _achievementService.GetAllAchievement()
-                .Where(x => x.TutorId == allTutor.TutorId)
-                .Select(x => new Achievement
-                {
-                    AchievementId = x.AchievementId,
-                    Certificate = x.Certificate,
-                });
-            Achievement = certificate.ToList();
+            var tutor = _tutorService.GetTutorByEmail(accountTutor);
+
+            if (tutor != null)
+            {
+                Achievements = _achievementService.GetAllAchievement()
+                    .Where(x => x.TutorId == tutor.TutorId)
+                    .ToList();
+            }
         }
 
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostUploadAsync()
         {
             var accountTutor = HttpContext.Session.GetString("UserEmail");
-            var allTutor = _tutorService.GetTutorByEmail(accountTutor);
+            var tutor = _tutorService.GetTutorByEmail(accountTutor);
 
             if (Certificate != null)
             {
@@ -65,7 +66,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
                 var achievement = new Achievement
                 {
-                    TutorId = allTutor.TutorId,
+                    TutorId = tutor.TutorId,
                     Certificate = uploadedFileUrl
                 };
 
@@ -88,28 +89,29 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
             return Page();
         }
 
-        //public async Task<IActionResult> OnPostDeleteAsync(List<int> selectedCertificates)
-        //{
-        //    if (selectedCertificates == null || !selectedCertificates.Any())
-        //    {
-        //        Message = "No certificates selected.";
-        //        return Page();
-        //    }
 
-        //    foreach (var id in selectedCertificates)
-        //    {
-        //        var achievement = _achievementService.GetAchievementById(id);
-        //        if (achievement != null)
-        //        {
-        //            await _fireBaseStorage.DeleteFileAsync(achievement.Certificate);
-        //            _achievementService.DeleteAchievement(achievement);
-        //        }
-        //    }
+        public async Task<IActionResult> OnPostDeleteAsync(List<int> selectedCertificates)
+        {
+            if (selectedCertificates == null || !selectedCertificates.Any())
+            {
+                Message = "No certificates selected.";
+                return Page();
+            }
 
-        //    Message = "Selected certificates deleted successfully.";
+            foreach (short id in selectedCertificates)
+            {
+                var achievement = _achievementService.GetAchievementById(id);
+                if (achievement != null)
+                {
+                    await _fireBaseStorage.DeleteFileAsync(achievement.Certificate);
+                    _achievementService.DeleteAchievement(id);
+                }
+            }
 
-        //    await OnGetAsync(); // Refresh the achievements list
-        //    return Page();
-        //}
+            Message = "Selected certificates deleted successfully.";
+
+            await OnGetAsync(); // Refresh the achievements list
+            return Page();
+        }
     }
 }

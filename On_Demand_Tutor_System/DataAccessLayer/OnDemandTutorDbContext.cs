@@ -39,7 +39,7 @@ public partial class OnDemandTutorDbContext : DbContext
     private string GetConnectionString()
     {
         IConfiguration configuration = new ConfigurationBuilder()
-        .SetBasePath(Directory.GetCurrentDirectory())
+        .SetBasePath(Directory.GetCurrentDirectory())   
         .AddJsonFile("appsettings.json", true, true).Build();
         return configuration["ConnectionStrings:DBDefault"];
     }
