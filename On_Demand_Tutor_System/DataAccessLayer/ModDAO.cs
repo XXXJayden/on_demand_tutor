@@ -40,7 +40,7 @@ namespace DataAccessLayer
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("An error occurred while saving the moderator: " + ex.Message);
             }
         }
 
