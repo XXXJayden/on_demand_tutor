@@ -1,5 +1,6 @@
 ﻿using BusinessObjects.DTO.Booking;
 using BusinessObjects.Enums.Booking;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.BookingService;
 using Services.TutorServices;
@@ -41,6 +42,21 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                                                 Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
                                             });
             ProcessingTeach = bookingList.ToList();
-        } 
+        }
+
+        public async Task<IActionResult> OnPostDoneAsync(int id)
+        {
+            var booking = _bookingService.GetBookingById(id);
+            if (booking == null)
+            {
+                return NotFound();
+            }
+
+            booking.Status = BookingStatus.Complete;
+            booking.DateEnd = DateOnly.FromDateTime(DateTime.Now);
+            _bookingService.UpdateBooking(booking);
+
+            return RedirectToPage();
+        }
     }
 }
