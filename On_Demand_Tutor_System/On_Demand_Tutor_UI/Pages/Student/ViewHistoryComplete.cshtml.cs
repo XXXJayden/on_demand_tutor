@@ -30,7 +30,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
         {
             var accountStudent = HttpContext.Session.GetString("UserEmail");
             var allStudent = _studentService.GetStudentByEmail(accountStudent);
-            var allbookingList = _bookingService.GetAllBookingTutor();
+            var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.StudentId.Equals(allStudent.StudentId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals(BookingStatus.Complete))
                                             .Select(x => new BookingComplete
@@ -41,6 +41,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                                                 Email = x.Tutor.Email,
                                                 StudentId = x.StudentId,
                                                 ServiceName = x.Service.Service1,
+                                                ServiceId = x.ServiceId,
                                                 DateStart = x.DateStart,
                                                 DateEnd = x.DateEnd,
                                                 PaymentMethods = x.PaymentMethods,

@@ -30,12 +30,10 @@ namespace Services.ReportServices
         {
             return _reportService.GetReportById(id);
         }
-
-        public void Save(Moderator mod)
+        public void SaveReport(Report report)
         {
-            throw new NotImplementedException();
+            _reportService.AddReport(report);
         }
-
         public void UpdateStatus(Report report)
         {
             _reportService.UpdateReport(report);

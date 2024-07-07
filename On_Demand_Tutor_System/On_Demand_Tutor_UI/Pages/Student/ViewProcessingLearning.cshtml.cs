@@ -30,7 +30,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
         {
             var accountStudent = HttpContext.Session.GetString("UserEmail");
             var allStudent = _studentService.GetStudentByEmail(accountStudent);
-            var allbookingList = _bookingService.GetAllBookingTutor();
+            var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.StudentId.Equals(allStudent.StudentId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals(BookingStatus.Approve))
                                             .Select(x => new ProcessingLearning

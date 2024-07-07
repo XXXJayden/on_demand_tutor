@@ -19,6 +19,7 @@ namespace BusinessObjects.DTO.Booking
 
         [Display(Name = "Service Name")]
         public string ServiceName { get; set; }
+        public int ServiceId { get; set; }
 
         public string Status { get; set; } = BookingStatus.Complete;
 
