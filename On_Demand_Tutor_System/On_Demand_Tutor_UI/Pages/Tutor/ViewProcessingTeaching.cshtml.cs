@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.BookingService;
 using Services.TutorServices;
@@ -20,25 +21,26 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
         public async Task OnGetAsync()
         {
-
             var accountTutor = HttpContext.Session.GetString("UserEmail");
             var allTutor = _tutorService.GetTutorByEmail(accountTutor);
+            if (allTutor == null) { return; }
             var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.TutorId.Equals(allTutor.TutorId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
-                                            .Where(x => x.Status.Equals("Approved"))
+                                            .Where(x => x.Status.Equals(BookingStatus.Approve))
                                             .Select(x => new ProcessingTeachingRespone
                                             {
                                                 Id = x.Id,
                                                 StudentName = x.Student.Fullname,
+                                                ServiceName = x.Service.Service1,
                                                 StudentAddress = x.Student.Address,
                                                 Grade = x.Student.Grade,
                                                 Phone = x.Student.Phone,
-                                                ServiceName = x.Service.Service1,
                                                 DateStart = x.DateStart,
-                                                DateEnd = x.DateEnd
-
+                                                DateEnd = x.DateEnd,
+                                                PaymentMethods = x.PaymentMethods,
+                                                Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
                                             });
             ProcessingTeach = bookingList.ToList();
-        }
+        } 
     }
 }

@@ -16,6 +16,8 @@ using Services.TutorServices;
 using Services.BookingScheduleService;
 using On_Demand_Tutor_UI;
 using Services.AchievementServices;
+using Services.Tutors;
+using Services.ReportServices;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +40,9 @@ builder.Services.AddScoped<IEmailService, EmailService>();
 builder.Services.AddScoped<IBookingScheduleService, BookingScheduleService>();
 builder.Services.AddScoped<FireBaseStorage, FireBaseStorage>();
 builder.Services.AddScoped<IAchievementService,  AchievementService>();
+builder.Services.AddScoped<IServices, Services.Tutors.Services>();
+builder.Services.AddScoped<ITutorService, Services.Tutors.TutorServices>();
+builder.Services.AddScoped<IReportService, ReportService>();
 
 builder.Services.AddSession(options =>
 {

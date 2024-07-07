@@ -1,5 +1,6 @@
 using BusinessObjects.DTO.Booking;
 using BusinessObjects.DTO.Student;
+using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -66,7 +67,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 return NotFound();
             }
 
-            booking.Status = "Approved";
+            booking.Status = BookingStatus.Approve;
             _bookingService.UpdateBooking(booking);
 
             return RedirectToPage("/Tutor/ViewStudentRegisted");
@@ -80,7 +81,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 return NotFound();
             }
 
-            booking.Status = "Canceled";
+            booking.Status = BookingStatus.Cancel;
             _bookingService.UpdateBooking(booking);
 
             return RedirectToPage("/Tutor/ViewStudentRegisted");
