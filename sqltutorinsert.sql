@@ -70,12 +70,12 @@ GO
 -- Thêm dữ liệu vào bảng Schedule
 INSERT INTO Schedule ( Slot)
 VALUES
-( '1'),
-( '2'),
-( '3'),
-( '4'),
-( '5'),
-( '6');
+( 'Slot 1'),
+( 'Slot 2'),
+( 'Slot 3'),
+( 'Slot 4'),
+( 'Slot 5'),
+( 'Slot 6');
 GO
 
 -- Thêm dữ liệu vào bảng BookingSchedule
@@ -93,3 +93,8 @@ VALUES
 ('Admin Two', 'admin456', 'admin.two@example.com', 'Active'),
 ('Admin Three', 'admin789', 'admin.three@example.com', 'Active');
 GO
+
+
+INSERT INTO Report(Detail, Date, Status, Image ,StudentID, TutorID, ServiceID)
+VALUES 
+('Teacher Stupid', '2024-10-24', 'Pending', 'https://i.pinimg.com/564x/f5/7f/99/f57f99bc24a80a25994bead22c65950b.jpg',1 , 1, 1)

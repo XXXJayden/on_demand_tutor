@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.BookingService;
 using Services.TutorServices;
@@ -25,7 +26,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
             if (allTutor == null) { return ; }
             var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.TutorId.Equals(allTutor.TutorId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
-                                            .Where(x => x.Status.Equals("Pending"))
+                                            .Where(x => x.Status.Equals(BookingStatus.Pending))
                                             .Select(x => new BookingTutorResponse
                                             {
                                                 Id = x.Id,
