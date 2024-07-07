@@ -69,9 +69,13 @@ namespace Services.AccountService
             return tutor;
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> StudentEmailExistsAsync(string email)
         {
-            return await _repo.EmailExistsAsync(email);
+            return await _repo.StudentEmailExistsAsync(email);
+        }
+        public async Task<bool> TutorEmailExistsAsync(string email)
+        {
+            return await _repo.TutorEmailExistsAsync(email);
         }
 
         public async Task<bool> PhoneNumberExistsAsync(string phone)

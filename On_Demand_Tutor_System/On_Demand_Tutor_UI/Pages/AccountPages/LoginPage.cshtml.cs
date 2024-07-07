@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using BusinessObjects.Enums.User;
+using Microsoft.AspNetCore.Mvc;
 using On_Demand_Tutor_UI.Validator;
 using Services.AccountService;
 
@@ -46,18 +47,20 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
 
             var (account, type, status) = await accountService.GetAccount(Email, Password);
 
-
-            if (account != null && type == "Moderator" && status == string.Empty)
+            if (account == null)
             {
-                return RedirectToPage("/Moderator/Index");
+                ModelState.AddModelError(string.Empty, "Wrong email or password!");
+                return Page();
             }
-            if (account == null || status == "Inactive")
+            if (account != null && status == UserStatus.InActive)
             {
                 return RedirectToPage("/Error");
             }
 
+
             HttpContext.Session.SetString("UserType", type);
             HttpContext.Session.SetString("UserEmail", Email);
+            HttpContext.Session.SetString("UserStatus", status);
 
             if (type == "Student")
             {
@@ -74,7 +77,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
 
             ModelState.AddModelError(string.Empty, "Wrong email or password!");
             return Page();
-            
+
         }
 
     }

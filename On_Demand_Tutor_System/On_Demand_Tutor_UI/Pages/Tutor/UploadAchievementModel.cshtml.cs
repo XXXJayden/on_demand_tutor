@@ -1,3 +1,4 @@
+using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -73,6 +74,8 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 try
                 {
                     _achievementService.SaveAchievement(achievement);
+                    tutor.Status = UserStatus.Pending;
+                    _tutorService.UpdateTutor(tutor);
                     Message = "Achievement uploaded successfully!";
                 }
                 catch (Exception ex)

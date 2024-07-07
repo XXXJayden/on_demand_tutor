@@ -52,7 +52,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
             await _tutorAccountService.ChangeStatusToActive(id);
             TempData["SuccessMessage"] = "This tutor has been approved";
 
-            return RedirectToPage(new { id });
+            return RedirectToPage("/Moderator/PendingTutor/PendingIndex");
         }
 
         public async Task<IActionResult> OnPostDenyAsync(short id)
@@ -65,7 +65,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
             await _tutorAccountService.ChangeStatusToIncomplete(id);
             TempData["SuccessMessage"] = "This tutor has been denied";
 
-            return RedirectToPage(new { id });
+            return RedirectToPage("/Moderator/PendingTutor/PendingIndex");
         }
 
 

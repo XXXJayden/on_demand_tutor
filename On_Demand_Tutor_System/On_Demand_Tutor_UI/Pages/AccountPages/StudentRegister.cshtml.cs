@@ -41,9 +41,14 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
                 return Page();
             }
 
-            if (await accountService.EmailExistsAsync(Student.Email) == true)
+            if (await accountService.StudentEmailExistsAsync(Student.Email) == true)
             {
                 ModelState.AddModelError("Student.Email", "An account with this email already exists.");
+                return Page();
+            }
+            if (await accountService.TutorEmailExistsAsync(Student.Email) == true)
+            {
+                ModelState.AddModelError("Student.Email", "An account with this email already registered for Tutor.");
                 return Page();
             }
             if (await accountService.PhoneNumberExistsAsync(Student.Phone) == true)

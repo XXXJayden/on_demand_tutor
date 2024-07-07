@@ -31,14 +31,19 @@ namespace Repositories.AccountRepository
             return await _accountDAO.GetStudentByEmailAsync(email);
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> StudentEmailExistsAsync(string email)
         {
-            return await _accountDAO.EmailExistsAsync(email);
+            return await _accountDAO.StudentEmailExistsAsync(email);
+        }
+
+        public async Task<bool> TutorEmailExistsAsync(string email)
+        {
+            return await _accountDAO.TutorEmailExistsAsync(email);
         }
 
         public async Task<bool> PhoneNumberExistsAsync(string phone)
         {
-            return await _accountDAO.PhoneNumberExistsAsync(phone);
+            return await _accountDAO.StudentPhoneNumberExistsAsync(phone);
         }
 
         public async Task<Tutor> AddTutorAsync(Tutor tutor)

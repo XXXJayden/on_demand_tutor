@@ -17,7 +17,8 @@ namespace Services.AccountService
 
         Task<Tutor> RegisterTutorAsync(TutorRegisterDTO tutor);
 
-        Task<bool> EmailExistsAsync(string email);
+        Task<bool> StudentEmailExistsAsync(string email);
+        Task<bool> TutorEmailExistsAsync(string email);
         Task<bool> PhoneNumberExistsAsync(string phone);
         Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token);
         Task<bool> ResetPasswordAsync(string token, string userType, string newPassword);

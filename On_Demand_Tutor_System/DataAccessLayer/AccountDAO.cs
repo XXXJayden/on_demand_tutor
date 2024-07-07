@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO;
+using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 using MailKit.Net.Smtp;
 using Microsoft.EntityFrameworkCore;
@@ -18,24 +19,26 @@ namespace DataAccessLayer
         public async Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
             var student = await _context.Students.FirstOrDefaultAsync(s => s.Email == email && s.Password == password);
-            if (student != null && student.Status == "Active")
+            if (student != null)
             {
-                return (student, "Student", "Active");
+                return (student, "Student", student.Status);
             }
 
             var tutor = await _context.Tutors.FirstOrDefaultAsync(t => t.Email == email && t.Password == password);
-            if (tutor != null && tutor.Status == "Active")
+            if (tutor != null)
             {
-                return (tutor, "Tutor", "Active");
+                return (tutor, "Tutor", tutor.Status);
             }
 
             var moderator = await _context.Moderators.FirstOrDefaultAsync(m => m.Email == email && m.Password == password);
             if (moderator != null)
             {
-                return (moderator, "Moderator", string.Empty);
+                return (moderator, "Moderator", moderator.Status);
             }
+
             return (null, string.Empty, string.Empty);
         }
+
 
         public async Task<Student> AddStudentAsync(Student student)
         {
@@ -56,12 +59,17 @@ namespace DataAccessLayer
             return await _context.Students.FirstOrDefaultAsync(s => s.Email == email);
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> StudentEmailExistsAsync(string email)
         {
             return await _context.Students.AnyAsync(s => s.Email == email);
         }
 
-        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        public async Task<bool> TutorEmailExistsAsync(string email)
+        {
+            return await _context.Tutors.AnyAsync(s => s.Email == email);
+        }
+
+        public async Task<bool> StudentPhoneNumberExistsAsync(string phone)
         {
             return await _context.Students.AnyAsync(s => s.Phone == phone);
         }

@@ -1,4 +1,5 @@
 using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Enums.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -96,6 +97,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
             try
             {
+                existingTutor.Status = UserStatus.Pending;
                 _tutorService.UpdateTutor(existingTutor);
                 TempData["SuccessMessage"] = "Profile updated successfully.";
             }
@@ -132,6 +134,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
                 try
                 {
+                    existingTutor.Status = UserStatus.Pending;
                     _tutorService.UpdateTutor(existingTutor);
                     TempData["SuccessMessage"] = "Avatar uploaded successfully.";
                 }
