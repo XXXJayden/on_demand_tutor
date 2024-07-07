@@ -14,6 +14,8 @@ namespace Services.ReportServices
         Report GetReportById(int id);
         void UpdateStatus(Report report);
 
+        void Save(Moderator mod);
+
 
     }
 }

@@ -37,7 +37,9 @@ namespace On_Demand_Tutor_UI.Pages.Student
                                             {
                                                 Id = x.Id,
                                                 TutorName = x.Tutor.Fullname,
+                                                TutorId = x.TutorId,
                                                 Email = x.Tutor.Email,
+                                                StudentId = x.StudentId,
                                                 ServiceName = x.Service.Service1,
                                                 DateStart = x.DateStart,
                                                 DateEnd = x.DateEnd,
