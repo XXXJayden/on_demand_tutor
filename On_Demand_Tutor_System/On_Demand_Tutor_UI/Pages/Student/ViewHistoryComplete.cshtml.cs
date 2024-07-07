@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
+using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
-using BusinessObjects.Models;
-using BusinessObjects.DTO.Booking;
 using Services.BookingService;
 using Services.StudentServices;
-using BusinessObjects.Enums.Booking;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
@@ -24,7 +24,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             _studentService = studentService;
         }
 
-        public IList<ProcessingLearning> LearningComplete { get; set; } = default!;
+        public IList<BookingComplete> LearningComplete { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -33,7 +33,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             var allbookingList = _bookingService.GetAllBookingTutor();
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals(BookingStatus.Complete))
-                                            .Select(x => new ProcessingLearning
+                                            .Select(x => new BookingComplete
                                             {
                                                 Id = x.Id,
                                                 TutorName = x.Tutor.Fullname,

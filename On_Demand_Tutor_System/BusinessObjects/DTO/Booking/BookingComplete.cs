@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.DTO.Booking
 {
-    public class ProcessingLearning
+    public class BookingComplete
     {
         public int Id { get; set; }
         [Display(Name = "Tutor Name")]
@@ -20,7 +20,7 @@ namespace BusinessObjects.DTO.Booking
         [Display(Name = "Service Name")]
         public string ServiceName { get; set; }
 
-        public string Status { get; set; } = BookingStatus.Approve;
+        public string Status { get; set; } = BookingStatus.Complete;
 
         public DateOnly? DateStart { get; set; }
 
