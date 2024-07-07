@@ -1,0 +1,61 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Student.ReportModel
+
+@{
+    ViewData["Title"] = "Report";
+}
+
+<h1>Report</h1>
+
+<h4>Report</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Report.Detail" class="control-label"></label>
+                <input asp-for="Report.Detail" class="form-control" />
+                <span asp-validation-for="Report.Detail" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.Date" class="control-label"></label>
+                <input asp-for="Report.Date" class="form-control" />
+                <span asp-validation-for="Report.Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.Status" class="control-label"></label>
+                <input asp-for="Report.Status" class="form-control" />
+                <span asp-validation-for="Report.Status" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.Image" class="control-label"></label>
+                <input asp-for="Report.Image" class="form-control" />
+                <span asp-validation-for="Report.Image" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.StudentId" class="control-label"></label>
+                <select asp-for="Report.StudentId" class ="form-control" asp-items="ViewBag.StudentId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.TutorId" class="control-label"></label>
+                <select asp-for="Report.TutorId" class ="form-control" asp-items="ViewBag.TutorId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="Report.ServiceId" class="control-label"></label>
+                <select asp-for="Report.ServiceId" class ="form-control" asp-items="ViewBag.ServiceId"></select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

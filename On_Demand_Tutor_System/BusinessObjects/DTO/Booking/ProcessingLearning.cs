@@ -12,8 +12,8 @@ namespace BusinessObjects.DTO.Booking
         public int Id { get; set; }
         [Display(Name = "Tutor Name")]
         public string TutorName { get; set; }
+        public int TutorId { get; set; }
         public string Email { get; set; }
-
         public int StudentId { get; set; }
 
         [Display(Name = "Service Name")]
