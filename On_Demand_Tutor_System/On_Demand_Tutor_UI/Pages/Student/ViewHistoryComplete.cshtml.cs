@@ -24,7 +24,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             _studentService = studentService;
         }
 
-        public IList<ProcessingLearning> ProcessingLearning { get; set; } = default!;
+        public IList<ProcessingLearning> LearningComplete { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -45,7 +45,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                                                 Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
 
                                             });
-            ProcessingLearning = bookingList.ToList();
+            LearningComplete = bookingList.ToList();
         }
 
     }
