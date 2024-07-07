@@ -13,12 +13,12 @@ using BusinessObjects.Enums.Booking;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ViewProcessingLearningModel : PageModel
+    public class ViewHistoryComplete : PageModel
     {
         private readonly IBookingService _bookingService;
         private readonly IStudentService _studentService;
 
-        public ViewProcessingLearningModel(IBookingService bookingService, IStudentService studentService)
+        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService)
         {
             _bookingService = bookingService;
             _studentService = studentService;
@@ -32,7 +32,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             var allStudent = _studentService.GetStudentByEmail(accountStudent);
             var allbookingList = _bookingService.GetAllBookingTutor();
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
-                                            .Where(x => x.Status.Equals(BookingStatus.Approve))
+                                            .Where(x => x.Status.Equals(BookingStatus.Complete))
                                             .Select(x => new ProcessingLearning
                                             {
                                                 Id = x.Id,

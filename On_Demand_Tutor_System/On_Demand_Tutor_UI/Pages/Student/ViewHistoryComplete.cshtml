@@ -19,7 +19,7 @@
                     <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].Email)</th>
                     <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].PaymentMethods)</th>
                     <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].Schedules)</th>
-                    <th>Status</th>
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -40,7 +40,10 @@
                                 }
                             </ul>
                         </td>
-                        <td class="text-center">Learning</td>
+                        <td class="text-center">
+                            <a asp-page="" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Report</a>
+                            <a asp-page="" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Feedbacks</a>
+                        </td>
                     </tr>
                 }
             </tbody>
