@@ -2,16 +2,19 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Services.ModService;
+using Services.Sercurity;
 
 namespace On_Demand_Tutor_UI.Pages.Admin
 {
     public class Create_AccModModel : PageModel
     {
         private readonly IModService _modService;
+        private readonly PasswordHasher _hasher;
 
-        public Create_AccModModel(IModService modService)
+        public Create_AccModModel(IModService modService, PasswordHasher haser)
         {
             _modService = modService;
+            _hasher = haser;
         }
 
         public IActionResult OnGet()
@@ -41,7 +44,7 @@ namespace On_Demand_Tutor_UI.Pages.Admin
             var moderator = new BusinessObjects.Models.Moderator
             {
                 Email = Moderator.Email,
-                Password = Moderator.Password,
+                Password = _hasher.HashPassword(Moderator.Password),
                 Fullname = Moderator.FullName,
                 Status = Moderator.Status
             };
