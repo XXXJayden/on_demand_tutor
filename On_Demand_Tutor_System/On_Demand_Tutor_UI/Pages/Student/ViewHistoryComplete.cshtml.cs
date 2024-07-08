@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using Services.BookingService;
+using Services.FeedBackServices;
 using Services.StudentServices;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,13 @@ namespace On_Demand_Tutor_UI.Pages.Student
     {
         private readonly IBookingService _bookingService;
         private readonly IStudentService _studentService;
+        private readonly IFeedBackService _feedbackService;
 
-        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService)
+        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService, IFeedBackService feedbackService)
         {
             _bookingService = bookingService;
             _studentService = studentService;
+            _feedbackService = feedbackService;
         }
 
         public IList<BookingComplete> LearningComplete { get; set; } = default!;
@@ -30,7 +33,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
         {
             var accountStudent = HttpContext.Session.GetString("UserEmail");
             var allStudent = _studentService.GetStudentByEmail(accountStudent);
-            var allbookingList = _bookingService.GetAllBookingTutor();
+            var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.StudentId.Equals(allStudent.StudentId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
                                             .Where(x => x.Status.Equals(BookingStatus.Complete))
                                             .Select(x => new BookingComplete
@@ -48,6 +51,17 @@ namespace On_Demand_Tutor_UI.Pages.Student
 
                                             });
             LearningComplete = bookingList.ToList();
+        }
+
+        [BindProperty]
+        public Feedback FeedbackModel { get; set; }
+
+        public async Task<IActionResult> OnPostAsync()
+        {
+            await _feedbackService.AddFeedbackAsync(FeedbackModel);
+            await OnGetAsync();
+
+            return RedirectToPage();
         }
 
     }

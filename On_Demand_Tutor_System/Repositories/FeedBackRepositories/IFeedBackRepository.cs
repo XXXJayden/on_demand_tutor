@@ -14,5 +14,6 @@ namespace Repositories.FeedBackRepositories
         void UpdateFeedback(Feedback feedback);
         void DeleteFeedback(short feedbackId);
         Feedback GetFeedbackById(short feedbackId);
+        Task<bool> AddFeedbackAsync(Feedback feedback);
     }
 }

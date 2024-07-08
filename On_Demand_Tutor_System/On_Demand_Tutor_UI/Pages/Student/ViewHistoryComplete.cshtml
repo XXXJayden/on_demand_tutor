@@ -42,7 +42,7 @@
                         </td>
                         <td class="text-center">
                             <a asp-page="/Student/Report" asp-route-StudentId="@item.StudentId" asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="btn btn-primary btn-sm">Report</a>
-                            <a asp-page="/Student/FeedBack" asp-route-StudentId="@item.StudentId" asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="btn btn-primary btn-sm">FeedBack</a>
+                            <button type="button" class="btn btn-primary btn-sm" onclick="openFeedbackModal(@item.Id, @item.StudentId, @item.TutorId)">Feedback</button>
                         </td>
                     </tr>
                 }
@@ -50,3 +50,129 @@
         </table>
     </div>
 </div>
+
+<!-- Feedback  -->
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="feedbackModalLabel">Provide Feedback</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="feedbackForm" method="post">
+                    <input type="hidden" id="bookingId" name="BookingId" />
+                    <input type="hidden" id="studentId" name="StudentId" />
+                    <input type="hidden" id="tutorId" name="TutorId" />
+
+                    <div class="form-group">
+                        <label for="rating">Rating:</label>
+                        <div class="star-rating">
+                            <span class="star" data-rating="1">&#9733;</span>
+                            <span class="star" data-rating="2">&#9733;</span>
+                            <span class="star" data-rating="3">&#9733;</span>
+                            <span class="star" data-rating="4">&#9733;</span>
+                            <span class="star" data-rating="5">&#9733;</span>
+                        </div>
+                        <input type="hidden" id="ratingValue" name="Rating" value="0" />
+                    </div>
+
+                    <div class="form-group">
+                        <label for="feedbackDetail">Feedback:</label>
+                        <textarea class="form-control" id="feedbackDetail" name="Detail" rows="3" required></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" onclick="submitFeedback()">Submit Feedback</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .star-rating {
+        font-size: 24px;
+        cursor: pointer;
+    }
+
+    .star {
+        color: #ddd;
+    }
+
+        .star.active {
+            color: gold;
+        }
+</style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+
+<script>
+    function openFeedbackModal(bookingId, studentId, tutorId) {
+        document.getElementById('bookingId').value = bookingId;
+        document.getElementById('studentId').value = studentId;
+        document.getElementById('tutorId').value = tutorId;
+        $('#feedbackModal').modal('show');
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const stars = document.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingValue');
+
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = star.getAttribute('data-rating');
+                ratingInput.value = rating;
+                updateStars(rating);
+            });
+
+            star.addEventListener('mouseover', () => {
+                const rating = star.getAttribute('data-rating');
+                updateStars(rating);
+            });
+        });
+
+        document.querySelector('.star-rating').addEventListener('mouseout', () => {
+            updateStars(ratingInput.value);
+        });
+
+        function updateStars(rating) {
+            stars.forEach(star => {
+                const starRating = star.getAttribute('data-rating');
+                if (starRating <= rating) {
+                    star.classList.add('active');
+                } else {
+                    star.classList.remove('active');
+                }
+            });
+        }
+    });
+
+    function submitFeedback() {
+        if (validateFeedbackForm()) {
+            document.getElementById('feedbackForm').submit();
+        }
+    }
+
+    function validateFeedbackForm() {
+        const rating = document.getElementById('ratingValue').value;
+        const detail = document.getElementById('feedbackDetail').value;
+
+        if (rating === '0') {
+            alert('Please select a rating.');
+            return false;
+        }
+
+        if (detail.trim() === '') {
+            alert('Please write feedback details.');
+            return false;
+        }
+
+        return true;
+    }
+</script>

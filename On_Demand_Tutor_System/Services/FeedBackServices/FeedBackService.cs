@@ -9,11 +9,12 @@ using System.Threading.Tasks;
 
 namespace Services.FeedBackServices
 {
-    public class FeedBackService
+    public class FeedBackService : IFeedBackService
     {
         private readonly IFeedBackRepository _feedbackRepository;
 
-        public FeedBackService() {
+        public FeedBackService()
+        {
             _feedbackRepository = new FeedBackRepository();
         }
         public List<Feedback> GetAllFeedback()
@@ -36,5 +37,10 @@ namespace Services.FeedBackServices
         {
             return _feedbackRepository.GetFeedbackById(feedbackId);
         }
+        public async Task<bool> AddFeedbackAsync(Feedback feedback)
+        {
+            return await _feedbackRepository.AddFeedbackAsync(feedback);
+        }
+
     }
 }
