@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -72,6 +73,35 @@ namespace DataAccessLayer
             catch (Exception ex)
             {
                 throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> AddFeedbackAsync(Feedback feedback)
+        {
+            using var context = new OnDemandTutorDbContext();
+
+            try
+            {
+                var existingFeedback = await context.Feedbacks
+                    .FirstOrDefaultAsync(f => f.BookingId == feedback.BookingId && f.StudentId == feedback.StudentId);
+
+                if (existingFeedback != null)
+                {
+                    existingFeedback.Rating = feedback.Rating;
+                    existingFeedback.Detail = feedback.Detail;
+                    context.Feedbacks.Update(existingFeedback);
+                }
+                else
+                {
+                    await context.Feedbacks.AddAsync(feedback);
+                }
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error adding feedback: {ex.Message}");
+                return false;
             }
         }
     }
