@@ -128,7 +128,8 @@ namespace DataAccessLayer
                 {
                     UserId = tutor.TutorId,
                     Token = token,
-                    ExpirationDate = DateTime.Now.AddHours(24),
+                    ExpirationDate = DateTime.Now.AddMinutes(10),
+                    CreatedDate = DateTime.Now,
                     UserType = userType
                 };
             }
@@ -148,7 +149,7 @@ namespace DataAccessLayer
             var tokenRecord = await _context.PasswordResetTokens
                 .FirstOrDefaultAsync(t => t.Token == token && t.ExpirationDate > DateTime.Now && t.UserType == userType);
 
-            if (tokenRecord == null)
+            if (tokenRecord == null || tokenRecord.IsUsed == true)
             {
                 return false;
             }
