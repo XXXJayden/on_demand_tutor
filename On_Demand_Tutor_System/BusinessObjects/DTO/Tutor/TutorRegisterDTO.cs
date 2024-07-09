@@ -1,4 +1,5 @@
-﻿using BusinessObjects.DTO.Student;
+﻿using BusinessObjects.CustomAttribute;
+using BusinessObjects.DTO.Student;
 using BusinessObjects.Enums.User;
 using System;
 using System.Collections.Generic;
@@ -25,13 +26,14 @@ namespace BusinessObjects.DTO.Tutor
         public string Status { get; set; } = UserStatus.Incomplete;
 
         [Required(ErrorMessage = "You must enter self introduction")]
+        [MaxWords(30, ErrorMessage = "Introduction must be in 30 words")]
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "You must enter your major")]
         public string Major { get; set; } = null!;
 
         [Required(ErrorMessage = "You must enter your grade")]
-        [CustomValidation(typeof(StudentRegisterDTO), "ValidateGrade")]
+        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
         public string Grade { get; set; }
 
         public static ValidationResult ValidateGrade(string grade, ValidationContext context)

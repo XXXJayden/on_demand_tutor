@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.CustomAttribute;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -22,9 +23,11 @@ namespace BusinessObjects.DTO.Student
         public string Phone { get; set; }
 
         [Required(ErrorMessage = "You must enter your address")]
+        [MaxWords(30, ErrorMessage = "Address must be in 30 words")]
         public string Address { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
+        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
         public string Grade { get; set; }
     }
 }
