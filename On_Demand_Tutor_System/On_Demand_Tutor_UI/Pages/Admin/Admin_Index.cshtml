@@ -4,5 +4,36 @@
     Layout = "_Layout_Admin";
     ViewData["Admin"] = "Admin Dashboard";
 }
-<a href="/Admin/GetAccount" class="nav-item nav-link">Get All Account</a>
-<a href="/Admin/Create_AccMod" class="nav-item nav-link">Create</a>
+
+<div class="container mt-4">
+    <h1 class="mb-4">Admin Menu</h1>
+    <div class="row">
+        <div class="col-md-3 mb-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Dashboard Statistics</h5>
+                    <p class="card-text">View overall statistics</p>
+                    <a href="/Admin/Dashboard" class="btn btn-light">Go to Statistics</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">All Accounts</h5>
+                    <p class="card-text">Manage all user accounts</p>
+                    <a href="/Admin/GetAccount" class="btn btn-light">View Accounts</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Create Account</h5>
+                    <p class="card-text">Add a new user account</p>
+                    <a href="/Admin/Create_AccMod" class="btn btn-light">Create New</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

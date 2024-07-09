@@ -1,4 +1,6 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Enums.User;
+using BusinessObjects.Models;
+using Org.BouncyCastle.Asn1.X509;
 using Repositories.StudentRepositories;
 
 namespace Services.StudentServices
@@ -59,6 +61,21 @@ namespace Services.StudentServices
         public Student GetStudentById(int studentId)
         {
             return _studentRepository.GetStudentById(studentId);
+        }
+
+        public (int ActiveStudent, int InactiveStudent) GetStudentQuantity()
+        {
+            try
+            {
+                var student = _studentRepository.GetAllStudent();
+                int activeStudent = student.Count(s => s.Status == UserStatus.Active);
+                int inactiveStudent = student.Count(s => s.Status == UserStatus.InActive);
+                return (activeStudent, inactiveStudent);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

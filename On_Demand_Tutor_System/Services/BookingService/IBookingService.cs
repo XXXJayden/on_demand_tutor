@@ -10,7 +10,7 @@ namespace Services.BookingService
         void UpdateBooking(Booking booking);
         List<Booking> GetAllBookingTutor();
         void DeleteBooking(Booking booking);
-
         Booking GetDetailsBookingById(int id);
+        (int Complete, int Pending, int Approve, int Cancel, int Processing) GetBookingStatusCounts();
     }
 }
