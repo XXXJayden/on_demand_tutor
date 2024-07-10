@@ -1,0 +1,66 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Tutor.CreateServiceModel
+
+@{
+    ViewData["Title"] = "CreateService";
+    Layout = "_Layout_Tutor";
+}
+
+<h1>CreateService</h1>
+
+<h4>TutorService</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Service.Service1" class="control-label">Service</label>
+                <select asp-for="Service.Id" class="form-control" asp-items="ViewBag.Service"></select>
+                <span asp-validation-for="Service.Id" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TutorService.Price" class="control-label">Price</label>
+                <input asp-for="TutorService.Price" class="form-control" />
+                <span asp-validation-for="TutorService.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <h4>Services and Prices for Tutor</h4>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Service</th>
+                <th>Price</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var tutorService in Model.TutorServices)
+            {
+                <tr>
+                    <td>@tutorService.Service.Service1</td>
+                    <td>@tutorService.Price.ToString("N0") Vnđ</td>
+                    <td>
+                        <form method="post" asp-page-handler="Delete">
+                            <input type="hidden" name="Id" value="@tutorService.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center mt-3">
+    <a asp-page="./Tutor_Index" class="btn btn-secondary">Back to Index</a>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

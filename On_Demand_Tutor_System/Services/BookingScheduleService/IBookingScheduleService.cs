@@ -15,5 +15,6 @@ namespace Services.BookingScheduleService
         void UpdateBookingSchedule(BookingSchedule bookingSchedule);
 
         void DeleteBookingSchedule(BookingSchedule bookingSchedule);
+       
     }
 }

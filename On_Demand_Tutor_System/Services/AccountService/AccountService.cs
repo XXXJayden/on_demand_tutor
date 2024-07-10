@@ -3,11 +3,6 @@ using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Models;
 using Repositories.AccountRepository;
 using Services.Sercurity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.AccountService
 {
@@ -21,7 +16,7 @@ namespace Services.AccountService
             _hasher = hasher;
         }
 
-        public Task<(object account, string type)> GetAccount(string email, string password)
+        public Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
             password = _hasher.HashPassword(password);
             return _repo.GetAccount(email, password);
@@ -64,7 +59,9 @@ namespace Services.AccountService
                 Fullname = registerDTO.Fullname,
                 Major = registerDTO.Major,
                 Status = registerDTO.Status,
-                Description = registerDTO.Description
+                Description = registerDTO.Description,
+                Grade = registerDTO.Grade,
+                Avatar = ""
             };
 
             await _repo.AddTutorAsync(tutor);
@@ -72,11 +69,39 @@ namespace Services.AccountService
             return tutor;
         }
 
-
-
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> StudentEmailExistsAsync(string email)
         {
-            return await _repo.EmailExistsAsync(email);
+            return await _repo.StudentEmailExistsAsync(email);
+        }
+        public async Task<bool> TutorEmailExistsAsync(string email)
+        {
+            return await _repo.TutorEmailExistsAsync(email);
+        }
+
+        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        {
+            return await _repo.PhoneNumberExistsAsync(phone);
+        }
+
+        public async Task<bool> ResetPasswordAsync(string token, string userType, string newPassword)
+        {
+            var hashedPassword = _hasher.HashPassword(newPassword);
+            return await _repo.ResetPasswordAsync(token, userType, hashedPassword);
+        }
+
+        public async Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token)
+        {
+            return await _repo.GenerateAndStoreTokenAsync(email, userType, token);
+        }
+
+        public async Task<string?> GetUserTypeByTokenAsync(string token)
+        {
+            return await _repo.GetUserTypeByTokenAsync(token);
+        }
+
+        public async Task<string?> GetUserTypeByEmailAsync(string email)
+        {
+            return await _repo.GetUserTypeByEmailAsync(email);
         }
 
     }

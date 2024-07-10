@@ -32,15 +32,14 @@
     <div class="d-flex flex-column min-vh-100">
         <header class="header-custom">
             <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-                <a href="index.html" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+                <a href="/Admin/Admin_Index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
                     <h2 class="m-0 text-primary"><i class="fa fa-book me-3"></i>eLEARNING</h2>
                 </a>
                 <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                  
-                    <a href="/AccountPages/LoginPage" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="/Index?handler=Logout" class="nav-item nav-link">Logout</a> 
                 </div>
             </nav>
         </header>
@@ -48,7 +47,6 @@
         <main role="main" class="flex-fill">
             <div class="container">
                 @RenderBody()
-                <a href="../AccountPages/StudentRegister" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
             </div>
         </main>
 

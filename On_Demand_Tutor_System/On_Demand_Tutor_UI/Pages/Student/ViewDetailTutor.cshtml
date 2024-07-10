@@ -1,0 +1,119 @@
+﻿@page "{id:int}"
+@model On_Demand_Tutor_UI.Pages.Student.ViewDetailTutorModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "Tutor Details";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center" style="color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px;">Tutor Details</h1>
+    <form method="post">
+        <div class="card shadow-sm p-4 mb-5 bg-white rounded">
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold" style="color: #34495e;">Fullname:</label>
+                    <div class="form-control-plaintext">@Model.TutorDetails.Fullname</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold" style="color: #34495e;">Email:</label>
+                    <div class="form-control-plaintext">@Model.TutorDetails.Email</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" style="color: #34495e;">Description:</label>
+                <div class="form-control-plaintext">@Model.TutorDetails.Description</div>
+            </div>
+
+            <div class="row mb-3">
+                <div class="col-md-6">
+                    <label class="form-label fw-bold" style="color: #34495e;">Major:</label>
+                    <div class="form-control-plaintext">@Model.TutorDetails.Major</div>
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label fw-bold" style="color: #34495e;">Grade:</label>
+                    <div class="form-control-plaintext">@Model.TutorDetails.Grade</div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" style="color: #34495e;">Achievements:</label>
+                <ul class="list-unstyled">
+                    @foreach (var achievement in Model.TutorDetails.Achievements)
+                    {
+                        <li class="d-inline-block me-2">
+                            <img src="@achievement" alt="Achievement Image" class="img-thumbnail" style="max-width: 100px; max-height: 100px;" />
+                        </li>
+                    }
+                </ul>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" style="color: #34495e;">Services:</label>
+                <select id="ServiceSelect" name="selectedService" class="form-select">
+                    @foreach (var service in Model.TutorDetails.Services)
+                    {
+                        <option value="@service.ServiceName">@service.ServiceName - @service.Price.ToString("C0", new System.Globalization.CultureInfo("vi-VN")).Replace("₫", " Vnđ")</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" style="color: #34495e;">Select Date:</label>
+                <input type="date" id="SelectedDate" name="selectedDate" class="form-control" onchange="fetchAvailableSlots()" />
+            </div>
+
+            <div class="mb-3" id="SlotSelection">
+                <label class="form-label fw-bold" style="color: #34495e;">Available Slots:</label>
+                <select id="AvailableSlots" name="selectedSlot" class="form-select">
+                    @foreach (var slot in Model.AvailableSlots)
+                    {
+                        <option value="@slot">@slot</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold" style="color: #34495e;">Payment Method:</label>
+                <select id="PaymentMethod" name="selectedPaymentMethod" class="form-select">
+                    <option value="Online">Online</option>
+                    <option value="Offline">Offline</option>
+                </select>
+            </div>
+
+            <div class="text-center">
+                <input type="hidden" asp-for="TutorId" />
+                <button type="submit" class="btn btn-primary">Book Now</button>
+            </div>
+        </div>
+        <div class="text-end">
+            <a asp-page="/Index" class="btn btn-secondary">Back to Index</a>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <script>
+        async function fetchAvailableSlots() {
+            const tutorId = @Model.TutorDetails.TutorId;
+            const selectedDate = document.getElementById("SelectedDate").value;
+
+            if (!selectedDate) {
+                alert("Please select a date.");
+                return;
+            }
+
+            const response = await fetch(`?handler=FetchSlots&tutorId=${tutorId}&date=${selectedDate}`);
+            const availableSlots = await response.json();
+
+            const slotSelect = document.getElementById("AvailableSlots");
+            slotSelect.innerHTML = "";
+            availableSlots.forEach(slot => {
+                const option = document.createElement("option");
+                option.value = slot;
+                option.text = slot;
+                slotSelect.appendChild(option);
+            });
+        }
+    </script>
+}

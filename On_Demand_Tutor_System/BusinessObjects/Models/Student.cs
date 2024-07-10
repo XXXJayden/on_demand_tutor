@@ -22,4 +22,8 @@ public partial class Student
     public string Grade { get; set; } = null!;
 
     public virtual ICollection<Booking> Bookings { get; set; } = new List<Booking>();
+
+    public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
+    public virtual ICollection<Report> Reports { get; set; } = new List<Report>();
 }

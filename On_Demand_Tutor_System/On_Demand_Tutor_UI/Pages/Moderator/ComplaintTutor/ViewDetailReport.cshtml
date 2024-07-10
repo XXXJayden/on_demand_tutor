@@ -1,0 +1,67 @@
+﻿@page "{id:int}"
+@model On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor.ViewDetailReportModel
+
+@{
+    ViewData["Title"] = "View Detail Report";
+}
+
+<h1>View Detail Report</h1>
+
+<div>
+    <h4>Report</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.StudentName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Report.StudentName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.TutorName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Report.TutorName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.ServiceName)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Report.ServiceName)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.Date)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Report.Date)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.Detail)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Report.Detail)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Report.Image)
+        </dt>
+        <dd class="col-sm-10">
+            <img src="@Model.Report.Image" alt="Report Image" class="img-fluid" />
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Report.Id">Edit</a> |
+</div>
+
+<form method="post" asp-page-handler="Cancel">
+    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
+    <button type="submit" class="btn btn-warning">Cancel Report</button>
+</form>
+
+<form method="post" asp-page-handler="Ban">
+    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
+    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to ban this tutor?');">Ban Account Tutor</button>
+</form>
+<div class="text-center mt-3">
+    <a asp-page="/Moderator/Index" class="btn btn-secondary">Back to Index</a>
+</div>

@@ -1,0 +1,51 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Admin.Create_AccModModel
+
+@{
+    Layout = "_Layout_Admin";
+    ViewData["Title"] = "Create Account Moderator";
+}
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Create Account Moderator</h2>
+                </div>
+                <div class="card-body">
+                    <h4 class="card-title">Moderator Details</h4>
+                    <hr />
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+                        <div class="form-group">
+                            <label asp-for="Moderator.FullName" class="control-label"></label>
+                            <input asp-for="Moderator.FullName" class="form-control" placeholder="Enter full name" />
+                            <span asp-validation-for="Moderator.FullName" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Moderator.Password" class="control-label"></label>
+                            <input asp-for="Moderator.Password" type="password" class="form-control" placeholder="Enter password" />
+                            <span asp-validation-for="Moderator.Password" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label asp-for="Moderator.Email" class="control-label"></label>
+                            <input asp-for="Moderator.Email" type="email" class="form-control" placeholder="Enter email" />
+                            <span asp-validation-for="Moderator.Email" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-primary btn-lg" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <a asp-page="/Admin/Admin_Index" class="btn btn-secondary btn-lg">Back to Index</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

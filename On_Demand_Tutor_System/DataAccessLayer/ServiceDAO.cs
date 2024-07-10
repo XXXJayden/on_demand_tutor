@@ -15,7 +15,11 @@ namespace DataAccessLayer
             using var db = new OnDemandTutorDbContext();
             return db.Services.Find(id);
         }
-
+        public static Service GetServiceByName(string Name)
+        {
+            using var db = new OnDemandTutorDbContext();
+            return db.Services.FirstOrDefault(c => c.Service1.Equals(Name));
+        }
         public static void UpdateService(Service service)
         {
             using var db = new OnDemandTutorDbContext();

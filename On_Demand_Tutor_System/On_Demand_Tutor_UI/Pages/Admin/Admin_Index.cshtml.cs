@@ -1,9 +1,8 @@
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 
 namespace On_Demand_Tutor_UI.Pages.Admin
 {
-    public class Admin_IndexModel : PageModel
+    public class Admin_IndexModel : AuthenPageModel
     {
         public void OnGet()
         {

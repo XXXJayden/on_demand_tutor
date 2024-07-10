@@ -1,4 +1,6 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Enums.User;
+using BusinessObjects.Models;
 using Repositories.TutorRepositories;
 
 namespace Services.TutorServices
@@ -35,6 +37,64 @@ namespace Services.TutorServices
         public Tutor GetTutorByEmail(string tutorEmail)
         {
             return _tutorRepository.GetTutorByEmail(tutorEmail);
+        }
+
+        public async Task<List<TutorViewDTO>> GetTutorByIncompleteStatus()
+        {
+            var tutors = _tutorRepository.GetTutorByIncompleteStatus();
+            return tutors.Select(tutor => new TutorViewDTO
+            {
+                TutorId = tutor.TutorId,
+                FullName = tutor.Fullname,
+                Email = tutor.Email,
+                Grade = tutor.Grade,
+                Status = tutor.Status,
+                Major = tutor.Major
+            }).ToList();
+        }
+
+        public async Task<List<TutorViewDTO>> GetTutorByPendingStatus()
+        {
+            var tutors = await _tutorRepository.GetTutorByPendingStatus();
+            return tutors.Select(tutor => new TutorViewDTO
+            {
+                TutorId = tutor.TutorId,
+                FullName = tutor.Fullname,
+                Email = tutor.Email,
+                Grade = tutor.Grade,
+                Status = tutor.Status,
+                Major = tutor.Major
+            }).ToList();
+        }
+
+        public async Task<Tutor> ChangeStatusToIncomplete(int tutorId)
+        {
+            return _tutorRepository.ChangeStatusToIncomplete(tutorId);
+        }
+
+        public async Task<Tutor> ChangeStatusToPending(int tutorId)
+        {
+            return _tutorRepository.ChangeStatusToPending(tutorId);
+        }
+
+        public async Task<Tutor> ChangeStatusToActive(int tutorId)
+        {
+            return _tutorRepository.ChangeStatusToActive(tutorId);
+        }
+
+        public (int ActiveTutor, int InactiveTutor) GetTutorQuantity()
+        {
+            try
+            {
+                var tutor = _tutorRepository.GetAllTutor();
+                int activeTutor = tutor.Count(s => s.Status == UserStatus.Active);
+                int inactiveTutor = tutor.Count(s => s.Status == UserStatus.InActive);
+                return (activeTutor, inactiveTutor);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

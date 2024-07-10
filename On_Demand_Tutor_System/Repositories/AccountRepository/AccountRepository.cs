@@ -16,7 +16,7 @@ namespace Repositories.AccountRepository
             _accountDAO = accountDAO;
         }
 
-        public async Task<(object account, string type)> GetAccount(string email, string password)
+        public async Task<(object account, string type, string status)> GetAccount(string email, string password)
         {
             return await _accountDAO.GetAccount(email, password);
         }
@@ -31,9 +31,19 @@ namespace Repositories.AccountRepository
             return await _accountDAO.GetStudentByEmailAsync(email);
         }
 
-        public async Task<bool> EmailExistsAsync(string email)
+        public async Task<bool> StudentEmailExistsAsync(string email)
         {
-            return await _accountDAO.EmailExistsAsync(email);
+            return await _accountDAO.StudentEmailExistsAsync(email);
+        }
+
+        public async Task<bool> TutorEmailExistsAsync(string email)
+        {
+            return await _accountDAO.TutorEmailExistsAsync(email);
+        }
+
+        public async Task<bool> PhoneNumberExistsAsync(string phone)
+        {
+            return await _accountDAO.StudentPhoneNumberExistsAsync(phone);
         }
 
         public async Task<Tutor> AddTutorAsync(Tutor tutor)
@@ -41,6 +51,25 @@ namespace Repositories.AccountRepository
             return await _accountDAO.AddTutorAsync(tutor);
         }
 
+        public async Task<bool> GenerateAndStoreTokenAsync(string email, string userType, string token)
+        {
+            return await _accountDAO.GenerateAndStoreTokenAsync(email, userType, token);
+        }
+
+        public async Task<bool> ResetPasswordAsync(string token, string userType, string newPassword)
+        {
+            return await _accountDAO.ResetPasswordAsync(token, userType, newPassword);
+        }
+
+        public async Task<string?> GetUserTypeByTokenAsync(string token)
+        {
+            return await _accountDAO.GetUserTypeByTokenAsync(token);
+        }
+
+        public async Task<string?> GetUserTypeByEmailAsync(string email)
+        {
+            return await _accountDAO.GetUserTypeByEmailAsync(email);
+        }
 
     }
 }

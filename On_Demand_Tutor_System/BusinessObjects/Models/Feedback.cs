@@ -16,4 +16,6 @@ public partial class Feedback
     public string Detail { get; set; } = null!;
 
     public virtual Booking Booking { get; set; } = null!;
+
+    public virtual Student Student { get; set; } = null!;
 }

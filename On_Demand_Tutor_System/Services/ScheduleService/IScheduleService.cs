@@ -1,9 +1,4 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ScheduleService
 {
@@ -13,7 +8,10 @@ namespace Services.ScheduleService
         Schedule GetScheduleById(int id);
         void AddSchedule(Schedule schedule);
         void UpdateSchedule(Schedule schedule);
+        Schedule GetSlotIdByName(string name);
 
         void DeleteSchedule(Schedule schedule);
+
+        Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date);
     }
 }

@@ -21,7 +21,9 @@ namespace Repositories.BookingScheduleRepository
 
         public BookingSchedule GetBookingScheduleById(int id)
             => BookingScheduleDAO.GetBookingScheduleById(id);
+
         public void UpdateBookingSchedule(BookingSchedule bookingSchedule)
             => BookingScheduleDAO.UpdateBookingSchedule(bookingSchedule);
+
     }
 }

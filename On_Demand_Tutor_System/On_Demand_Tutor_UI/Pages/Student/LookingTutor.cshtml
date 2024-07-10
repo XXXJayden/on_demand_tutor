@@ -1,0 +1,92 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Student.LookingTutorModel
+@{
+    Layout = "_Layout";
+    ViewData["Title"] = "LookingTutor";
+}
+
+<h1 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px; margin-top: 20px">Looking for tutor</h1>
+
+<div style="display: flex; justify-content: center;">
+    <form method="post" style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif;">
+        <div style="margin-bottom: 20px;">
+            <label for="Grade" style="display: block; margin-bottom: 5px; color: #34495e;">Grade</label>
+            <select id="Grade" name="SearchTutor.grade" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Grade</option>
+                @for (int i = 6; i <= 12; i++)
+                {
+                    <option value="@i">@i</option>
+                }
+            </select>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="Subject" style="display: block; margin-bottom: 5px; color: #34495e;">Subject</label>
+            <select id="Subject" name="SearchTutor.subject" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Subject</option>
+                <option value="Math">Math</option>
+                <option value="Literature">Literature</option>
+                <option value="English">English</option>
+                <option value="Physical">Physical</option>
+                <option value="Chemistry">Chemistry</option>
+                <option value="Biology">Biology</option>
+                <!-- Add more subjects as needed -->
+            </select>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="Service" style="display: block; margin-bottom: 5px; color: #34495e;">Service</label>
+            <select id="Service" name="SearchTutor.serviceId" style="width: 100%; padding: 10px; border: 1px solid #ddd; border-radius: 4px;">
+                <option value="">Select Service</option>
+                @foreach (var service in Model.Services)
+                {
+                    <option value="@service.Service1">@service.Service1</option>
+                }
+            </select>
+        </div>
+        <div style="text-align: center;">
+            <button type="submit" style="background-color: #2980b9; color: white; padding: 10px 20px; text-decoration: none; border-radius: 4px; border: none;">Tìm kiếm</button>
+        </div>
+    </form>
+</div>
+
+@if (Model.TutorServiceResponses != null && Model.TutorServiceResponses.Count > 0)
+{
+    <h2 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif; margin-top: 20px;">Tutor Results</h2>
+    <div style="display: flex; justify-content: center;">
+        <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif; margin-top: 20px;">
+            <thead>
+                <tr style="background-color: #34495e; color: white; text-align: left;">
+                    <th style="padding: 10px; border: 1px solid #ddd;">Name</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Email</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Description</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Major</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Grade</th>
+                    <th style="padding: 10px; border: 1px solid #ddd;">Services</th>
+                    <th style="padding: 10px; border: 1px solid #ddd; text-align:center">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var tutor in Model.TutorServiceResponses)
+                {
+                    <tr style="border: 1px solid #ddd; background-color: #f9f9f9;">
+                        <td style="padding: 10px; border: 1px solid #ddd;">@tutor.Fullname</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">@tutor.Email</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">@tutor.Description</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">@tutor.Major</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">@tutor.Grade</td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">@string.Join(", ", tutor.Services)</td>
+                        <td style="padding: 10px; border: 1px solid #ddd; text-align:center">
+                            <a asp-page="./ViewDetailTutor" asp-route-id="@tutor.TutorId" style="background-color: #2980b9; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px;">View</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex justify-content-center mt-3">
+        <a asp-page="/Index" class="btn btn-outline-secondary btn-lg">Back to Index</a>
+    </div>
+}
+else if (Model.TutorServiceResponses != null)
+{
+    <p style="text-align: center; color: #c0392b; font-family: Arial, sans-serif; margin-top: 20px;">No tutors found for the selected criteria.</p>
+}

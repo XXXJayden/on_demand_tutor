@@ -1,0 +1,41 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor.ViewReportModel
+
+@{
+    ViewData["Title"] = "View Report";
+}
+
+<h1 class="text-center my-4">View Report</h1>
+
+<div class="container">
+    <table class="table table-striped table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.ReportList[0].StudentName)</th>
+                <th>@Html.DisplayNameFor(model => model.ReportList[0].TutorName)</th>
+                <th>@Html.DisplayNameFor(model => model.ReportList[0].Detail)</th>
+                <th>@Html.DisplayNameFor(model => model.ReportList[0].Date)</th>
+                <th>@Html.DisplayNameFor(model => model.ReportList[0].ServiceName)</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.ReportList)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.StudentName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TutorName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Detail)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Date)</td>
+                    <td>@Html.DisplayFor(modelItem => item.ServiceName)</td>
+                    <td>
+                        <a class="btn btn-primary btn-sm" asp-page="./ViewDetailReport" asp-route-id="@item.Id">Details</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<div class="text-center mt-3">
+    <a asp-page="/Moderator/Index" class="btn btn-secondary">Back to Index</a>
+</div>

@@ -15,10 +15,12 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
     public class TutorRegisterModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
+        private readonly IConfiguration configuration;
 
         public TutorRegisterModel(IAccountService accountservice)
         {
             this.accountService = accountservice;
+            this.configuration = configuration;
         }
 
         public IActionResult OnGet()
@@ -37,16 +39,21 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             {
                 return Page();
             }
-            if (await accountService.EmailExistsAsync(Tutor.Email) == true)
+            if (await accountService.TutorEmailExistsAsync(Tutor.Email) == true)
             {
-                ModelState.AddModelError("Tutor.Email", "An account with this email already exists.");
+                ModelState.AddModelError("Tutor.Email", "An account with this email already exists");
+                return Page();
+            }
+            if (await accountService.StudentEmailExistsAsync(Tutor.Email) == true)
+            {
+                ModelState.AddModelError("Tutor.Email", "An account with this email already registerd for Student");
                 return Page();
             }
 
             await accountService.RegisterTutorAsync(Tutor);
-            TempData["SuccessMessage"] = "You have registered successfully. Please login.";
+            TempData["SuccessMessage"] = "You have registered successfully. Please login!";
 
-            return RedirectToPage("/Index");
+            return RedirectToPage("/AccountPages/LoginPage");
         }
     }
 }

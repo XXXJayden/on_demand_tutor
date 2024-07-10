@@ -7,8 +7,6 @@ public partial class Schedule
 {
     public int Id { get; set; }
 
-    public string Date { get; set; } = null!;
-
     public string Slot { get; set; } = null!;
 
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();

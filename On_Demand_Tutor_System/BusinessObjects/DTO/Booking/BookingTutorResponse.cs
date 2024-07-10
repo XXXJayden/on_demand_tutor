@@ -18,8 +18,9 @@ namespace BusinessObjects.DTO.Booking
         public DateOnly? DateStart { get; set; }
 
         public DateOnly? DateEnd { get; set; }
-        public string PaymentMethods { get; set; }
         [Display(Name = "Payment Method")]
+        public string PaymentMethods { get; set; }
+
 
         public List<string> Schedules { get; set; } = new List<string>();
 

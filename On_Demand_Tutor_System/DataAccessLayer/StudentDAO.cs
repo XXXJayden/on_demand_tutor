@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Enums.User;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
@@ -93,21 +94,34 @@ namespace DataAccessLayer
             return db.Students.FirstOrDefault(c => c.StudentId.Equals(studentId));
         }
 
-        public static void DeleteStudent(int studentId)
+        public static void DeleteStudent(short studentId)
         {
+            using var context = new OnDemandTutorDbContext();
+            var student = context.Students.FirstOrDefault(c => c.StudentId == studentId);
+            if (student == null)
+            {
+                throw new InvalidOperationException($"Student with ID {studentId} not found.");
+            }
+            if (student.Status.Equals(UserStatus.InActive))
+            {
+                student.Status = UserStatus.Active;
+            }
+            else
+            {
+                student.Status = UserStatus.InActive;
+            }
+
             try
             {
-                using var context = new OnDemandTutorDbContext();
-                var student = context.Students.FirstOrDefault(c => c.StudentId == studentId);
-                if (student != null)
-                {
-                    context.Students.Remove(student);
-                    context.SaveChanges();
-                }
+                context.SaveChanges();
+            }
+            catch (DbUpdateException dbe)
+            {
+                throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("An unexpected error occurred.", ex);
             }
         }
     }

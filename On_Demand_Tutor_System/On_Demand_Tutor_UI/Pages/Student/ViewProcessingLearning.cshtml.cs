@@ -1,43 +1,44 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BusinessObjects.Models;
-using BusinessObjects.DTO.Booking;
+﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
+using Services.StudentServices;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ViewProcessingLearningModel : PageModel
+    public class ViewProcessingLearningModel : AuthenPageModel
     {
         private readonly IBookingService _bookingService;
+        private readonly IStudentService _studentService;
 
-        public ViewProcessingLearningModel(IBookingService bookingService)
+        public ViewProcessingLearningModel(IBookingService bookingService, IStudentService studentService)
         {
             _bookingService = bookingService;
+            _studentService = studentService;
         }
 
-        public IList<BookingTutorResponse> BookingTutor { get; set; } = default!;
+        public IList<ProcessingLearning> ProcessingLearning { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
-
-            var allbookingList = _bookingService.GetAllBookingTutor();
+            var accountStudent = HttpContext.Session.GetString("UserEmail");
+            var allStudent = _studentService.GetStudentByEmail(accountStudent);
+            var allbookingList = _bookingService.GetAllBookingTutor().Where(x => x.StudentId.Equals(allStudent.StudentId));
             var bookingList = allbookingList.OrderByDescending(x => x.DateStart)
-                                            .Where(x => x.Status.Equals("Pending"))
-                                            .Select(x => new BookingTutorResponse
+                                            .Where(x => x.Status.Equals(BookingStatus.Approve))
+                                            .Select(x => new ProcessingLearning
                                             {
                                                 Id = x.Id,
-                                                StudentName = x.Student.Fullname,
+                                                TutorName = x.Tutor.Fullname,
+                                                Email = x.Tutor.Email,
                                                 ServiceName = x.Service.Service1,
                                                 DateStart = x.DateStart,
-                                                DateEnd = x.DateEnd
+                                                DateEnd = x.DateEnd,
+                                                PaymentMethods = x.PaymentMethods,
+                                                Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
 
                                             });
-            BookingTutor = bookingList.ToList();
+            ProcessingLearning = bookingList.ToList();
         }
 
     }

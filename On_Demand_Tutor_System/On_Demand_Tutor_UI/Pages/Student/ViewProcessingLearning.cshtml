@@ -2,53 +2,51 @@
 @model On_Demand_Tutor_UI.Pages.Student.ViewProcessingLearningModel
 
 @{
-    ViewData["Title"] = "ViewProcessingLearning";
+    ViewData["Title"] = "View Processing Learning";
 }
 
-<h1>View Processing Learning</h1>
+<h1 class="text-center my-4" style="color: #2c3e50; font-family: Arial, sans-serif;">View Student Bookings</h1>
 
-<h1 style="text-align: center; color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px;">View Student Bookings</h1>
-
-<div style="display: flex; justify-content: center;">
-    <table style="width: 80%; border-collapse: collapse; font-family: Arial, sans-serif;">
-        <thead>
-            <tr style="background-color: #34495e; color: white; text-align: left;">
-                <th style="padding: 10px; border: 1px solid #ddd;">
-                    @Html.DisplayNameFor(model => model.BookingTutor[0].DateStart)
-                </th>
-                <th style="padding: 10px; border: 1px solid #ddd;">
-                    @Html.DisplayNameFor(model => model.BookingTutor[0].DateEnd)
-                </th>
-                <th style="padding: 10px; border: 1px solid #ddd;">
-                    @Html.DisplayNameFor(model => model.BookingTutor[0].ServiceName)
-                </th>
-                <th style="padding: 10px; border: 1px solid #ddd;">
-                    @Html.DisplayNameFor(model => model.BookingTutor[0].StudentName)
-                </th>
-                <th style="padding: 10px; border: 1px solid #ddd;">Details</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.BookingTutor)
-            {
-                <tr style="border: 1px solid #ddd; background-color: #f9f9f9;">
-                    <td style="padding: 10px; border: 1px solid #ddd;">
-                        @Html.DisplayFor(modelItem => item.DateStart)
-                    </td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">
-                        @Html.DisplayFor(modelItem => item.DateEnd)
-                    </td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">
-                        @Html.DisplayFor(modelItem => item.ServiceName)
-                    </td>
-                    <td style="padding: 10px; border: 1px solid #ddd;">
-                        @Html.DisplayFor(modelItem => item.StudentName)
-                    </td>
-                    <td style="padding: 10px; border: 1px solid #ddd; text-align:center">
-                        <a asp-page="./ViewBookingDetails" asp-route-id="@item.Id" style="background-color: #2980b9; color: white; padding: 8px 12px; text-decoration: none; border-radius: 4px; display: inline-block;">View</a>
-                    </td>
+<div class="container">
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Service</th>
+                    <th>Tutor</th>
+                    <th>Email</th>
+                    <th>Payment Method</th>
+                    <th>Schedules</th>
+                    <th>Status</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.ProcessingLearning)
+                {
+                    <tr>
+                        <td>@Html.DisplayFor(modelItem => item.DateStart)</td>
+                        <td>@Html.DisplayFor(modelItem => item.DateEnd)</td>
+                        <td>@Html.DisplayFor(modelItem => item.ServiceName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.TutorName)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                        <td>@Html.DisplayFor(modelItem => item.PaymentMethods)</td>
+                        <td>
+                            <ul class="list-unstyled">
+                                @foreach (var slot in item.Schedules)
+                                {
+                                    <li>@slot</li>
+                                }
+                            </ul>
+                        </td>
+                        <td class="text-center">Learning</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <div class="card-footer text-end">
+        <a asp-page="/Index" class="btn btn-secondary">Back to Index</a>
+    </div>
 </div>

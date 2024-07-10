@@ -1,4 +1,8 @@
-﻿using BusinessObjects.Models;
+
+using BusinessObjects.Enums.User;
+using BusinessObjects.Models;
+
+using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer
 {
@@ -10,7 +14,9 @@ namespace DataAccessLayer
             try
             {
                 using var context = new OnDemandTutorDbContext();
-                listTutor = context.Tutors.ToList();
+                listTutor = context.Tutors.Include(x => x.TutorServices)
+                    .ThenInclude(sv => sv.Service).ToList();
+
             }
             catch (Exception ex)
             {
@@ -54,26 +60,82 @@ namespace DataAccessLayer
         }
         public static Tutor GetTutorById(int tutorId)
         {
-            using var db = new OnDemandTutorDbContext();
-            return
-                db.Tutors.FirstOrDefault(c => c.TutorId.Equals(tutorId));
+            using var context = new OnDemandTutorDbContext();
+            return context.Tutors
+                            .Include(t => t.TutorServices)
+                             .ThenInclude(ts => ts.Service)
+                            .Include(t => t.Achievements)
+                            .FirstOrDefault(t => t.TutorId == tutorId);
         }
         public static void DeleteTutor(short tutorId)
         {
+            using var context = new OnDemandTutorDbContext();
+            var tutor = context.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor == null)
+            {
+                throw new InvalidOperationException($"Tutor with ID {tutorId} not found.");
+            }
+            tutor.Status = UserStatus.InActive;
+
             try
             {
-                using var context = new OnDemandTutorDbContext();
-                var tutor = context.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
-                if (tutor != null)
-                {
-                    context.Tutors.Remove(tutor);
-                    context.SaveChanges();
-                }
+                context.SaveChanges();
+            }
+            catch (DbUpdateException dbe)
+            {
+                throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                throw new Exception("An unexpected error occurred.", ex);
             }
         }
+
+        public static List<Tutor> GetTutorByIncompleteStatus()
+        {
+            using var db = new OnDemandTutorDbContext();
+            return db.Tutors.Where(c => c.Status == "Incomplete").ToList();
+        }
+
+        public static async Task<List<Tutor>> GetTutorByPendingStatus()
+        {
+            using var db = new OnDemandTutorDbContext();
+            return db.Tutors.Where(c => c.Status == "Pending").ToList();
+        }
+
+        public static Tutor ChangeStatusToPending(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Pending";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+        public static Tutor ChangeStatusToIncomplete(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Incomplete";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+        public static Tutor ChangeStatusToActive(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                tutor.Status = "Active";
+                db.SaveChanges();
+            }
+            return tutor;
+        }
+
     }
 }

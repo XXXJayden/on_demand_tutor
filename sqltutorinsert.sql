@@ -2,11 +2,11 @@
 GO
 
 -- Thêm dữ liệu vào bảng Tutor
-INSERT INTO Tutor (Fullname, Password, Email, Status, Description, Major, Grade)
+INSERT INTO Tutor (Fullname, Password, Email, Status, Description, Major, Grade, Avatar)
 VALUES
-('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics','10th'),
-('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics','11th'),
-('Emily Johnson', 'password789', 'emily.johnson@example.com', 'Inactive', 'Experienced in Chemistry', 'Chemistry','12th');
+('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics','10',''),
+('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics','11',''),
+('Emily Johnson', 'password789', 'emily.johnson@example.com', 'Inactive', 'Experienced in Chemistry', 'Chemistry','12','');
 GO
 
 -- Thêm dữ liệu vào bảng Student
@@ -68,25 +68,33 @@ VALUES
 GO
 
 -- Thêm dữ liệu vào bảng Schedule
-INSERT INTO Schedule (Date, Slot)
+INSERT INTO Schedule ( Slot)
 VALUES
-('2024-01-01', 'Morning'),
-('2024-02-01', 'Afternoon'),
-('2024-03-01', 'Evening');
+( 'Slot 1'),
+( 'Slot 2'),
+( 'Slot 3'),
+( 'Slot 4'),
+( 'Slot 5'),
+( 'Slot 6');
 GO
 
 -- Thêm dữ liệu vào bảng BookingSchedule
-INSERT INTO BookingSchedule (BookingID, ScID)
+INSERT INTO BookingSchedule (BookingID, ScID, Date)
 VALUES
-(1, 1),
-(2, 2),
-(3, 3);
+(1, 1, '2024-01-02'),
+(2, 2, '2024-04-10'),
+(3, 3, '2024-06-17');
 GO
 
 -- Thêm dữ liệu vào bảng Moderator
-INSERT INTO Moderator (Fullname, Password, Email)
+INSERT INTO Moderator (Fullname, Password, Email, Status)
 VALUES
-('Admin One', 'admin123', 'admin.one@example.com'),
-('Admin Two', 'admin456', 'admin.two@example.com'),
-('Admin Three', 'admin789', 'admin.three@example.com');
+('Admin One', 'admin123', 'admin.one@example.com', 'Active'),
+('Admin Two', 'admin456', 'admin.two@example.com', 'Active'),
+('Admin Three', 'admin789', 'admin.three@example.com', 'Active');
 GO
+
+
+INSERT INTO Report(Detail, Date, Status, Image ,StudentID, TutorID, ServiceID)
+VALUES 
+('Teacher Stupid', '2024-10-24', 'Pending', 'https://i.pinimg.com/564x/f5/7f/99/f57f99bc24a80a25994bead22c65950b.jpg',1 , 1, 1)
