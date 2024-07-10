@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BusinessObjects.CustomAttribute;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,6 +12,7 @@ namespace BusinessObjects.DTO.Tutor
     {
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
+        [AdminKeywordValidation(ErrorMessage = "Email can't contain 'admin' keyword")]
         public string Email { get; set; }
         public string? Password { get; set; }
 
@@ -24,6 +26,7 @@ namespace BusinessObjects.DTO.Tutor
         public string Description { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
+        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
         public string Grade { get; set; }
 
     }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.IO;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+﻿using BusinessObjects.Enums.Report;
 using BusinessObjects.Models;
+using Microsoft.AspNetCore.Mvc;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ReportServices;
-using BusinessObjects.Enums.Report;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ReportModel : PageModel
+    public class ReportModel : AuthenPageModel
     {
         private readonly IReportService _reportService;
         private readonly FireBaseStorage _fireBaseStorage;

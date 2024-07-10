@@ -1,12 +1,10 @@
 ﻿using BusinessObjects.DTO.Tutor;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.TutorServices;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
 {
-    public class PendingIndexModel : PageModel
+    public class PendingIndexModel : AuthenPageModel
     {
         private readonly ITutorAccountService _tutorAccountService;
         public IList<TutorViewDTO> PendingTutors { get; set; } = default!;

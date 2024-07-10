@@ -2,6 +2,7 @@
 @model On_Demand_Tutor_UI.Pages.Admin.Create_AccModModel
 
 @{
+    Layout = "_Layout_Admin";
     ViewData["Title"] = "Create_AccMod";
     Layout = "_Layout_Admin";
 
@@ -38,7 +39,7 @@
 </div>
 
 <div>
-    <a asp-page="Index">Back to List</a>
+    <a asp-page="/Admin/Admin_Index">Back</a>
 </div>
 
 @section Scripts {

@@ -14,5 +14,6 @@ namespace Services.StudentServices
         void UpdateStudent(Student student);
         void DeleteStudent(short studentId);
         Student GetStudentById(int studentId);
+        (int ActiveStudent, int InactiveStudent) GetStudentQuantity();
     }
 }

@@ -1,12 +1,12 @@
 ﻿using BusinessObjects.DTO.Mod;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ModService;
 using Services.Sercurity;
 
 namespace On_Demand_Tutor_UI.Pages.Admin
 {
-    public class Create_AccModModel : PageModel
+    public class Create_AccModModel : AuthenPageModel
     {
         private readonly IModService _modService;
         private readonly PasswordHasher _hasher;
@@ -32,8 +32,6 @@ namespace On_Demand_Tutor_UI.Pages.Admin
             {
                 return Page();
             }
-
-            // Check if the email already exists
             var existingModerator = _modService.GetModByEmail(Moderator.Email);
             if (existingModerator != null)
             {

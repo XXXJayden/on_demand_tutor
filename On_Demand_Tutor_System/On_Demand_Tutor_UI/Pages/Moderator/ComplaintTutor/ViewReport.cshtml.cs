@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BusinessObjects.Models;
-using Services.ReportServices;
+﻿using BusinessObjects.DTO.Report;
 using BusinessObjects.Enums.Report;
-using BusinessObjects.DTO.Report;
+using On_Demand_Tutor_UI.Pages.AccountPages;
+using Services.ReportServices;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
 {
-    public class ViewReportModel : PageModel
+    public class ViewReportModel : AuthenPageModel
     {
         private readonly IReportService _reportService;
 
@@ -21,7 +14,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
             _reportService = reportService;
         }
 
-        public IList<ReportListDTO> ReportList { get;set; } = default!;
+        public IList<ReportListDTO> ReportList { get; set; } = default!;
 
         public async Task OnGetAsync()
         {
@@ -32,7 +25,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
                 {
                     Id = x.Id,
                     Date = x.Date,
-                    Detail  = x.Detail,
+                    Detail = x.Detail,
                     ServiceName = x.Service.Service1,
                     TutorName = x.Tutor.Fullname,
                     StudentName = x.Student.Fullname,

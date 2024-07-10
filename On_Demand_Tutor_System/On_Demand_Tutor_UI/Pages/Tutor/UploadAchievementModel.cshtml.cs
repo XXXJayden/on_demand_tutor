@@ -1,19 +1,13 @@
 using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.AchievementServices;
 using Services.TutorServices;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
-    public class UploadAchievementModel : PageModel
+    public class UploadAchievementModel : AuthenPageModel
     {
         private readonly FireBaseStorage _fireBaseStorage;
         private readonly IAchievementService _achievementService;

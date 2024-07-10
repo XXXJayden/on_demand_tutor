@@ -1,19 +1,14 @@
 using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ServiceServices;
-using Services.Tutors;
 using Services.TutorServices;
-using BusinessObjects.Enums.User;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class LookingTutorModel : PageModel
+    public class LookingTutorModel : AuthenPageModel
     {
         private readonly IServiceServices _serviceServices;
         private readonly ITutorAccountService _tutorAccountService;
@@ -71,7 +66,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
         public async Task<IActionResult> OnPostAsync()
         {
             LoadTutor(SearchTutor);
-            Services = _serviceServices.GetAllServices(); 
+            Services = _serviceServices.GetAllServices();
             return Page();
         }
     }

@@ -1,13 +1,12 @@
-﻿using System.Threading.Tasks;
+﻿using BusinessObjects.DTO.Report;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ReportServices;
-using BusinessObjects.DTO.Report;
 using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
 {
-    public class ViewDetailReportModel : PageModel
+    public class ViewDetailReportModel : AuthenPageModel
     {
         private readonly IReportService _reportService;
         private readonly ITutorAccountService _tutorAccountService;
@@ -59,7 +58,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
             var report = _reportService.GetReportById(Id);
             if (report != null)
             {
-                report.Status = "Approve"; 
+                report.Status = "Approve";
                 _reportService.UpdateStatus(report);
                 _tutorAccountService.DeleteTutor(TutorId);
             }

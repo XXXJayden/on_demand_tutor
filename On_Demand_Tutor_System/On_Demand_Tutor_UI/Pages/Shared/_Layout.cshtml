@@ -1,5 +1,4 @@
 ﻿<!DOCTYPE html>
-@RenderSection("Scripts", required: false)
 <html lang="en">
 <head>
     <meta charset="utf-8">
@@ -26,6 +25,19 @@
 
     <!-- Custom Stylesheet -->
     <link href="~/css/custom.css" rel="stylesheet">
+
+    <style>
+        .btn-logout {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: white;
+        }
+
+            .btn-logout:hover {
+                background-color: #c82333;
+                border-color: #bd2130;
+            }
+    </style>
 </head>
 @{
     bool isLoggedIn = Context.Session.GetString("UserEmail") != null;
@@ -41,6 +53,9 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
+                <a href="/Student/LookingTutor" class="nav-item nav-link">Book now</a>
+                <a href="https://www.facebook.com/nguyenvitien161" class="nav-item nav-link">Contact</a>
+       
                 @if (!isLoggedIn)
                 {
                     <a href="/AccountPages/LoginPage" class="btn btn-primary py-4 px-lg-5 d-none d-lg-block">Join Now<i class="fa fa-arrow-right ms-3"></i></a>
@@ -53,6 +68,7 @@
                     <a href="/Student/ViewProcessingLearning" class="nav-item nav-link">Your Learning</a>
                     <a href="/Student/ViewWaitingApprove" class="nav-item nav-link">View Waiting Tutor</a>
                     <a href="/Student/ViewHistoryComplete" class="nav-item nav-link">View History Learning</a>
+                    <a href="/Index?handler=Logout" class="btn btn-logout py-4 px-lg-5 d-none d-lg-block">Logout<i class="fa fa-sign-out-alt ms-3"></i></a>
                 }
             </div>
         </div>
@@ -73,5 +89,6 @@
     <a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="bi bi-arrow-up"></i></a>
 
     <!-- JavaScript Libraries -->
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

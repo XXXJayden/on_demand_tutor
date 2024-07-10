@@ -2,19 +2,14 @@
 using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.FeedBackServices;
 using Services.StudentServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ViewHistoryComplete : PageModel
+    public class ViewHistoryComplete : AuthenPageModel
     {
         private readonly IBookingService _bookingService;
         private readonly IStudentService _studentService;

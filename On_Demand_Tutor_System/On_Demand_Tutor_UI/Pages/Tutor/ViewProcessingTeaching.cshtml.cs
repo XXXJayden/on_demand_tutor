@@ -1,13 +1,13 @@
 ﻿using BusinessObjects.DTO.Booking;
 using BusinessObjects.Enums.Booking;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
-    public class ViewProcessingTeachingModel : PageModel
+    public class ViewProcessingTeachingModel : AuthenPageModel
     {
         private readonly IBookingService _bookingService;
         private readonly ITutorAccountService _tutorService;

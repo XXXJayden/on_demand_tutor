@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using BusinessObjects.Models;
+using On_Demand_Tutor_UI.Pages.AccountPages;
+using Services.ServiceServices;
 using Services.Tutors;
 using Services.TutorServices;
 using Services.ServiceServices;
@@ -13,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
-    public class CreateServiceModel : PageModel
+    public class CreateServiceModel : AuthenPageModel
     {
         private readonly ITutorService _tutorService;
         private readonly IServiceServices _serviceServices;
