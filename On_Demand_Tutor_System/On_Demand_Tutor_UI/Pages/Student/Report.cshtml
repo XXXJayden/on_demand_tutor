@@ -3,21 +3,33 @@
 @{
 }
 
-<h2 class="mb-4">Submit Report</h2>
+<div class="container mt-5">
+    <h2 class="mb-4 text-center" style="color: #2c3e50; font-family: Arial, sans-serif;">Submit Report</h2>
 
-<form method="post" enctype="multipart/form-data">
-    <div class="mb-3">
-        <label for="detail" class="form-label">Detail:</label>
-        <textarea id="detail" name="Report.Detail" class="form-control" required></textarea>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <form method="post" enctype="multipart/form-data">
+                <div class="mb-3">
+                    <label for="detail" class="form-label">Detail:</label>
+                    <textarea id="detail" name="Report.Detail" class="form-control" rows="4" required></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="imageFile" class="form-label">Image:</label>
+                    <input type="file" id="imageFile" name="ImageFile" class="form-control" />
+                </div>
+                <div class="d-grid gap-2">
+                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                </div>
+            </form>
+        </div>
     </div>
-    <div class="mb-3">
-        <label for="imageFile" class="form-label">Image:</label>
-        <input type="file" id="imageFile" name="ImageFile" class="form-control" />
-    </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
 
-@if (!string.IsNullOrEmpty(Model.Message))
-{
-    <div class="alert alert-info mt-3">@Model.Message</div>
-}
+    <div class="text-end mt-3">
+        <a asp-page="/Student/ViewHistoryComplete" class="btn btn-outline-secondary btn-lg">Back to Index</a>
+    </div>
+
+    @if (!string.IsNullOrEmpty(Model.Message))
+    {
+        <div class="alert alert-info mt-3">@Model.Message</div>
+    }
+</div>

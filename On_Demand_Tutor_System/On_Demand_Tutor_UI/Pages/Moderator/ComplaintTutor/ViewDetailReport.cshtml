@@ -55,11 +55,11 @@
 </div>
 
 <form method="post" asp-page-handler="Cancel">
-    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" />
+    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
     <button type="submit" class="btn btn-warning">Cancel Report</button>
 </form>
 
 <form method="post" asp-page-handler="Ban">
-    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" />
+    <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to ban this tutor?');">Ban Account Tutor</button>
 </form>

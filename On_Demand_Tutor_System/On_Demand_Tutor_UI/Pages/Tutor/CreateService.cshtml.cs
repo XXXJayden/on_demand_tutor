@@ -9,6 +9,7 @@ using BusinessObjects.Models;
 using Services.Tutors;
 using Services.TutorServices;
 using Services.ServiceServices;
+using Microsoft.EntityFrameworkCore;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
@@ -57,24 +58,42 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         {
             var accTutor = HttpContext.Session.GetString("UserEmail");
             var tutorAll = _tutorAccountService.GetTutorByEmail(accTutor);
-
-            var tutorServices = _tutorService.GetTutorServices().Where(ts => ts.TutorId == tutorAll.TutorId).ToList();
-            TutorServices = tutorServices;
-
-            var availableServices = _serviceServices.GetAllServices().Where(s => !tutorServices.Select(ts => ts.ServiceId).Contains(s.Id)).ToList();
-
-            if (TutorService.Price == null)
+            if (TutorService.Price < 100000 || TutorService.Price > 200000)
             {
+                ModelState.AddModelError("TutorService.Price", "Price must be between 100,000 and 200,000 Vnđ.");
+
+                var tutorServices = _tutorService.GetTutorServices().Where(ts => ts.TutorId == tutorAll.TutorId).ToList();
+                TutorServices = tutorServices;
+
+                var availableServices = _serviceServices.GetAllServices().Where(s => !tutorServices.Select(ts => ts.ServiceId).Contains(s.Id)).ToList();
                 ViewData["Service"] = new SelectList(availableServices, "Id", "Service1");
+
                 return Page();
             }
 
             TutorService.TutorId = tutorAll.TutorId;
             TutorService.ServiceId = Service.Id;
 
-            _tutorService.AddTutorService(TutorService);
+            try
+            {
+                _tutorService.AddTutorService(TutorService);
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "An error occurred while saving the service. Please ensure the price is within the valid range.");
+
+                var tutorServices = _tutorService.GetTutorServices().Where(ts => ts.TutorId == tutorAll.TutorId).ToList();
+                TutorServices = tutorServices;
+
+                var availableServices = _serviceServices.GetAllServices().Where(s => !tutorServices.Select(ts => ts.ServiceId).Contains(s.Id)).ToList();
+                ViewData["Service"] = new SelectList(availableServices, "Id", "Service1");
+
+                return Page();
+            }
+
             return RedirectToPage();
         }
+
 
         public async Task<IActionResult> OnPostDeleteAsync(int Id)
         {

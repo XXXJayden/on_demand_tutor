@@ -43,9 +43,9 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
             return Page();
         }
 
-        public IActionResult OnPostCancel(short TutorId)
+        public IActionResult OnPostCancel(short TutorId, int Id)
         {
-            var report = _reportService.GetReportById(TutorId);
+            var report = _reportService.GetReportById(Id);
             if (report != null)
             {
                 report.Status = "Cancel";
@@ -54,9 +54,9 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
             return RedirectToPage("/Moderator/Index");
         }
 
-        public IActionResult OnPostBan(short TutorId)
+        public IActionResult OnPostBan(short TutorId, int Id)
         {
-            var report = _reportService.GetReportById(TutorId);
+            var report = _reportService.GetReportById(Id);
             if (report != null)
             {
                 report.Status = "Approve"; 

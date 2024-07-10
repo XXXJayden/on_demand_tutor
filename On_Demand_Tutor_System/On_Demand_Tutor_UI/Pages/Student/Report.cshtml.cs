@@ -70,7 +70,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                 Message = $"Error: {ex.Message}";
             }
 
-            return RedirectToPage("/Student/ViewProcessingLearning");
+            return RedirectToPage("/Student/ViewHistoryComplete");
         }
 
     }

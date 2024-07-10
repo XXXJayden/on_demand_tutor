@@ -9,7 +9,7 @@
 
 <div class="container">
     <div class="table-responsive">
-        <table class="table table-bordered table-striped">
+        <table class="table table-hover table-bordered">
             <thead class="thead-dark">
                 <tr>
                     <th>@Html.DisplayNameFor(model => model.LearningComplete[0].DateStart)</th>
@@ -41,8 +41,8 @@
                             </ul>
                         </td>
                         <td class="text-center">
-                            <a asp-page="/Student/Report" asp-route-StudentId="@item.StudentId" asp-route-ServiceId="@item.ServiceId"  asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="btn btn-primary btn-sm">Report</a>
-                            <button type="button" class="btn btn-primary btn-sm" onclick="openFeedbackModal(@item.Id, @item.StudentId, @item.TutorId)">Feedback</button>
+                            <a asp-page="/Student/Report" asp-route-StudentId="@item.StudentId" asp-route-ServiceId="@item.ServiceId" asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="btn btn-primary btn-sm mb-1">Report</a>
+                            <button type="button" class="btn btn-info btn-sm" onclick="openFeedbackModal(@item.Id, @item.StudentId, @item.TutorId)">Feedback</button>
                         </td>
                     </tr>
                 }
@@ -51,7 +51,7 @@
     </div>
 </div>
 
-<!-- Feedback  -->
+<!-- Feedback Modal -->
 <div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -110,7 +110,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
 
 <script>
     function openFeedbackModal(bookingId, studentId, tutorId) {

@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace BusinessObjects.Models;
-
-public partial class TutorService
+namespace BusinessObjects.Models
 {
-    public int Id { get; set; }
+    public partial class TutorService
+    {
+        public int Id { get; set; }
 
-    public int ServiceId { get; set; }
+        public int ServiceId { get; set; }
 
-    public int TutorId { get; set; }
+        public int TutorId { get; set; }
 
-    public decimal Price { get; set; }
+        public decimal Price { get; set; }
 
-    public virtual Service Service { get; set; } = null!;
+        public virtual Service Service { get; set; } = null!;
 
-    public virtual Tutor Tutor { get; set; } = null!;
+        public virtual Tutor Tutor { get; set; } = null!;
+    }
 }

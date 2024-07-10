@@ -2,7 +2,46 @@
 @model On_Demand_Tutor_UI.Pages.Admin.Admin_IndexModel
 @{
     Layout = "_Layout_Admin";
-    ViewData["Admin"] = "Admin Dashboard";
+    ViewData["Title"] = "Admin Dashboard";
 }
-<a href="/Admin/GetAccount" class="nav-item nav-link">Get All Account</a>
-<a href="/Admin/Create_AccMod" class="nav-item nav-link">Create</a>
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-primary text-white">
+                    <h2 class="mb-0">Admin Dashboard</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-users fa-3x mb-3 text-primary"></i>
+                                    <h5 class="card-title">Get All Accounts</h5>
+                                    <p class="card-text">View and manage all user accounts.</p>
+                                    <a class="btn btn-primary btn-block" href="/Admin/GetAccount">
+                                        Get All Accounts
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <div class="card h-100">
+                                <div class="card-body text-center">
+                                    <i class="fas fa-user-plus fa-3x mb-3 text-success"></i>
+                                    <h5 class="card-title">Create Account</h5>
+                                    <p class="card-text">Create new user accounts.</p>
+                                    <a class="btn btn-success btn-block" href="/Admin/Create_AccMod">
+                                        Create Account
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

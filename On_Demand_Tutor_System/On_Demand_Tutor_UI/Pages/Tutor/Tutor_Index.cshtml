@@ -1,7 +1,7 @@
 ﻿@page
 @model On_Demand_Tutor_UI.Pages.Tutor.Tutor_IndexModel
 @{
-    Layout = "_Layout_Admin";
+    Layout = "_Layout_Tutor";
     ViewData["Title"] = "Tutor Dashboard";
 }
 
@@ -18,12 +18,12 @@
     <div class="list-group">
         <a href="/Tutor/EditProfile" class="list-group-item list-group-item-action">Edit Profile</a>
         <a href="/Tutor/UploadAchievementModel" class="list-group-item list-group-item-action">Upload Achievement</a>
+        <a href="/Tutor/CreateService" class="list-group-item list-group-item-action">Create Service</a>
 
         @if (Model.TutorStatus == "Active")
         {
             <a href="/Tutor/ViewStudentRegisted" class="list-group-item list-group-item-action">View Student Booking</a>
             <a href="/Tutor/ViewProcessingTeaching" class="list-group-item list-group-item-action">View Student Learning</a>
-            <a href="/Tutor/CreateService" class="list-group-item list-group-item-action">Create Service</a>
 
         }
         else

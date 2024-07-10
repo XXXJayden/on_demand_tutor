@@ -3,6 +3,7 @@
 
 @{
     ViewData["Title"] = "CreateService";
+    Layout = "_Layout_Tutor";
 }
 
 <h1>CreateService</h1>
@@ -45,7 +46,7 @@
             {
                 <tr>
                     <td>@tutorService.Service.Service1</td>
-                    <td>@tutorService.Price</td>
+                    <td>@tutorService.Price.ToString("N0") Vnđ</td>
                     <td>
                         <form method="post" asp-page-handler="Delete">
                             <input type="hidden" name="Id" value="@tutorService.Id" />
@@ -63,7 +64,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    <partial name="_ValidationScriptsPartial" />
 }

@@ -1,8 +1,8 @@
 ﻿@page
-@model On_Demand_Tutor_UI.Pages.Student.ViewProcessingLearningModel
+@model On_Demand_Tutor_UI.Pages.Student.ViewWaitingApprove
 
 @{
-    ViewData["Title"] = "View Processing Learning";
+    ViewData["Title"] = "View Waiting Learning";
 }
 
 <h1 class="text-center my-4" style="color: #2c3e50; font-family: Arial, sans-serif;">View Student Bookings</h1>
@@ -12,18 +12,18 @@
         <table class="table table-bordered table-striped">
             <thead class="thead-dark">
                 <tr>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].DateStart)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].DateEnd)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].ServiceName)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].TutorName)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].Email)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].PaymentMethods)</th>
-                    <th>@Html.DisplayNameFor(model => model.ProcessingLearning[0].Schedules)</th>
-                    <th>Status</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].DateStart)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].DateEnd)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].ServiceName)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].TutorName)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].Email)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].PaymentMethods)</th>
+                    <th>@Html.DisplayNameFor(model => model.WaitingLearning[0].Schedules)</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
-                @foreach (var item in Model.ProcessingLearning)
+                @foreach (var item in Model.WaitingLearning)
                 {
                     <tr>
                         <td>@Html.DisplayFor(modelItem => item.DateStart)</td>
@@ -40,7 +40,12 @@
                                 }
                             </ul>
                         </td>
-                        <td class="text-center">Learning</td>
+                        <td>
+                            <form method="post" onsubmit="return confirmCancel()">
+                                <input type="hidden" name="bookingId" value="@item.Id" />
+                                <button type="submit" class="btn btn-danger" asp-page-handler="Cancel">Cancel</button>
+                            </form>
+                        </td> 
                     </tr>
                 }
             </tbody>
@@ -50,3 +55,11 @@
         <a asp-page="/Index" class="btn btn-secondary">Back to Index</a>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        function confirmCancel() {
+            return confirm('Are you sure you want to cancel this booking?');
+        }
+    </script>
+}
