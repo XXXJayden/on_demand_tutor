@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO.Tutor;
+using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 using Repositories.TutorRepositories;
 
@@ -79,6 +80,21 @@ namespace Services.TutorServices
         public async Task<Tutor> ChangeStatusToActive(int tutorId)
         {
             return _tutorRepository.ChangeStatusToActive(tutorId);
+        }
+
+        public (int ActiveTutor, int InactiveTutor) GetTutorQuantity()
+        {
+            try
+            {
+                var tutor = _tutorRepository.GetAllTutor();
+                int activeTutor = tutor.Count(s => s.Status == UserStatus.Active);
+                int inactiveTutor = tutor.Count(s => s.Status == UserStatus.InActive);
+                return (activeTutor, inactiveTutor);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

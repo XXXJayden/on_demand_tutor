@@ -26,4 +26,56 @@ namespace BusinessObjects.CustomAttribute
             return ValidationResult.Success;
         }
     }
+
+    public class MaxWordsAttribute : ValidationAttribute
+    {
+        private readonly int _maxWords;
+
+        public MaxWordsAttribute(int maxWords)
+        {
+            _maxWords = maxWords;
+            ErrorMessage = $"The field {{0}} must be a string with a maximum of {_maxWords} words.";
+        }
+
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value != null)
+            {
+                var valueAsString = value.ToString();
+                if (valueAsString != null)
+                {
+                    var wordCount = valueAsString.Split(' ').Count();
+                    if (wordCount > _maxWords)
+                    {
+                        return new ValidationResult(ErrorMessage);
+                    }
+                }
+            }
+            return ValidationResult.Success;
+        }
+    }
+
+    public static class CustomValidationMethods
+    {
+        public static ValidationResult ValidateGrade(string grade, ValidationContext context)
+        {
+            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 6 && gradeValue <= 12)
+            {
+                return ValidationResult.Success;
+            }
+            return new ValidationResult("Grade must be between 6 and 12");
+        }
+    }
+
+    public class AdminKeywordValidation : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value is string email && email.Contains("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ValidationResult("Email address cannot contain the keyword 'admin'.");
+            }
+            return ValidationResult.Success;
+        }
+    }
 }

@@ -18,10 +18,12 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
     public class StudentRegisterModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
+        private readonly IConfiguration configuration;
 
-        public StudentRegisterModel(IAccountService accountService)
+        public StudentRegisterModel(IAccountService accountService, IConfiguration configuration)
         {
             this.accountService = accountService;
+            this.configuration = configuration;
         }
 
         public IActionResult OnGet()
@@ -43,17 +45,17 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
 
             if (await accountService.StudentEmailExistsAsync(Student.Email) == true)
             {
-                ModelState.AddModelError("Student.Email", "An account with this email already exists.");
+                ModelState.AddModelError("Student.Email", "An account with this email already exists");
                 return Page();
             }
             if (await accountService.TutorEmailExistsAsync(Student.Email) == true)
             {
-                ModelState.AddModelError("Student.Email", "An account with this email already registered for Tutor.");
+                ModelState.AddModelError("Student.Email", "An account with this email already registered for Tutor");
                 return Page();
             }
             if (await accountService.PhoneNumberExistsAsync(Student.Phone) == true)
             {
-                ModelState.AddModelError("Student.Phone", "An account with this phone number already exists.");
+                ModelState.AddModelError("Student.Phone", "An account with this phone number already exists");
                 return Page();
             }
 

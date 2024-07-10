@@ -1,4 +1,5 @@
-﻿using BusinessObjects.Models;
+﻿using BusinessObjects.Enums.Booking;
+using BusinessObjects.Models;
 using Repositories.BookingRepository;
 
 namespace Services.BookingService
@@ -44,6 +45,25 @@ namespace Services.BookingService
         public void UpdateBooking(Booking booking)
         {
             bookingRepository.UpdateBooking(booking);
+        }
+
+        public (int Complete, int Pending, int Approve, int Cancel, int Processing) GetBookingStatusCounts()
+        {
+            try
+            {
+                var bookings = bookingRepository.GetAllBooking();
+                return (
+                    Complete: bookings.Count(b => b.Status == BookingStatus.Complete),
+                    Pending: bookings.Count(b => b.Status == BookingStatus.Pending),
+                    Approve: bookings.Count(b => b.Status == BookingStatus.Approve),
+                    Cancel: bookings.Count(b => b.Status == BookingStatus.Cancel),
+                    Processing: bookings.Count(b => b.Status == BookingStatus.Proccessing)
+                );
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

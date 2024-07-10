@@ -15,5 +15,6 @@ namespace Services.FeedBackServices
         void DeleteFeedback(short feedbackId);
         Feedback GetFeedbackById(short feedbackId);
         Task<bool> AddFeedbackAsync(Feedback feedback);
+        (double OneStar, double TwoStar, double ThreeStar, double FourStar, double FiveStar) GetRatingPercentages();
     }
 }

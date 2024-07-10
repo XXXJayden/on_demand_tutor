@@ -15,10 +15,12 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
     public class TutorRegisterModel : TrimmedPageModel
     {
         private readonly IAccountService accountService;
+        private readonly IConfiguration configuration;
 
         public TutorRegisterModel(IAccountService accountservice)
         {
             this.accountService = accountservice;
+            this.configuration = configuration;
         }
 
         public IActionResult OnGet()

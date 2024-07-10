@@ -1,0 +1,206 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Admin.DashboardModel
+@{
+    var data = Model.Dashboard;
+    var ratingData = new List<(string Label, double Value)>
+    {
+        ("1 Star", data.OneStar),
+        ("2 Stars", data.TwoStar),
+        ("3 Stars", data.ThreeStar),
+        ("4 Stars", data.FourStar),
+        ("5 Stars", data.FiveStar)
+    }.Where(r => r.Value > 0).ToList();
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .dashboard-header {
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            color: #333;
+            margin: 0;
+        }
+
+        .charts-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .chart-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+        }
+
+        .chart-title {
+            font-size: 18px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .chart-container {
+            height: 300px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Admin Dashboard</h1>
+        </div>
+        <div class="charts-container">
+            <div class="chart-card">
+                <h2 class="chart-title">Active/ Inactive Users</h2>
+                <div class="chart-container">
+                    <canvas id="statusDoughnutChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h2 class="chart-title">Booking Distribution</h2>
+                <div class="chart-container">
+                    <canvas id="statusBarChart"></canvas>
+                </div>
+            </div>
+            <div class="chart-card">
+                <h2 class="chart-title">Feedback Rating</h2>
+                <div class="chart-container">
+                    <canvas id="ratingPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        Chart.defaults.font.family = "'Roboto', sans-serif";
+        Chart.defaults.color = '#333';
+
+        var doughnutCtx = document.getElementById('statusDoughnutChart').getContext('2d');
+        var statusDoughnutChart = new Chart(doughnutCtx, {
+            type: 'doughnut',
+            data: {
+                labels: ['Active Students', 'Inactive Students', 'Active Tutors', 'Inactive Tutors'],
+                datasets: [{
+                    data: [@data.ActiveStudent, @data.InactiveStudent, @data.ActiveTutor, @data.InactiveTutor],
+                    backgroundColor: ['#4e79a7', '#f28e2c', '#e15759', '#76b7b2'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+
+        var barCtx = document.getElementById('statusBarChart').getContext('2d');
+        var statusBarChart = new Chart(barCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Complete', 'Pending', 'Approve', 'Cancel', 'Processing'],
+                datasets: [{
+                    label: 'Booking Status',
+                    data: [@data.Complete, @data.Pending, @data.Approve, @data.Cancel, @data.Processing],
+                    backgroundColor: ['#4e79a7', '#f28e2c', '#e15759', '#76b7b2', '#59a14f'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            precision: 0
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false,
+                    },
+                    datalabels: {
+                        anchor: 'end',
+                        align: 'top',
+                        formatter: (value) => value
+                    }
+                }
+            },
+            plugins: [ChartDataLabels]
+        });
+
+
+        var ratingPieCtx = document.getElementById('ratingPieChart').getContext('2d');
+        var ratingPieChart = new Chart(ratingPieCtx, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Json.Serialize(ratingData.Select(r => r.Label))),
+                datasets: [{
+                    data: @Html.Raw(Json.Serialize(ratingData.Select(r => r.Value))),
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                return tooltipItem.label + ': ' + tooltipItem.raw + '%';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
