@@ -26,10 +26,9 @@
         </select>
     </div>
 </form>
-
-<p>
-    <a asp-page="/Admin/Admin_Index">Back</a>
-</p>
+<div class="text-center mt-3">
+    <a asp-page="/Admin/Admin_Index" class="btn btn-secondary">Back to Index</a>
+</div>
 
 @if (Model.GetAccountDTO != null && Model.GetAccountDTO.Any())
 {

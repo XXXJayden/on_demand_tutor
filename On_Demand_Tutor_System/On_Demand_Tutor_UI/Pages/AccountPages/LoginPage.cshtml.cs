@@ -40,7 +40,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             var adminPassword = _configuration["AdminAccount:Password"];
             if (Email == adminEmail && Password == adminPassword)
             {
-                HttpContext.Session.SetString("UserRole", "Admin");
+                HttpContext.Session.SetString("UserType", "Admin");
                 HttpContext.Session.SetString("UserEmail", Email);
                 return RedirectToPage("/Admin/Admin_Index");
             }
