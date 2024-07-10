@@ -1,17 +1,10 @@
 ﻿using BusinessObjects.DTO.Tutor;
-using BusinessObjects.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.TutorServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator.IncompleteTutor
 {
-    public class IncompleteIndex : PageModel
+    public class IncompleteIndex : AuthenPageModel
     {
         private readonly ITutorAccountService _tutorAccountService;
 

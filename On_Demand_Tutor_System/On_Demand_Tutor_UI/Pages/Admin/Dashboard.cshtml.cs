@@ -1,7 +1,5 @@
 using BusinessObjects.DTO.Admin;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Services.AccountService;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.FeedBackServices;
 using Services.StudentServices;
@@ -9,7 +7,7 @@ using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Admin
 {
-    public class DashboardModel : PageModel
+    public class DashboardModel : AuthenPageModel
     {
         private readonly IStudentService _studentService;
         private readonly ITutorAccountService _tutorService;

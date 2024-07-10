@@ -1,16 +1,10 @@
-﻿using BusinessObjects.Models;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Mvc;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.TutorServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
 {
-    public class PendingDetails : PageModel
+    public class PendingDetails : AuthenPageModel
     {
         private readonly ITutorAccountService _tutorAccountService;
 

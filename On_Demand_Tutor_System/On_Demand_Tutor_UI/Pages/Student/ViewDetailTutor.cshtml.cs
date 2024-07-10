@@ -1,27 +1,19 @@
 using BusinessObjects.DTO.Service;
-using BusinessObjects.DTO.Student;
 using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
-using DataAccessLayer;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingScheduleService;
 using Services.BookingService;
 using Services.ScheduleService;
 using Services.ServiceServices;
 using Services.StudentServices;
-using Services.Tutors;
 using Services.TutorServices;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ViewDetailTutorModel : PageModel
+    public class ViewDetailTutorModel : AuthenPageModel
     {
         private readonly ITutorAccountService _tutorAccountService;
         private readonly IScheduleService _scheduleService;
@@ -38,7 +30,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             _serviceService = serviceServices;
             _bookingService = bookingService;
             _bookingScheduleService = bookingScheduleService;
-            
+
         }
 
         public TutorDetailResponse TutorDetails { get; set; } = new TutorDetailResponse();
@@ -117,8 +109,8 @@ namespace On_Demand_Tutor_UI.Pages.Student
 
             var bookingSchedule = new BookingSchedule
             {
-                BookingId = booking.Id, 
-                ScId = scService.Id, 
+                BookingId = booking.Id,
+                ScId = scService.Id,
                 Date = selectedDate,
             };
             _bookingScheduleService.AddBookingSchedule(bookingSchedule);

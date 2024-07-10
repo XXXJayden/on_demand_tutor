@@ -1,14 +1,13 @@
 using BusinessObjects.DTO.Booking;
 using BusinessObjects.DTO.Student;
 using BusinessObjects.Enums.Booking;
-using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
-    public class ViewBookingDetailsModel : PageModel
+    public class ViewBookingDetailsModel : AuthenPageModel
     {
         private readonly IBookingService _bookingService;
 
@@ -87,5 +86,5 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
             return RedirectToPage("/Tutor/ViewStudentRegisted");
 
         }
-        }
+    }
 }

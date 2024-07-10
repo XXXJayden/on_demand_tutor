@@ -1,14 +1,14 @@
 ﻿using BusinessObjects.DTO.Admin;
 using BusinessObjects.Enums.User;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ModService;
 using Services.StudentServices;
 using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Admin
 {
-    public class DeleteAccountModel : PageModel
+    public class DeleteAccountModel : AuthenPageModel
     {
         private readonly ITutorAccountService _tutorService;
         private readonly IStudentService _studentService;

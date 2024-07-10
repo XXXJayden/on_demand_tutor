@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.EntityFrameworkCore;
-using BusinessObjects.Models;
-using BusinessObjects.DTO.Booking;
+﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
+using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.StudentServices;
-using BusinessObjects.Enums.Booking;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
-    public class ViewProcessingLearningModel : PageModel
+    public class ViewProcessingLearningModel : AuthenPageModel
     {
         private readonly IBookingService _bookingService;
         private readonly IStudentService _studentService;
