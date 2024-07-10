@@ -32,8 +32,6 @@ namespace On_Demand_Tutor_UI.Pages.Admin
             {
                 return Page();
             }
-
-            // Check if the email already exists
             var existingModerator = _modService.GetModByEmail(Moderator.Email);
             if (existingModerator != null)
             {
