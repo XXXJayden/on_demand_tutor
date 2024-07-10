@@ -66,4 +66,16 @@ namespace BusinessObjects.CustomAttribute
             return new ValidationResult("Grade must be between 6 and 12");
         }
     }
+
+    public class AdminKeywordValidation : ValidationAttribute
+    {
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
+        {
+            if (value is string email && email.Contains("admin", StringComparison.OrdinalIgnoreCase))
+            {
+                return new ValidationResult("Email address cannot contain the keyword 'admin'.");
+            }
+            return ValidationResult.Success;
+        }
+    }
 }

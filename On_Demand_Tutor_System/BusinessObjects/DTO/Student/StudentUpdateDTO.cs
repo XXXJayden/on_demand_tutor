@@ -12,6 +12,7 @@ namespace BusinessObjects.DTO.Student
     {
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
+        [AdminKeywordValidation(ErrorMessage = "Email can't contain 'admin' keyword")]
         public string Email { get; set; }
         public string? Password { get; set; }
 

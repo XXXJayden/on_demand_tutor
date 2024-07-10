@@ -21,6 +21,7 @@ namespace BusinessObjects.DTO.Tutor
 
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
+        [AdminKeywordValidation(ErrorMessage = "Email can't contain 'admin' keyword")]
         public string Email { get; set; } = null!;
 
         public string Status { get; set; } = UserStatus.Incomplete;
@@ -35,15 +36,6 @@ namespace BusinessObjects.DTO.Tutor
         [Required(ErrorMessage = "You must enter your grade")]
         [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
         public string Grade { get; set; }
-
-        public static ValidationResult ValidateGrade(string grade, ValidationContext context)
-        {
-            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 6 && gradeValue <= 12)
-            {
-                return ValidationResult.Success;
-            }
-            return new ValidationResult("Grade must be between 6 and 12");
-        }
 
     }
 }
