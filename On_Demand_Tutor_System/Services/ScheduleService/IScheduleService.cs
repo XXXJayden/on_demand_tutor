@@ -12,6 +12,6 @@ namespace Services.ScheduleService
 
         void DeleteSchedule(Schedule schedule);
 
-        Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date);
+        Task<List<string>> GetAvailableSlotsAsync(int tutorId, int studentId, string date);
     }
 }

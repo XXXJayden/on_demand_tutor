@@ -12,6 +12,6 @@ namespace Repositories.ScheduleRepository
 
         void DeleteSchedule(Schedule schedule);
 
-        Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date);
+        Task<List<string>> GetAvailableSlotsAsync(int tutorId,int StudentId ,string date);
     }
 }

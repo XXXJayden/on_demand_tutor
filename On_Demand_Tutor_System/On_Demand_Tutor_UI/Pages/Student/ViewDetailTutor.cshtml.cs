@@ -10,6 +10,7 @@ using Services.ScheduleService;
 using Services.ServiceServices;
 using Services.StudentServices;
 using Services.TutorServices;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
@@ -52,7 +53,8 @@ namespace On_Demand_Tutor_UI.Pages.Student
             {
                 return NotFound();
             }
-
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            var accStudent = _studentService.GetStudentByEmail(userEmail);
             TutorDetails = new TutorDetailResponse
             {
                 TutorId = tutor.TutorId,
@@ -73,7 +75,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             if (date.HasValue)
             {
                 string dateString = date.Value.ToString("yyyy-MM-dd");
-                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId, dateString);
+                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId,accStudent.StudentId ,dateString);
             }
 
             return Page();
@@ -81,41 +83,82 @@ namespace On_Demand_Tutor_UI.Pages.Student
 
         public async Task<IActionResult> OnGetFetchSlotsAsync(short tutorId, string date)
         {
-            var availableSlots = await _scheduleService.GetAvailableSlotsAsync(tutorId, date);
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            var accStudent = _studentService.GetStudentByEmail(userEmail);
+            var availableSlots = await _scheduleService.GetAvailableSlotsAsync(tutorId, accStudent.StudentId,date);
             return new JsonResult(availableSlots);
         }
 
         public async Task<IActionResult> OnPostAsync(string selectedService, string selectedDate, string selectedSlot, string selectedPaymentMethod, short id)
         {
-
-            var userEmail = HttpContext.Session.GetString("UserEmail");
-            var accStudent = _studentService.GetStudentByEmail(userEmail);
-            var serviceId = _serviceService.GetServiceIdByName(selectedService);
-
-            var booking = new Booking
+            DateOnly parsedDate;
+            DateOnly.TryParse(selectedDate, out parsedDate);
+            if (string.IsNullOrEmpty(selectedDate))
             {
-                StudentId = accStudent.StudentId,
-                DateStart = DateOnly.Parse(selectedDate),
-                DateEnd = DateOnly.Parse(selectedDate),
-                PaymentMethods = selectedPaymentMethod,
-                ServiceId = serviceId.Id,
-                TutorId = id,
-                Status = BookingStatus.Pending,
-            };
+                ModelState.AddModelError(string.Empty, "Please select a date.");
+                OnGetAsync(id, parsedDate);
+                return Page();
+            }
 
-            _bookingService.AddBooking(booking);
-
-            var scService = _scheduleService.GetSlotIdByName(selectedSlot);
-
-            var bookingSchedule = new BookingSchedule
+            if (string.IsNullOrEmpty(selectedService))
             {
-                BookingId = booking.Id,
-                ScId = scService.Id,
-                Date = selectedDate,
-            };
-            _bookingScheduleService.AddBookingSchedule(bookingSchedule);
+                ModelState.AddModelError(string.Empty, "Please select a service.");
+                OnGetAsync(id, parsedDate);
+                return Page();
+            }
 
-            return RedirectToPage("/Index");
+            if (string.IsNullOrEmpty(selectedSlot))
+            {
+                ModelState.AddModelError(string.Empty, "Please select a slot.");
+                OnGetAsync(id, parsedDate);
+                return Page();
+            }
+
+            if (string.IsNullOrEmpty(selectedPaymentMethod))
+            {
+                ModelState.AddModelError(string.Empty, "Please select a payment method.");
+                OnGetAsync(id, parsedDate);
+                return Page();
+            }
+
+            try
+            {
+                var userEmail = HttpContext.Session.GetString("UserEmail");
+                var accStudent = _studentService.GetStudentByEmail(userEmail);
+                var serviceId = _serviceService.GetServiceIdByName(selectedService);
+
+                var booking = new Booking
+                {
+                    StudentId = accStudent.StudentId,
+                    DateStart = DateOnly.Parse(selectedDate),
+                    DateEnd = DateOnly.Parse(selectedDate),
+                    PaymentMethods = selectedPaymentMethod,
+                    ServiceId = serviceId.Id,
+                    TutorId = id,
+                    Status = BookingStatus.Pending,
+                };
+
+                _bookingService.AddBooking(booking);
+
+                var scService = _scheduleService.GetSlotIdByName(selectedSlot);
+
+                var bookingSchedule = new BookingSchedule
+                {
+                    BookingId = booking.Id,
+                    ScId = scService.Id,
+                    Date = selectedDate,
+                };
+                _bookingScheduleService.AddBookingSchedule(bookingSchedule);
+
+                return RedirectToPage("/Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again.");
+
+                return Page();
+            }
         }
+
     }
 }

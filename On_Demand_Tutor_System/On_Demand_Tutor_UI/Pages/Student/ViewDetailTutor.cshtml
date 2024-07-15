@@ -8,6 +8,17 @@
 <div class="container mt-5">
     <h1 class="text-center" style="color: #2c3e50; font-family: Arial, sans-serif; margin-bottom: 20px;">Tutor Details</h1>
     <form method="post">
+        <div class="form-group">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger">
+                    @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                    {
+                        <p>@error.ErrorMessage</p>
+                    }
+                </div>
+            }
+        </div>
         <div class="card shadow-sm p-4 mb-5 bg-white rounded">
             <div class="row mb-3">
                 <div class="col-md-6">
@@ -60,7 +71,7 @@
 
             <div class="mb-3">
                 <label class="form-label fw-bold" style="color: #34495e;">Select Date:</label>
-                <input type="date" id="SelectedDate" name="selectedDate" class="form-control" onchange="fetchAvailableSlots()" />
+                <input type="date" id="SelectedDate" name="selectedDate" class="form-control" min="" onchange="fetchAvailableSlots()" />
             </div>
 
             <div class="mb-3" id="SlotSelection">
@@ -94,6 +105,18 @@
 
 @section Scripts {
     <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const dateInput = document.getElementById('SelectedDate');
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const yyyy = tomorrow.getFullYear();
+            const mm = String(tomorrow.getMonth() + 1).padStart(2, '0'); 
+            const dd = String(tomorrow.getDate()).padStart(2, '0');
+            const minDate = `${yyyy}-${mm}-${dd}`;
+            dateInput.setAttribute('min', minDate);
+        });
+
         async function fetchAvailableSlots() {
             const tutorId = @Model.TutorDetails.TutorId;
             const selectedDate = document.getElementById("SelectedDate").value;

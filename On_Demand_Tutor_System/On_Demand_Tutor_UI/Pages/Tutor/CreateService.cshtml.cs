@@ -7,6 +7,7 @@ using Services.Tutors;
 using Services.TutorServices;
 using Services.ServiceServices;
 using Microsoft.EntityFrameworkCore;
+using BusinessObjects.Enums.User;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
@@ -73,9 +74,11 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
             try
             {
+                tutorAll.Status = UserStatus.Pending;
+                _tutorAccountService.UpdateTutor(tutorAll);
                 _tutorService.AddTutorService(TutorService);
             }
-            catch (DbUpdateException ex)
+            catch (Exception ex)
             {
                 ModelState.AddModelError("", "An error occurred while saving the service. Please ensure the price is within the valid range.");
 
@@ -101,6 +104,8 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
             if (tutorService != null)
             {
+                tutorAll.Status = UserStatus.Pending;
+                _tutorAccountService.UpdateTutor(tutorAll);
                 _tutorService.DeleteTutorService(Id);
             }
 

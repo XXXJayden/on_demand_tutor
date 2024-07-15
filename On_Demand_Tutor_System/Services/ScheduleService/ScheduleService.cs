@@ -27,9 +27,9 @@ namespace Services.ScheduleService
             return scheduleRepository.GetAllSchedule();
         }
 
-        public Task<List<string>> GetAvailableSlotsAsync(int tutorId, string date)
+        public Task<List<string>> GetAvailableSlotsAsync(int tutorId, int studentId ,string date)
         {
-            return scheduleRepository.GetAvailableSlotsAsync(tutorId, date);
+            return scheduleRepository.GetAvailableSlotsAsync(tutorId, studentId, date);
         }
 
         public Schedule GetScheduleById(int id)

@@ -16,7 +16,9 @@ namespace DataAccessLayer
             try
             {
                 using var context = new OnDemandTutorDbContext();
-                listFeedback = context.Feedbacks.ToList();
+                listFeedback = context.Feedbacks
+                    .Include(x => x.Student)
+                    .ToList();
             }
             catch (Exception ex)
             {
