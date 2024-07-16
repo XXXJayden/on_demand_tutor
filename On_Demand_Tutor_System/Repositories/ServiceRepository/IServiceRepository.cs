@@ -1,9 +1,4 @@
 ﻿using BusinessObjects.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.ServiceRepository
 {
@@ -11,5 +6,10 @@ namespace Repositories.ServiceRepository
     {
         List<Service> GetAllService();
         Service GetServiceIdByName(string Name);
+        Service GetServiceById(int id);
+        void SaveService(Service ser);
+        void UpdateService(Service ser);
+        void DeleteService(int serId);
+
     }
 }

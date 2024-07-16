@@ -131,8 +131,16 @@ namespace DataAccessLayer
             var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
             if (tutor != null)
             {
-                tutor.Status = "Active";
-                db.SaveChanges();
+                if (tutor.Status.Equals(UserStatus.Active))
+                {
+                    tutor.Status = UserStatus.InActive;
+                    db.SaveChanges();
+                }
+                else if (tutor.Status.Equals(UserStatus.InActive))
+                {
+                    tutor.Status = UserStatus.Active;
+                    db.SaveChanges();
+                }
             }
             return tutor;
         }

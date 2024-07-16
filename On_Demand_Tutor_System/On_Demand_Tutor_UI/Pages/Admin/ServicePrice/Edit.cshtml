@@ -1,0 +1,35 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Admin.ServicePrice.EditModel
+
+@{
+    Layout = "_Layout_Admin";
+    ViewData["Title"] = "Edit Service";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">Edit Service</h1>
+    <hr />
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <form method="post" class="bg-light p-4 border rounded">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Service.Id" />
+                <div class="form-group">
+                    <label asp-for="Service.Service1" class="control-label"></label>
+                    <input asp-for="Service.Service1" class="form-control" />
+                    <span asp-validation-for="Service.Service1" class="text-danger"></span>
+                </div>
+                <div class="form-group text-center">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                    <a asp-page="./Index" class="btn btn-secondary ml-2">Back to List</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

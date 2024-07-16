@@ -70,12 +70,19 @@ namespace DataAccessLayer
         public static void DeleteMod(int modId)
         {
             using var context = new OnDemandTutorDbContext();
-            var mod = context.Moderators.FirstOrDefault(c => c.ModId == modId);
-            if (mod == null)
+            var student = context.Moderators.FirstOrDefault(c => c.ModId == modId);
+            if (student == null)
             {
-                throw new InvalidOperationException($"Tutor with ID {modId} not found.");
+                throw new InvalidOperationException($"Mod with ID {modId} not found.");
             }
-            mod.Status = UserStatus.InActive;
+            if (student.Status.Equals(UserStatus.InActive))
+            {
+                student.Status = UserStatus.Active;
+            }
+            else
+            {
+                student.Status = UserStatus.InActive;
+            }
 
             try
             {
@@ -83,7 +90,7 @@ namespace DataAccessLayer
             }
             catch (DbUpdateException dbe)
             {
-                throw new InvalidOperationException("An error occurred while updating the tutor's status.", dbe);
+                throw new InvalidOperationException("An error occurred while updating the mod's status.", dbe);
             }
             catch (Exception ex)
             {

@@ -7,5 +7,6 @@ namespace Services.Tutors
         void AddTutorService(TutorService tutorService);
         void DeleteTutorService(int id);
         void UpdateTutorService(TutorService tutorService);
+        TutorService GetTutorServiceByServiceId(int id);
     }
 }

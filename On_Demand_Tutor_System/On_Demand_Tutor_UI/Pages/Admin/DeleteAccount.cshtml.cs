@@ -25,7 +25,6 @@ namespace On_Demand_Tutor_UI.Pages.Admin
         public GetAccountDTO AccountToDelete { get; set; }
 
         public async Task<IActionResult> OnGetAsync(short id, string Role)
-
         {
             switch (Role)
             {
@@ -44,7 +43,7 @@ namespace On_Demand_Tutor_UI.Pages.Admin
                     }
                     break;
                 case "Student":
-                    var student = _studentService.GetStudentById(id);
+                    var student = await _studentService.GetStudentByIdAsync(id);
                     if (student != null)
                     {
                         AccountToDelete = new GetAccountDTO
@@ -87,7 +86,7 @@ namespace On_Demand_Tutor_UI.Pages.Admin
             switch (Role)
             {
                 case "Tutor":
-                    _tutorService.DeleteTutor(id);
+                    _tutorService.ChangeStatusToActive(id);
                     break;
                 case "Student":
                     _studentService.DeleteStudent(id);

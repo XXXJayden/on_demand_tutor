@@ -1,11 +1,5 @@
 ﻿using BusinessObjects.Models;
 using Repositories.ServiceRepository;
-using Repositories.StudentRepositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Services.ServiceServices
 {
@@ -25,6 +19,24 @@ namespace Services.ServiceServices
         public Service GetServiceIdByName(string Name)
         {
             return _serviceRepository.GetServiceIdByName(Name);
+        }
+        public Service GetServiceById(int serviceId)
+        {
+            return _serviceRepository.GetServiceById(serviceId);
+        }
+        public void SaveService(Service ser)
+        {
+            _serviceRepository.SaveService(ser);
+        }
+
+        public void UpdateService(Service ser)
+        {
+            _serviceRepository.UpdateService(ser);
+        }
+
+        public void DeleteService(int serId)
+        {
+            _serviceRepository.DeleteService(serId);
         }
     }
 }

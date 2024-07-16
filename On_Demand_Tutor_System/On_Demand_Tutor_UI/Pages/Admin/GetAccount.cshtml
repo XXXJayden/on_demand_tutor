@@ -6,87 +6,88 @@
     ViewData["Title"] = "Get Account";
 }
 
-<h1>Get Account</h1>
+<div style="margin: 50px auto; max-width: 800px;">
+    <h1 class="text-center">Get Account</h1>
 
-<form method="get">
-    <div class="form-group">
-        <label for="accountType">Select Account Type:</label>
-        <select id="accountType" name="InputRole" class="form-control" onchange="this.form.submit()">
-            <option value="">--Select--</option>
-            <option value="1" selected="@(Model.InputRole == "1")">Tutor</option>
-            <option value="2" selected="@(Model.InputRole == "2")">Moderator</option>
-            <option value="3" selected="@(Model.InputRole == "3")">Student</option>
-        </select>
+    <form method="get" class="mb-4">
+        <div class="form-group">
+            <label for="accountType">Select Account Type:</label>
+            <select id="accountType" name="InputRole" class="form-control" onchange="this.form.submit()">
+                <option value="">--Select--</option>
+                <option value="1" selected="@(Model.InputRole == "1")">Tutor</option>
+                <option value="2" selected="@(Model.InputRole == "2")">Moderator</option>
+                <option value="3" selected="@(Model.InputRole == "3")">Student</option>
+            </select>
 
-        <label for="accountStatus">Select Account Status:</label>
-        <select id="accountStatus" name="InputStatus" class="form-control" onchange="this.form.submit()">
-            <option value="">--Select--</option>
-            <option value="1" selected="@(Model.InputStatus == "1")">Active</option>
-            <option value="2" selected="@(Model.InputStatus == "2")">InActive</option>
-        </select>
+            <label for="accountStatus" class="mt-3">Select Account Status:</label>
+            <select id="accountStatus" name="InputStatus" class="form-control" onchange="this.form.submit()">
+                <option value="">--Select--</option>
+                <option value="1" selected="@(Model.InputStatus == "1")">Active</option>
+                <option value="2" selected="@(Model.InputStatus == "2")">InActive</option>
+            </select>
+        </div>
+    </form>
+
+    <div class="text-center mt-3">
+        <a asp-page="/Admin/Admin_Index" class="btn btn-secondary">Back to Index</a>
     </div>
-</form>
-<div class="text-center mt-3">
-    <a asp-page="/Admin/Admin_Index" class="btn btn-secondary">Back to Index</a>
-</div>
 
-@if (Model.GetAccountDTO != null && Model.GetAccountDTO.Any())
-{
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Status</th>
-                @if (Model.InputRole == "1" || Model.InputRole == "3")
-                {
-                    
-                    <th>Grade</th>
-                }
-                @if (Model.InputRole == "1")
-                {
-                    <th>Major</th>
-                    <th>Description</th>
-                }
-                @if (Model.InputRole == "3")
-                {
-                    <th>Address</th>
-                    <th>Phone</th>
-                }
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model.GetAccountDTO)
-            {
+    @if (Model.GetAccountDTO != null && Model.GetAccountDTO.Any())
+    {
+        <table class="table table-striped table-bordered mt-4">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@item.FullName</td>
-                    <td>@item.Email</td>
-                    <td>@item.Status</td>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Status</th>
                     @if (Model.InputRole == "1" || Model.InputRole == "3")
                     {
-                        
-                        <td>@item.Grade</td>
+                        <th>Grade</th>
                     }
                     @if (Model.InputRole == "1")
                     {
-                        <td>@item.Major</td>
-                        <td>@item.Description</td>
+                        <th>Major</th>
+                        <th>Description</th>
                     }
                     @if (Model.InputRole == "3")
                     {
-                        <td>@item.Address</td>
-                        <td>@item.Phone</td>
+                        <th>Address</th>
+                        <th>Phone</th>
                     }
-                    <td>
-                        <a asp-page="/Admin/DeleteAccount" asp-route-role="@item.Role" asp-route-id="@item.Id">Change Status</a>
-                    </td>
+                    <th>Actions</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-}
-else
-{
-    <p>No accounts found.</p>
-}
+            </thead>
+            <tbody>
+                @foreach (var item in Model.GetAccountDTO)
+                {
+                    <tr>
+                        <td>@item.FullName</td>
+                        <td>@item.Email</td>
+                        <td>@item.Status</td>
+                        @if (Model.InputRole == "1" || Model.InputRole == "3")
+                        {
+                            <td>@item.Grade</td>
+                        }
+                        @if (Model.InputRole == "1")
+                        {
+                            <td>@item.Major</td>
+                            <td>@item.Description</td>
+                        }
+                        @if (Model.InputRole == "3")
+                        {
+                            <td>@item.Address</td>
+                            <td>@item.Phone</td>
+                        }
+                        <td>
+                            <a asp-page="/Admin/DeleteAccount" asp-route-role="@item.Role" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Change Status</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <p class="text-center mt-4">No accounts found.</p>
+    }
+</div>

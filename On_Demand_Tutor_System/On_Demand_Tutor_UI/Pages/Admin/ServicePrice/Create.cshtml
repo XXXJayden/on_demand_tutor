@@ -1,0 +1,43 @@
+﻿@page
+@model On_Demand_Tutor_UI.Pages.Admin.ServicePrice.CreateModel
+
+@{
+    Layout = "_Layout_Admin";
+    ViewData["Title"] = "Create Service";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center">@ViewData["Title"]</h1>
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="card-title">Service</h4>
+                    <hr />
+                    <form method="post">
+                        <div asp-validation-summary="ModelOnly" class="alert alert-danger"></div>
+                        <div class="form-group">
+                            <label asp-for="Service.Service1" class="control-label"></label>
+                            <input asp-for="Service.Service1" class="form-control" />
+                            <span asp-validation-for="Service.Service1" class="text-danger"></span>
+                        </div>
+                        <div class="form-group text-center">
+                            <input type="submit" value="Create" class="btn btn-success" />
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center mt-3">
+        <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

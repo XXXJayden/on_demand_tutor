@@ -14,5 +14,6 @@ namespace Repositories.Tutors
         {
             throw new NotImplementedException();
         }
+        public TutorService GetTutorServiceByServiceId(int id) => TutorServiceDAO.GetTutorServiceByServiceId(id);
     }
 }

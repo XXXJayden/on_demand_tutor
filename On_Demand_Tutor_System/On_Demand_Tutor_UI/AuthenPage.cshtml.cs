@@ -13,6 +13,7 @@ namespace On_Demand_Tutor_UI.Pages.AccountPages
             var userEmail = HttpContext.Session.GetString("UserEmail");
             var userType = HttpContext.Session.GetString("UserType");
 
+            Console.WriteLine($"Path: {path}, UserEmail: {userEmail}, UserType: {userType}");
             if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userType))
             {
                 context.Result = RedirectToPage("/AccountPages/LoginPage");

@@ -11,10 +11,10 @@ namespace DataAccessLayer
             return db.TutorServices.Include(ts => ts.Tutor).Include(ts => ts.Service).ToList();
         }
 
-        public static TutorService GetTutorServiceById(int id)
+        public static TutorService GetTutorServiceByServiceId(int id)
         {
             using var db = new OnDemandTutorDbContext();
-            return db.TutorServices.Find(id);
+            return db.TutorServices.FirstOrDefault(sr => sr.ServiceId == id);
         }
 
         public static void UpdateTutorService(TutorService tutorService)

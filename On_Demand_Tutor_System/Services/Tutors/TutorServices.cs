@@ -32,6 +32,10 @@ namespace Services.Tutors
         {
             tutorServiceRepository.UpdateTutorService(tutorService);
         }
+        public TutorService GetTutorServiceByServiceId(int id)
+        {
+            return tutorServiceRepository.GetTutorServiceByServiceId(id);
+        }
 
     }
 }

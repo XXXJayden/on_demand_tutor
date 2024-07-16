@@ -1,10 +1,5 @@
 ﻿using BusinessObjects.Models;
 using DataAccessLayer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Repositories.ServiceRepository
 {
@@ -12,6 +7,12 @@ namespace Repositories.ServiceRepository
     {
         public List<Service> GetAllService() => ServiceDAO.GetAllServices();
         public Service GetServiceIdByName(string Name) => ServiceDAO.GetServiceByName(Name);
+        public Service GetServiceById(int id) => ServiceDAO.GetServiceById(id);
+        public void SaveService(Service ser) => ServiceDAO.AddService(ser);
+
+        public void UpdateService(Service ser) => ServiceDAO.UpdateService(ser);
+
+        public void DeleteService(int serId) => ServiceDAO.DeleteService(serId);
 
     }
 }
