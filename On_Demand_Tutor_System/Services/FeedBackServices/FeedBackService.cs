@@ -72,5 +72,10 @@ namespace Services.FeedBackServices
             }
         }
 
+        public async Task<IList<Feedback>> GetFeedBackByBookingId(int bookingId)
+        {
+            return await _feedbackRepository.GetFeedBackByBookingId(bookingId);
+        }
+
     }
 }

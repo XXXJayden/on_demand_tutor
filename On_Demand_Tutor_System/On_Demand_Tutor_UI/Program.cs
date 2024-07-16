@@ -20,6 +20,7 @@ using Services.ServiceServices;
 using Services.StudentServices;
 using Services.Tutors;
 using Services.TutorServices;
+using Services.VnPay;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,6 +48,9 @@ builder.Services.AddScoped<ITutorService, Services.Tutors.TutorServices>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IFeedBackRepository, FeedBackRepository>();
 builder.Services.AddScoped<IFeedBackService, FeedBackService>();
+
+//VnPay
+builder.Services.AddSingleton<IVnPayService, VnPayService>();
 
 
 builder.Services.AddSession(options =>

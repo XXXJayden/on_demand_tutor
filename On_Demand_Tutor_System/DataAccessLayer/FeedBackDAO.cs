@@ -104,5 +104,13 @@ namespace DataAccessLayer
                 return false;
             }
         }
+
+        public async Task<IList<Feedback>> GetFeedBackByBookingId(int bookingId)
+        {
+            using var context = new OnDemandTutorDbContext();
+            return await context.Feedbacks
+                                 .Where(f => f.BookingId == bookingId)
+                                 .ToListAsync();
+        }
     }
 }

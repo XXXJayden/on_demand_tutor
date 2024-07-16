@@ -5,7 +5,7 @@
     ViewData["Title"] = "View Completed Learning";
 }
 
-<h1 class="text-center my-4" style="color: #2c3e50; font-family: Arial, sans-serif;">View Student Completed Bookings</h1>
+<h1 class="text-center my-4" style="color: #2c3e50; font-family: Arial, sans-serif;">View Student Bookings History</h1>
 
 <div class="container">
     <div class="table-responsive">
@@ -18,7 +18,9 @@
                     <th>Tutor</th>
                     <th>Email</th>
                     <th>Payment Method</th>
-                    <th>Schedules</th>
+                    <th>Schedule</th>
+                    <th>Price</th>
+                    <th>Status</th>
                     <th>Actions</th>
                 </tr>
             </thead>
@@ -40,9 +42,40 @@
                                 }
                             </ul>
                         </td>
+                        <td>@item.Price.ToString("C", new System.Globalization.CultureInfo("vi-VN"))</td>
+                        <td style="@(item.PaymentStatus == "Paid" ? "background-color: #28a745; color: white;" :
+                                 item.PaymentStatus == "UnPaid" ? "background-color: #ffc107; color: black;" : "")">
+                            @item.PaymentStatus
+                        </td>
                         <td class="text-center">
-                            <a asp-page="/Student/Report" asp-route-StudentId="@item.StudentId" asp-route-ServiceId="@item.ServiceId" asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="btn btn-primary btn-sm mb-1">Report</a>
-                            <button type="button" class="btn btn-info btn-sm" onclick="openFeedbackModal(@item.Id, @item.StudentId, @item.TutorId)">Feedback</button>
+                            <div class="action-buttons">
+                                @if (item.PaymentStatus == "Paid" || item.PaymentMethods == "Offline")
+                                {
+                                    <button class="action-btn purchase disabled" disabled>
+                                        <i class="fas fa-shopping-cart"></i>
+                                        <span>Purchased</span>
+                                    </button>
+                                }
+                                else
+                                {
+                                    <form method="post" asp-page-handler="Purchase" asp-route-BookingId="@item.Id">
+                                        <button type="submit" class="action-btn purchase">
+                                            <i class="fas fa-shopping-cart"></i>
+                                            <span>Purchase</span>
+                                        </button>
+                                    </form>
+                                }
+                                <button type="button" class="action-btn feedback"
+                                        onclick="openFeedbackModal(@item.Id, @item.StudentId, @item.TutorId, '@item.Feedbacks.FirstOrDefault()?.Detail', '@item.Feedbacks.FirstOrDefault()?.Rating')">
+                                    <i class="fas fa-comment-dots"></i>
+                                    <span>Feedback</span>
+                                </button>
+
+                                <a asp-page="/Student/Report" asp-route-StudentId="@item.StudentId" asp-route-ServiceId="@item.ServiceId" asp-route-TutorId="@item.TutorId" asp-route-BookingId="@item.Id" class="action-btn report">
+                                    <i class="fas fa-flag"></i>
+                                    <span>Report</span>
+                                </a>
+                            </div>
                         </td>
                     </tr>
                 }
@@ -106,18 +139,87 @@
         .star.active {
             color: gold;
         }
+
+    .action-buttons {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .action-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 12px;
+        border: none;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        color: #fff;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        text-decoration: none;
+    }
+
+        .action-btn i {
+            margin-right: 8px;
+        }
+
+        .action-btn.purchase {
+            background-color: #28a745;
+        }
+
+            .action-btn.purchase:hover {
+                background-color: #218838;
+            }
+
+            .action-btn.purchase.disabled {
+                background-color: #6c757d;
+                cursor: not-allowed;
+            }
+
+        .action-btn.feedback {
+            background-color: #17a2b8;
+        }
+
+            .action-btn.feedback:hover {
+                background-color: #138496;
+            }
+
+        .action-btn.report {
+            background-color: #ffc107;
+            color: #343a40;
+        }
+
+            .action-btn.report:hover {
+                background-color: #e0a800;
+            }
 </style>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 <script>
-    function openFeedbackModal(bookingId, studentId, tutorId) {
+    function openFeedbackModal(bookingId, studentId, tutorId, feedbackDetail = '', feedbackRating = '0') {
         document.getElementById('bookingId').value = bookingId;
         document.getElementById('studentId').value = studentId;
         document.getElementById('tutorId').value = tutorId;
+        document.getElementById('feedbackDetail').value = feedbackDetail || '';
+        document.getElementById('ratingValue').value = feedbackRating || '0';
+        updateStars(feedbackRating); // Update the star rating display
         $('#feedbackModal').modal('show');
     }
+    function updateStars(rating) {
+        const stars = document.querySelectorAll('.star');
+        stars.forEach((star, index) => {
+            if (index < rating) {
+                star.classList.add('active');
+            } else {
+                star.classList.remove('active');
+            }
+        });
+    }
+
 
     document.addEventListener('DOMContentLoaded', function () {
         const stars = document.querySelectorAll('.star');
@@ -163,12 +265,12 @@
         const detail = document.getElementById('feedbackDetail').value;
 
         if (rating === '0') {
-            alert('Please select a rating.');
+            alert('Please select a rating');
             return false;
         }
 
         if (detail.trim() === '') {
-            alert('Please write feedback details.');
+            alert('Please write feedback details');
             return false;
         }
 

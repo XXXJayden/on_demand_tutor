@@ -20,5 +20,12 @@ namespace Repositories.FeedBackRepositories
             var FeedBackDAO = new FeedBackDAO();
             return await FeedBackDAO.AddFeedbackAsync(feedback);
         }
+
+        public async Task<IList<Feedback>> GetFeedBackByBookingId(int bookingId)
+        {
+            var FeedBackDAO = new FeedBackDAO();
+            return await FeedBackDAO.GetFeedBackByBookingId(bookingId);
+        }
+
     }
 }

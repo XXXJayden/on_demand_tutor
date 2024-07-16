@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using DataAccessLayer;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,5 +16,6 @@ namespace Repositories.FeedBackRepositories
         void DeleteFeedback(short feedbackId);
         Feedback GetFeedbackById(short feedbackId);
         Task<bool> AddFeedbackAsync(Feedback feedback);
+        Task<IList<Feedback>> GetFeedBackByBookingId(int bookingId);
     }
 }

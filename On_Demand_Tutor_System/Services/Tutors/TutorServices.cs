@@ -33,5 +33,17 @@ namespace Services.Tutors
             tutorServiceRepository.UpdateTutorService(tutorService);
         }
 
+        public decimal GetTutorServicePrice(int tutorId, int serviceId)
+        {
+            try
+            {
+                return tutorServiceRepository.GetTutorServicePrice(tutorId, serviceId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }
