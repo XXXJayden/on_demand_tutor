@@ -22,6 +22,7 @@ namespace BusinessObjects.DTO.Student
         public string Password { get; set; }
 
         [Required(ErrorMessage = "You must enter your name")]
+        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateFullname))]
         public string FullName { get; set; }
 
         [ValidPhoneNumber(ErrorMessage = "Invalid phone number format")]

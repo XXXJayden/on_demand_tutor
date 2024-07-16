@@ -13,6 +13,7 @@ namespace BusinessObjects.DTO.Tutor
     public class TutorRegisterDTO
     {
         [Required(ErrorMessage = "You must enter your name")]
+        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateFullname))]
         public string Fullname { get; set; } = null!;
 
 
