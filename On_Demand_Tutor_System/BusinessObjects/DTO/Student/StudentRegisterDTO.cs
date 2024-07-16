@@ -21,6 +21,12 @@ namespace BusinessObjects.DTO.Student
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; }
 
+        [Required(ErrorMessage = "Confirm password is required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password is not matched")]
+        public string ConfirmPassword { get; set; }
+
         [Required(ErrorMessage = "You must enter your name")]
         public string FullName { get; set; }
 
