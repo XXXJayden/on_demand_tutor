@@ -2,6 +2,7 @@ using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Enums.User;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
 using On_Demand_Tutor_UI.Validator;
 using Services.Sercurity;
@@ -18,14 +19,16 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly PasswordHasher _hasher;
         private readonly FireBaseStorage _fireBaseStorage;
+        private readonly IHubContext<SignalR> _hubContext;
         private readonly ITutorAccountService _tutorService;
 
-        public EditProfileModel(ITutorAccountService tutorService, IHttpContextAccessor httpContextAccessor, PasswordHasher hasher, FireBaseStorage fireBaseStorage)
+        public EditProfileModel(ITutorAccountService tutorService, IHttpContextAccessor httpContextAccessor, PasswordHasher hasher, FireBaseStorage fireBaseStorage, IHubContext<SignalR> hubContext)
         {
             _tutorService = tutorService;
             _httpContextAccessor = httpContextAccessor;
             _hasher = hasher;
             _fireBaseStorage = fireBaseStorage;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -136,6 +139,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 {
                     existingTutor.Status = UserStatus.Pending;
                     _tutorService.UpdateTutor(existingTutor);
+                    await _hubContext.Clients.All.SendAsync("ReceiveMessage");
                     TempData["SuccessMessage"] = "Avatar uploaded successfully.";
                 }
                 catch (Exception ex)
