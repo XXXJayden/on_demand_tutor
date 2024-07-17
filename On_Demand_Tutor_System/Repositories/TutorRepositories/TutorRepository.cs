@@ -16,5 +16,6 @@ namespace Repositories.TutorRepositories
         public Tutor ChangeStatusToPending(int tutorId) => TutorDAO.ChangeStatusToPending(tutorId);
         public Tutor ChangeStatusToIncomplete(int tutorId) => TutorDAO.ChangeStatusToIncomplete(tutorId);
         public Tutor ChangeStatusToActive(int tutorId) => TutorDAO.ChangeStatusToActive(tutorId);
+        public Tutor ChangeStatusToActiveByMod(int tutorId) => TutorDAO.ChangeStatusToActiveByMod(tutorId);
     }
 }

@@ -15,6 +15,7 @@ namespace Repositories.TutorRepositories
         Tutor ChangeStatusToIncomplete(int tutorId);
         Tutor ChangeStatusToPending(int tutorId);
         Tutor ChangeStatusToActive(int tutorId);
+        Tutor ChangeStatusToActiveByMod(int tutorId);
 
 
     }

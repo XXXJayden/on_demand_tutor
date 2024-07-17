@@ -141,6 +141,21 @@ namespace DataAccessLayer
                     tutor.Status = UserStatus.Active;
                     db.SaveChanges();
                 }
+
+            }
+            return tutor;
+        }
+        public static Tutor ChangeStatusToActiveByMod(int tutorId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutor = db.Tutors.FirstOrDefault(c => c.TutorId == tutorId);
+            if (tutor != null)
+            {
+                if (tutor.Status.Equals(UserStatus.Pending))
+                {
+                    tutor.Status = UserStatus.Active;
+                    db.SaveChanges();
+                }
             }
             return tutor;
         }

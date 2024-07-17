@@ -31,7 +31,7 @@ namespace BusinessObjects.DTO.Booking
 
         public List<string> Schedules { get; set; } = new List<string>();
         public decimal Price { get; set; }
-        public IList<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+        public IList<BusinessObjects.Models.Feedback> Feedbacks { get; set; } = new List<BusinessObjects.Models.Feedback>();
 
         public string PaymentStatus { get; set; } = "UnPaid";
     }

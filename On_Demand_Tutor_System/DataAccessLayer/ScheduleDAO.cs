@@ -13,7 +13,7 @@ namespace DataAccessLayer
             var bookedSlots = await context.BookingSchedules
                 .Where(bs => bs.Date.Equals(date)
                              && (bs.Booking.TutorId == tutorId || bs.Booking.StudentId == studentId)
-                             && bs.Booking.Status != BookingStatus.Complete)
+                             && bs.Booking.Status != BookingStatus.Complete && bs.Booking.Status != BookingStatus.Cancel)
                 .Select(bs => bs.Sc.Slot)
                 .ToListAsync();
             var allSlots = new List<string> { "Slot 1", "Slot 2", "Slot 3", "Slot 4", "Slot 5", "Slot 6" };

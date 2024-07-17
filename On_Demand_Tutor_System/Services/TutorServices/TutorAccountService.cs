@@ -81,6 +81,10 @@ namespace Services.TutorServices
         {
             return _tutorRepository.ChangeStatusToActive(tutorId);
         }
+        public async Task<Tutor> ChangeStatusToActiveByMod(int tutorId)
+        {
+            return _tutorRepository.ChangeStatusToActiveByMod(tutorId);
+        }
 
         public (int ActiveTutor, int InactiveTutor) GetTutorQuantity()
         {

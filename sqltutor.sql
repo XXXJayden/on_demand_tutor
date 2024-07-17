@@ -71,6 +71,7 @@ CREATE TABLE Booking (
 	DateStart Date,
 	DateEnd Date,
 	PaymentMethods VARCHAR(25) NOT NULL,
+	[PaymentStatus] [varchar](25) NULL,
     FOREIGN KEY (StudentID) REFERENCES Student(StudentID),
     FOREIGN KEY (TutorID) REFERENCES Tutor(TutorID),
     FOREIGN KEY (ServiceID) REFERENCES Service(ID)

@@ -4,17 +4,17 @@ GO
 -- Thêm dữ liệu vào bảng Tutor
 INSERT INTO Tutor (Fullname, Password, Email, Status, Description, Major, Grade, Avatar)
 VALUES
-('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics','10',''),
-('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics','11',''),
-('Emily Johnson', 'password789', 'emily.johnson@example.com', 'Inactive', 'Experienced in Chemistry', 'Chemistry','12','');
+('John Doe', 'password123', 'john.doe@example.com', 'Active', 'Experienced in Mathematics', 'Mathematics','10','https://th.bing.com/th/id/OIP.-uzWRbEtN9bBg01j9owZqgHaHa?w=186&h=186&c=7&r=0&o=5&pid=1.7'),
+('Jane Smith', 'password456', 'jane.smith@example.com', 'Active', 'Experienced in Physics', 'Physics','11','https://th.bing.com/th/id/OIP.qYkvb_vtTjNludvSV0IJZAHaLH?rs=1&pid=ImgDetMain'),
+('Emily Johnson', 'password789', 'emily.johnson@example.com', 'InActive', 'Experienced in Chemistry', 'Chemistry','12','https://th.bing.com/th/id/OIP.Oz-hottA-PJhC5zWkc_o4gD6D6?rs=1&pid=ImgDetMain');
 GO
 
 -- Thêm dữ liệu vào bảng Student
 INSERT INTO Student (Fullname, Password, Phone, Email, Address, Status, Grade)
 VALUES
-('Alice Brown', 'password123', '1234567890', 'alice.brown@example.com', '123 Main St', 'Active', '10th'),
-('Bob White', 'password456', '2345678901', 'bob.white@example.com', '456 Elm St', 'Active', '11th'),
-('Charlie Green', 'password789', '3456789012', 'charlie.green@example.com', '789 Oak St', 'Inactive', '12th');
+('Alice Brown', 'password123', '1234567890', 'alice.brown@example.com', '123 Main St', 'Active', '10'),
+('Bob White', 'password456', '2345678901', 'bob.white@example.com', '456 Elm St', 'Active', '11'),
+('Charlie Green', 'password789', '3456789012', 'charlie.green@example.com', '789 Oak St', 'InActive', '12');
 GO
 
 -- Thêm dữ liệu vào bảng Service
@@ -31,9 +31,9 @@ GO
 -- Thêm dữ liệu vào bảng Achievement
 INSERT INTO Achievement (TutorID, Certificate)
 VALUES
-(1, 'Certified Mathematics Tutor'),
-(2, 'Certified Physics Tutor'),
-(3, 'Certified Chemistry Tutor');
+(1, 'https://th.bing.com/th/id/R.4322e541b4b232fa586991e3c228174f?rik=XU3eXWirJiQ3Fw&pid=ImgRaw&r=0'),
+(2, 'https://th.bing.com/th/id/OIP.DZgRZmGTZjAFM_sPCdJglAAAAA?w=360&h=254&rs=1&pid=ImgDetMain'),
+(3, 'https://th.bing.com/th/id/OIP.aFwJgyLKcwTHjz5jUacHIwAAAA?w=368&h=280&rs=1&pid=ImgDetMain');
 GO
 
 -- Thêm dữ liệu vào bảng TutorService
@@ -50,22 +50,9 @@ VALUES
 (3, 3, 300000);
 GO
 
--- Thêm dữ liệu vào bảng Booking
-INSERT INTO Booking (StudentID, TutorID, ServiceID, Status, DateStart, DateEnd, PaymentMethods)
-VALUES
-(1, 1, 1, 'Completed', '2024-01-01', '2024-01-31','Online'),
-(2, 2, 2, 'Pending', '2024-02-01', '2024-02-28','Offline'),
-(3, 3, 3, 'Cancelled', '2024-03-01', '2024-03-31','Online'),
-(3, 2, 1, 'Approved', '2024-03-01', '2024-03-31','Offline');
+
 GO
 
--- Thêm dữ liệu vào bảng Feedbacks
-INSERT INTO Feedbacks (BookingID, StudentID, Rating, Detail)
-VALUES
-(1, 1, 5, 'Great tutoring session!'),
-(2, 2, 4, 'Very helpful, but could improve communication.'),
-(3, 3, 2, 'Not satisfied with the tutoring.');
-GO
 
 -- Thêm dữ liệu vào bảng Schedule
 INSERT INTO Schedule ( Slot)
@@ -78,13 +65,6 @@ VALUES
 ( 'Slot 6');
 GO
 
--- Thêm dữ liệu vào bảng BookingSchedule
-INSERT INTO BookingSchedule (BookingID, ScID, Date)
-VALUES
-(1, 1, '2024-01-02'),
-(2, 2, '2024-04-10'),
-(3, 3, '2024-06-17');
-GO
 
 -- Thêm dữ liệu vào bảng Moderator
 INSERT INTO Moderator (Fullname, Password, Email, Status)
@@ -93,8 +73,3 @@ VALUES
 ('Admin Two', 'admin456', 'admin.two@example.com', 'Active'),
 ('Admin Three', 'admin789', 'admin.three@example.com', 'Active');
 GO
-
-
-INSERT INTO Report(Detail, Date, Status, Image ,StudentID, TutorID, ServiceID)
-VALUES 
-('Teacher Stupid', '2024-10-24', 'Pending', 'https://i.pinimg.com/564x/f5/7f/99/f57f99bc24a80a25994bead22c65950b.jpg',1 , 1, 1)

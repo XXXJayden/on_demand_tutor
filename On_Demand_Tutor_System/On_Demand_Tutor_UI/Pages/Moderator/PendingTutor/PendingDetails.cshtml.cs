@@ -46,7 +46,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.PendingTutor
                 return NotFound();
             }
             await _hubContext.Clients.All.SendAsync("ReceiveMessage");
-            await _tutorAccountService.ChangeStatusToActive(id);
+            await _tutorAccountService.ChangeStatusToActiveByMod(id);
             TempData["SuccessMessage"] = "This tutor has been approved";
 
             return RedirectToPage("/Moderator/PendingTutor/PendingIndex");

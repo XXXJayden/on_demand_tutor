@@ -100,28 +100,28 @@ namespace On_Demand_Tutor_UI.Pages.Student
             if (string.IsNullOrEmpty(selectedDate))
             {
                 ModelState.AddModelError(string.Empty, "Please select a date.");
-                OnGetAsync(id, parsedDate);
+                await OnGetAsync(id, parsedDate);
                 return Page();
             }
 
             if (string.IsNullOrEmpty(selectedService))
             {
                 ModelState.AddModelError(string.Empty, "Please select a service.");
-                OnGetAsync(id, parsedDate);
+                await OnGetAsync(id, parsedDate);
                 return Page();
             }
 
             if (string.IsNullOrEmpty(selectedSlot))
             {
                 ModelState.AddModelError(string.Empty, "Please select a slot.");
-                OnGetAsync(id, parsedDate);
+                await OnGetAsync(id, parsedDate);
                 return Page();
             }
 
             if (string.IsNullOrEmpty(selectedPaymentMethod))
             {
                 ModelState.AddModelError(string.Empty, "Please select a payment method.");
-                OnGetAsync(id, parsedDate);
+                await OnGetAsync(id, parsedDate);
                 return Page();
             }
 
@@ -155,12 +155,12 @@ namespace On_Demand_Tutor_UI.Pages.Student
                 await _hubContext.Clients.All.SendAsync("ReceiveMessage");
                 _bookingScheduleService.AddBookingSchedule(bookingSchedule);
 
-                return RedirectToPage("/Index");
+                return RedirectToPage("./ViewWaitingApprove");
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError(string.Empty, "An error occurred while processing your request. Please try again.");
-
+                await OnGetAsync(id, parsedDate);
                 return Page();
             }
         }

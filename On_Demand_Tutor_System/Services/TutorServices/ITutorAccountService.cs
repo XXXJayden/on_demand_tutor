@@ -16,6 +16,8 @@ namespace Services.TutorServices
         Task<Tutor> ChangeStatusToIncomplete(int tutorId);
         Task<Tutor> ChangeStatusToPending(int tutorId);
         Task<Tutor> ChangeStatusToActive(int tutorId);
+        Task<Tutor> ChangeStatusToActiveByMod(int tutorId);
+
         (int ActiveTutor, int InactiveTutor) GetTutorQuantity();
     }
 }
