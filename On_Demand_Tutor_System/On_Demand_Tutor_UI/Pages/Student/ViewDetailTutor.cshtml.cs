@@ -79,7 +79,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             if (date.HasValue)
             {
                 string dateString = date.Value.ToString("yyyy-MM-dd");
-                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId,accStudent.StudentId ,dateString);
+                AvailableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId, accStudent.StudentId, dateString);
             }
 
             return Page();
@@ -89,7 +89,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
         {
             var userEmail = HttpContext.Session.GetString("UserEmail");
             var accStudent = _studentService.GetStudentByEmail(userEmail);
-            var availableSlots = await _scheduleService.GetAvailableSlotsAsync(tutorId, accStudent.StudentId,date);
+            var availableSlots = await _scheduleService.GetAvailableSlotsAsync(tutorId, accStudent.StudentId, date);
             return new JsonResult(availableSlots);
         }
 
@@ -140,6 +140,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                     ServiceId = serviceId.Id,
                     TutorId = id,
                     Status = BookingStatus.Pending,
+                    PaymentStatus = PaymentStatus.Unpaid
                 };
 
                 _bookingService.AddBooking(booking);
