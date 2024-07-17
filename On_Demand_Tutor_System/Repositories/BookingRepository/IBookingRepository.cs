@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Models;
+using DataAccessLayer;
 
 namespace Repositories.BookingRepository
 {
@@ -13,5 +14,6 @@ namespace Repositories.BookingRepository
         //Booking GetBookingByName(string name);
 
         Booking GetDetailsBookingById(int id);
+        void UpdateBookingStatusToPaid(int bookingId);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -110,6 +111,24 @@ namespace DataAccessLayer
             catch (Exception e)
             {
                 throw new Exception(e.Message);
+            }
+        }
+
+        public static void UpdateBookingStatusToPaid(int bookingId)
+        {
+            try
+            {
+                using var context = new OnDemandTutorDbContext();
+                var booking = context.Bookings.FirstOrDefault(b => b.Id == bookingId);
+                if (booking != null)
+                {
+                    booking.PaymentStatus = PaymentStatus.Paid;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception($"Failed to update booking status to paid: {e.Message}");
             }
         }
 

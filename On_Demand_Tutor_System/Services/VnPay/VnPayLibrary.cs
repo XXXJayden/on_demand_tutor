@@ -1,8 +1,10 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Net;
+using System.Net.Sockets;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -105,6 +107,34 @@ namespace Services.VnPay
             }
 
             return hash.ToString();
+        }
+
+        public static string GetIpAddress(HttpContext context)
+        {
+            var ipAddress = string.Empty;
+            try
+            {
+                var remoteIpAddress = context.Connection.RemoteIpAddress;
+
+                if (remoteIpAddress != null)
+                {
+                    if (remoteIpAddress.AddressFamily == AddressFamily.InterNetworkV6)
+                    {
+                        remoteIpAddress = Dns.GetHostEntry(remoteIpAddress).AddressList
+                            .FirstOrDefault(x => x.AddressFamily == AddressFamily.InterNetwork);
+                    }
+
+                    if (remoteIpAddress != null) ipAddress = remoteIpAddress.ToString();
+
+                    return ipAddress;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "Invalid IP:" + ex.Message;
+            }
+
+            return "127.0.0.1";
         }
     }
 

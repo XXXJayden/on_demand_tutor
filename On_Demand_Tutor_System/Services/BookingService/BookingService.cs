@@ -65,5 +65,12 @@ namespace Services.BookingService
                 throw new Exception(ex.Message);
             }
         }
+
+        public void UpdateBookingStatusToPaid(int bookId)
+        {
+            bookingRepository.UpdateBookingStatusToPaid(bookId);
+        }
+
+
     }
 }

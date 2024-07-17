@@ -12,5 +12,6 @@ namespace Services.BookingService
         void DeleteBooking(Booking booking);
         Booking GetDetailsBookingById(int id);
         (int Complete, int Pending, int Approve, int Cancel, int Processing) GetBookingStatusCounts();
+        void UpdateBookingStatusToPaid(int bookId);
     }
 }

@@ -12,5 +12,6 @@ namespace BusinessObjects.DTO.VnPayModel
         public int TutorId { get; set; }
         public int StudentId { get; set; }
         public decimal Amount { get; set; }
+        public int BookingId { get; set; }
     }
 }
