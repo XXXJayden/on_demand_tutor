@@ -59,13 +59,33 @@ namespace BusinessObjects.CustomAttribute
     {
         public static ValidationResult ValidateGrade(string grade, ValidationContext context)
         {
-            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 6 && gradeValue <= 12)
+            if (int.TryParse(grade, out int gradeValue) && gradeValue >= 9 && gradeValue <= 12)
             {
                 return ValidationResult.Success;
             }
-            return new ValidationResult("Grade must be between 6 and 12");
+            return new ValidationResult("Grade must be between 9 and 12");
+        }
+
+        public static ValidationResult ValidateFullname(string fullname, ValidationContext context)
+        {
+            if (string.IsNullOrEmpty(fullname))
+            {
+                return new ValidationResult("Full name is required.");
+            }
+            //if (fullname.Length < 5 || fullname.Length > 20)
+            //{
+            //    return new ValidationResult("Full name must be between 5 and 20 characters long.");
+            //}
+            if (!Regex.IsMatch(fullname, @"^[a-zA-Z\s]+$"))
+            {
+                return new ValidationResult("Full name must contain only letters and spaces.");
+            }
+
+            return ValidationResult.Success;
         }
     }
+
+
 
     public class AdminKeywordValidation : ValidationAttribute
     {
