@@ -8,6 +8,7 @@ using Services.TutorServices;
 using Services.ServiceServices;
 using Microsoft.EntityFrameworkCore;
 using BusinessObjects.Enums.User;
+using Microsoft.AspNetCore.SignalR;
 
 namespace On_Demand_Tutor_UI.Pages.Tutor
 {
@@ -16,12 +17,15 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         private readonly ITutorService _tutorService;
         private readonly IServiceServices _serviceServices;
         private readonly ITutorAccountService _tutorAccountService;
+        private readonly IHubContext<SignalR> _hubContext;
 
-        public CreateServiceModel(ITutorService tutorService, IServiceServices serviceServices, ITutorAccountService tutorAccountService)
+
+        public CreateServiceModel(ITutorService tutorService, IServiceServices serviceServices, ITutorAccountService tutorAccountService, IHubContext<SignalR> hubContext)
         {
             _tutorService = tutorService;
             _serviceServices = serviceServices;
             _tutorAccountService = tutorAccountService;
+            _hubContext = hubContext;
         }
 
         public List<TutorService> TutorServices { get; set; } = new List<TutorService>();
@@ -74,9 +78,11 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
             try
             {
+
                 tutorAll.Status = UserStatus.Pending;
                 _tutorAccountService.UpdateTutor(tutorAll);
                 _tutorService.AddTutorService(TutorService);
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
             }
             catch (Exception ex)
             {
@@ -107,6 +113,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 tutorAll.Status = UserStatus.Pending;
                 _tutorAccountService.UpdateTutor(tutorAll);
                 _tutorService.DeleteTutorService(Id);
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
             }
 
             return RedirectToPage();

@@ -1,6 +1,7 @@
 using BusinessObjects.Enums.User;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.AchievementServices;
 using Services.TutorServices;
@@ -12,14 +13,16 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         private readonly FireBaseStorage _fireBaseStorage;
         private readonly IAchievementService _achievementService;
         private readonly ITutorAccountService _tutorService;
+        private readonly IHubContext<SignalR> _hubContext;
 
         public UploadAchievementModel(FireBaseStorage fireBaseStorage,
             IAchievementService achievementService,
-            ITutorAccountService tutorAccountService)
+            ITutorAccountService tutorAccountService, IHubContext<SignalR> hubContext)
         {
             _fireBaseStorage = fireBaseStorage;
             _achievementService = achievementService;
             _tutorService = tutorAccountService;
+            _hubContext = hubContext;
         }
 
         [BindProperty]
@@ -67,9 +70,11 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
 
                 try
                 {
+
                     _achievementService.SaveAchievement(achievement);
                     tutor.Status = UserStatus.Pending;
                     _tutorService.UpdateTutor(tutor);
+                    await _hubContext.Clients.All.SendAsync("ReceiveMessage");
                     Message = "Achievement uploaded successfully!";
                 }
                 catch (Exception ex)

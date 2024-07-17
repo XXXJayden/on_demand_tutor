@@ -3,6 +3,7 @@ using BusinessObjects.DTO.Tutor;
 using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingScheduleService;
 using Services.BookingService;
@@ -22,8 +23,10 @@ namespace On_Demand_Tutor_UI.Pages.Student
         private readonly IServiceServices _serviceService;
         private readonly IBookingService _bookingService;
         private readonly IBookingScheduleService _bookingScheduleService;
+        private readonly IHubContext<SignalR> _hubContext;
 
-        public ViewDetailTutorModel(ITutorAccountService tutorAccountService, IScheduleService scheduleService, IStudentService studentService, IServiceServices serviceServices, IBookingService bookingService, IBookingScheduleService bookingScheduleService)
+
+        public ViewDetailTutorModel(ITutorAccountService tutorAccountService, IScheduleService scheduleService, IStudentService studentService, IServiceServices serviceServices, IBookingService bookingService, IBookingScheduleService bookingScheduleService, IHubContext<SignalR> hubContext)
         {
             _tutorAccountService = tutorAccountService;
             _scheduleService = scheduleService;
@@ -31,6 +34,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
             _serviceService = serviceServices;
             _bookingService = bookingService;
             _bookingScheduleService = bookingScheduleService;
+            _hubContext = hubContext;
 
         }
 
@@ -148,6 +152,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                     ScId = scService.Id,
                     Date = selectedDate,
                 };
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
                 _bookingScheduleService.AddBookingSchedule(bookingSchedule);
 
                 return RedirectToPage("/Index");

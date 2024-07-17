@@ -20,6 +20,7 @@ using Services.ServiceServices;
 using Services.StudentServices;
 using Services.Tutors;
 using Services.TutorServices;
+using On_Demand_Tutor_UI;
 using Services.VnPay;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +49,7 @@ builder.Services.AddScoped<ITutorService, Services.Tutors.TutorServices>();
 builder.Services.AddScoped<IReportService, ReportService>();
 builder.Services.AddScoped<IFeedBackRepository, FeedBackRepository>();
 builder.Services.AddScoped<IFeedBackService, FeedBackService>();
+builder.Services.AddSignalR();
 
 //VnPay
 builder.Services.AddSingleton<IVnPayService, VnPayService>();
@@ -79,7 +81,7 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.MapHub<SignalR>("/chatHub");
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseSession();
