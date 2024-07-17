@@ -1,4 +1,5 @@
 ﻿using BusinessObjects.Enums.Booking;
+using BusinessObjects.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -29,5 +30,9 @@ namespace BusinessObjects.DTO.Booking
         public string PaymentMethods { get; set; }
 
         public List<string> Schedules { get; set; } = new List<string>();
+        public decimal Price { get; set; }
+        public IList<Feedback> Feedbacks { get; set; } = new List<Feedback>();
+
+        public string PaymentStatus { get; set; } = "UnPaid";
     }
 }

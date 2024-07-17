@@ -41,5 +41,12 @@ namespace DataAccessLayer
                 db.SaveChanges();
             }
         }
+
+        public static decimal GetTutorServicePrice(int tutorId, int serviceId)
+        {
+            using var db = new OnDemandTutorDbContext();
+            var tutorService = db.TutorServices.FirstOrDefault(ts => ts.TutorId == tutorId && ts.ServiceId == serviceId);
+            return tutorService?.Price ?? 0;
+        }
     }
 }

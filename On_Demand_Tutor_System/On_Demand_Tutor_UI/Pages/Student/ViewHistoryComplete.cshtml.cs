@@ -1,11 +1,16 @@
 ﻿using BusinessObjects.DTO.Booking;
+using BusinessObjects.DTO.VnPayModel;
 using BusinessObjects.Enums.Booking;
 using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualBasic;
 using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.FeedBackServices;
 using Services.StudentServices;
+using Services.Tutors;
+using Services.VnPay;
+using System.Text.Json;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
@@ -14,12 +19,16 @@ namespace On_Demand_Tutor_UI.Pages.Student
         private readonly IBookingService _bookingService;
         private readonly IStudentService _studentService;
         private readonly IFeedBackService _feedbackService;
+        private readonly ITutorService _tutorService;
+        private readonly IVnPayService _vnPayService;
 
-        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService, IFeedBackService feedbackService)
+        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService, IFeedBackService feedbackService, ITutorService tutorService, IVnPayService vnPayService)
         {
             _bookingService = bookingService;
             _studentService = studentService;
             _feedbackService = feedbackService;
+            _tutorService = tutorService;
+            _vnPayService = vnPayService;
         }
 
         public IList<BookingComplete> LearningComplete { get; set; } = default!;
@@ -44,9 +53,17 @@ namespace On_Demand_Tutor_UI.Pages.Student
                                                 DateEnd = x.DateEnd,
                                                 PaymentMethods = x.PaymentMethods,
                                                 Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
-
+                                                Price = _tutorService.GetTutorServicePrice(x.TutorId, x.ServiceId),
+                                                PaymentStatus = x.PaymentStatus,
                                             });
+
             LearningComplete = bookingList.ToList();
+            TempData["LearningComplete"] = JsonSerializer.Serialize(LearningComplete);
+
+            foreach (var booking in LearningComplete)
+            {
+                booking.Feedbacks = await _feedbackService.GetFeedBackByBookingId(booking.Id);
+            }
         }
 
         [BindProperty]
@@ -57,6 +74,30 @@ namespace On_Demand_Tutor_UI.Pages.Student
             await _feedbackService.AddFeedbackAsync(FeedbackModel);
             await OnGetAsync();
             return RedirectToPage();
+        }
+
+        public IActionResult OnPostPurchase(int bookingId)
+        {
+            LearningComplete = JsonSerializer.Deserialize<List<BookingComplete>>(TempData["LearningComplete"].ToString());
+
+            var ipAddress = HttpContext.Connection.RemoteIpAddress?.ToString();
+            var selectedBooking = LearningComplete.FirstOrDefault(b => b.Id == bookingId);
+
+            if (selectedBooking == null)
+            {
+                return NotFound();
+            }
+
+            var paymentRequest = new VnPaymentRequestModel
+            {
+                ServiceId = selectedBooking.ServiceId,
+                Amount = selectedBooking.Price
+            };
+            var paymentUrl = _vnPayService.CreatePaymentUrl(ipAddress, paymentRequest);
+            var booking = _bookingService.GetBookingById(selectedBooking.Id);
+            booking.PaymentStatus = PaymentStatus.Paid;
+            _bookingService.UpdateBooking(booking);
+            return Redirect(paymentUrl);
         }
 
     }

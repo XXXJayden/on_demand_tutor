@@ -16,5 +16,6 @@ namespace Services.FeedBackServices
         Feedback GetFeedbackById(short feedbackId);
         Task<bool> AddFeedbackAsync(Feedback feedback);
         (double OneStar, double TwoStar, double ThreeStar, double FourStar, double FiveStar) GetRatingPercentages();
+        Task<IList<Feedback>> GetFeedBackByBookingId(int bookingId);
     }
 }

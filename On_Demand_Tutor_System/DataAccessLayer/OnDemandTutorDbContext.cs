@@ -84,6 +84,9 @@ public partial class OnDemandTutorDbContext : DbContext
             entity.Property(e => e.PaymentMethods)
                 .HasMaxLength(25)
                 .IsUnicode(false);
+            entity.Property(e => e.PaymentStatus)
+                .HasMaxLength(25)
+                .IsUnicode(false);
             entity.Property(e => e.ServiceId).HasColumnName("ServiceID");
             entity.Property(e => e.Status)
                 .HasMaxLength(25)

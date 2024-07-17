@@ -6,7 +6,7 @@
     Layout = "_Layout_Tutor";
 }
 
-<div class="container mt-4">
+<div class="container mt-5">
     @if (TempData["SuccessMessage"] != null)
     {
         <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -15,15 +15,16 @@
         </div>
     }
 
-    <h1 class="mb-4">Tutor Details</h1>
+    <h1 class="mb-4 text-center">Tutor Details</h1>
 
-    <div class="card">
-        <div class="card-header">
-            <h4>@Model.Tutor.Fullname</h4>
+    <div class="card mb-3">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">@Model.Tutor.Fullname</h4>
         </div>
         <div class="card-body">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-lg-6">
+                    <h5>Basic Information</h5>
                     <dl class="row">
                         <dt class="col-sm-4">Email</dt>
                         <dd class="col-sm-8">@Model.Tutor.Email</dd>
@@ -38,52 +39,71 @@
                         <dd class="col-sm-8">@Model.Tutor.Grade</dd>
                     </dl>
                 </div>
-                <div class="col-md-6">
+                <div class="col-lg-6">
                     <h5>Description</h5>
                     <p>@Model.Tutor.Description</p>
                 </div>
             </div>
-
-            <h5>Avatar</h5>
-            <div class="row">
-                <div class="col-md-4">
-                    <img src="@Model.Tutor.Avatar" alt="Avatar" class="img-fluid mb-3" />
-                </div>
-            </div>
-
-            <h5>Achievements</h5>
-<div class="row">
-    @{
-        int count = 0;
-    }
-    @foreach (var achievement in Model.Tutor.Achievements)
-    {
-        if (count % 3 == 0 && count != 0)
-        {
-            @:</div><div class="row">
-        }
-        <div class="col-md-4 mb-3">
-            <img src="@achievement.Certificate" alt="Achievement" class="img-fluid" />
         </div>
-        count++;
-    }
-</div>
-        <div class="card-footer">
-            <div class="d-flex justify-content-between align-items-center">
-                <div>
-                    <a asp-page="./PendingIndex" class="btn btn-secondary">Back to Menu</a>
-                </div>
-                <div>
-                    <form method="post" asp-page-handler="Approve" class="d-inline">
-                        <input type="hidden" name="id" value="@Model.Tutor.TutorId" />
-                        <button type="submit" class="btn btn-success">Approve</button>
-                    </form>
-                    <form method="post" asp-page-handler="Deny" class="d-inline">
-                        <input type="hidden" name="id" value="@Model.Tutor.TutorId" />
-                        <button type="submit" class="btn btn-danger">Deny</button>
-                    </form>
-                </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-secondary text-white">
+            <h5>Registered Services</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Tutor.TutorServices != null && Model.Tutor.TutorServices.Any())
+            {
+                <ul>
+                    @foreach (var tutorService in Model.Tutor.TutorServices)
+                    {
+                        <li>@tutorService.Service.Service1 - Price: @tutorService.Price</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>This tutor has not registered for any services.</p>
+            }
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-info text-white">
+            <h5>Avatar</h5>
+        </div>
+        <div class="card-body text-center">
+            <img src="@Model.Tutor.Avatar" alt="Avatar" class="img-thumbnail" style="max-width: 200px;" />
+        </div>
+    </div>
+
+    <div class="card mb-3">
+        <div class="card-header bg-dark text-white">
+            <h5>Achievements</h5>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                @foreach (var achievement in Model.Tutor.Achievements)
+                {
+                    <div class="col-md-4 mb-3">
+                        <img src="@achievement.Certificate" alt="Achievement" class="img-fluid" />
+                    </div>
+                }
             </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center">
+        <a asp-page="./PendingIndex" class="btn btn-outline-secondary">Back to Menu</a>
+        <div>
+            <form method="post" asp-page-handler="Approve" class="d-inline">
+                <input type="hidden" name="id" value="@Model.Tutor.TutorId" />
+                <button type="submit" class="btn btn-success">Approve</button>
+            </form>
+            <form method="post" asp-page-handler="Deny" class="d-inline">
+                <input type="hidden" name="id" value="@Model.Tutor.TutorId" />
+                <button type="submit" class="btn btn-danger">Deny</button>
+            </form>
         </div>
     </div>
 </div>

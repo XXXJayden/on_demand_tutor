@@ -14,6 +14,11 @@ namespace Repositories.Tutors
         {
             throw new NotImplementedException();
         }
+
+        public decimal GetTutorServicePrice(int tutorId, int serviceId)
+        {
+            return TutorServiceDAO.GetTutorServicePrice(tutorId, serviceId);
+        }
         public TutorService GetTutorServiceByServiceId(int id) => TutorServiceDAO.GetTutorServiceByServiceId(id);
     }
 }

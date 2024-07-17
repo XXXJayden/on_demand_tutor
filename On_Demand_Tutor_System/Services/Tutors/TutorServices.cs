@@ -37,5 +37,17 @@ namespace Services.Tutors
             return tutorServiceRepository.GetTutorServiceByServiceId(id);
         }
 
+        public decimal GetTutorServicePrice(int tutorId, int serviceId)
+        {
+            try
+            {
+                return tutorServiceRepository.GetTutorServicePrice(tutorId, serviceId);
+            }
+            catch (Exception e)
+            {
+                throw e;
+            }
+        }
+
     }
 }

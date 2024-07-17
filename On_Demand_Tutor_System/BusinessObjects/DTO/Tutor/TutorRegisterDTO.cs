@@ -20,6 +20,12 @@ namespace BusinessObjects.DTO.Tutor
         [Required(ErrorMessage = "Password is required")]
         public string Password { get; set; } = null!;
 
+        [Required(ErrorMessage = "Confirm password is required")]
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "Password is not matched")]
+        public string ConfirmPassword { get; set; }
+
         [Required(ErrorMessage = "Email is required")]
         [EmailAddress(ErrorMessage = "Invalid email address")]
         [AdminKeywordValidation(ErrorMessage = "Email can't contain 'admin' keyword")]

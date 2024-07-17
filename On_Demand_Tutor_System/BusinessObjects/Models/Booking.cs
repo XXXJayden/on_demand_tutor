@@ -21,6 +21,8 @@ public partial class Booking
 
     public string PaymentMethods { get; set; } = null!;
 
+    public string? PaymentStatus { get; set; }
+
     public virtual ICollection<BookingSchedule> BookingSchedules { get; set; } = new List<BookingSchedule>();
 
     public virtual ICollection<Feedback> Feedbacks { get; set; } = new List<Feedback>();

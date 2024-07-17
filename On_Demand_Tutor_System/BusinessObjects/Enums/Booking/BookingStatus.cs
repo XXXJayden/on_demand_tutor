@@ -14,4 +14,10 @@ namespace BusinessObjects.Enums.Booking
         public static readonly string Cancel = "Cancel";
         public static readonly string Proccessing = "Proccessing";
     }
+
+    public class PaymentStatus
+    {
+        public static readonly string Paid = "Paid";
+        public static readonly string Unpaid = "UnPaid";
+    }
 }

@@ -43,6 +43,27 @@
                 </div>
             </div>
 
+            <div class="card mb-3">
+        <div class="card-header bg-secondary text-white">
+            <h5>Registered Services</h5>
+        </div>
+        <div class="card-body">
+            @if (Model.Tutor.TutorServices != null && Model.Tutor.TutorServices.Any())
+            {
+                <ul>
+                    @foreach (var tutorService in Model.Tutor.TutorServices)
+                    {
+                        <li>@tutorService.Service.Service1 - Price: @tutorService.Price</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p>This tutor has not registered for any services.</p>
+            }
+        </div>
+    </div>
+
             <h5>Avatar</h5>
             <div class="row">
                 <div class="col-md-4">
