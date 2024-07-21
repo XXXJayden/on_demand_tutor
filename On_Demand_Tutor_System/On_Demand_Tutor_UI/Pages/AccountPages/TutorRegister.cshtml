@@ -36,15 +36,29 @@
                             <span asp-validation-for="Tutor.ConfirmPassword" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label asp-for="Tutor.Major" class="control-label"></label>
-                            <input asp-for="Tutor.Major" class="form-control" />
-                            <span asp-validation-for="Tutor.Major" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
                             <label asp-for="Tutor.Grade" class="control-label"></label>
-                            <input asp-for="Tutor.Grade" class="form-control" />
+                            <select asp-for="Tutor.Grade" class="form-control" id="gradeSelect">
+                                <option value="">-- Select Grade --</option>
+                                @foreach (var grade in Enum.GetValues(typeof(BusinessObjects.DTO.Tutor.Grade)))
+                                {
+                                    <option value="@grade">@GetDisplayName((Enum)grade)</option>
+                                }
+                            </select>
                             <span asp-validation-for="Tutor.Grade" class="text-danger"></span>
                         </div>
+
+                        <div class="form-group">
+                            <label asp-for="Tutor.Major" class="control-label"></label>
+                            <select asp-for="Tutor.Major" class="form-control" id="majorSelect">
+                                <option value="">-- Select Major --</option>
+                                @foreach (var major in Enum.GetValues(typeof(BusinessObjects.DTO.Tutor.Major)))
+                                {
+                                    <option value="@major">@GetDisplayName((Enum)major)</option>
+                                }
+                            </select>
+                            <span asp-validation-for="Tutor.Major" class="text-danger"></span>
+                        </div>
+
                         <div class="form-group">
                             <label asp-for="Tutor.Description" class="control-label"></label>
                             <textarea asp-for="Tutor.Description" class="form-control" rows="4"></textarea>
@@ -65,7 +79,87 @@
 </div>
 
 @section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const gradeSelect = document.getElementById('gradeSelect');
+            const majorSelect = document.getElementById('majorSelect');
+
+            const highSchoolMajors = ['Math', 'English', 'Physics', 'Chemistry'];
+            const collegeMajors = ['C# Programming', 'Java Programming', 'Database'];
+            const highSchoolGrades = ['Grade9', 'Grade10', 'Grade11', 'Grade12'];
+            const collegeGrades = ['FirstYear', 'SecondYear', 'ThirdYear', 'FourthYear'];
+
+            const updateMajorOptions = () => {
+                const grade = gradeSelect.value;
+                const isHighSchool = highSchoolGrades.includes(grade);
+                const isCollege = collegeGrades.includes(grade);
+
+                Array.from(majorSelect.options).forEach(option => {
+                    if (isHighSchool) {
+                        option.style.display = highSchoolMajors.includes(option.text) ? 'block' : 'none';
+                    } else if (isCollege) {
+                        option.style.display = collegeMajors.includes(option.text) ? 'block' : 'none';
+                    } else {
+                        option.style.display = 'block';
+                    }
+                });
+
+                if (majorSelect.selectedOptions[0] && majorSelect.selectedOptions[0].style.display === 'none') {
+                    majorSelect.value = '';
+                }
+            };
+
+            const updateGradeOptions = () => {
+                const selectedMajorText = majorSelect.options[majorSelect.selectedIndex].text;
+                const isHighSchoolMajor = highSchoolMajors.includes(selectedMajorText);
+                const isCollegeMajor = collegeMajors.includes(selectedMajorText);
+
+                gradeSelect.options[0].style.display = 'block';
+
+                Array.from(gradeSelect.options).forEach((option, index) => {
+                    if (index === 0) return;
+
+                    if (isHighSchoolMajor) {
+                        option.style.display = highSchoolGrades.includes(option.value) ? 'block' : 'none';
+                    } else if (isCollegeMajor) {
+                        option.style.display = collegeGrades.includes(option.value) ? 'block' : 'none';
+                    } else {
+                        option.style.display = 'block';
+                    }
+                });
+
+                if (gradeSelect.selectedOptions[0] && gradeSelect.selectedOptions[0].style.display === 'none') {
+                    const firstVisibleOption = Array.from(gradeSelect.options).find((option, index) => option.style.display !== 'none' && index !== 0);
+                    gradeSelect.value = firstVisibleOption ? firstVisibleOption.value : '';
+                }
+            };
+
+
+            gradeSelect.addEventListener('change', updateMajorOptions);
+            majorSelect.addEventListener('change', updateGradeOptions); 
+
+            updateMajorOptions();
+            updateGradeOptions();
+        });
+    </script>
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
     }
 }
+
+
+@using System.ComponentModel.DataAnnotations
+@using System.Reflection
+
+@functions {
+    public static string GetDisplayName(Enum enumValue)
+    {
+        return enumValue.GetType()
+                        .GetMember(enumValue.ToString())
+                        .First()
+                        .GetCustomAttribute<DisplayAttribute>()?
+                        .GetName() ?? enumValue.ToString();
+    }
+}
+
+

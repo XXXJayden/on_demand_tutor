@@ -10,6 +10,38 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.DTO.Tutor
 {
+    public enum Major
+    {
+        Math,
+        English,
+        Physics,
+        Chemistry,
+        [Display(Name = "C# Programming")]
+        CSharp,
+        [Display(Name = "Java Programming")]
+        Java,
+        Database
+    }
+
+    public enum Grade
+    {
+        [Display(Name = "Grade 9")]
+        Grade9,
+        [Display(Name = "Grade 10")]
+        Grade10,
+        [Display(Name = "Grade 11")]
+        Grade11,
+        [Display(Name = "Grade 12")]
+        Grade12,
+        [Display(Name = "1st Year")]
+        FirstYear,
+        [Display(Name = "2nd Year")]
+        SecondYear,
+        [Display(Name = "3rd Year")]
+        ThirdYear,
+        [Display(Name = "4th Year")]
+        FourthYear
+    }
     public class TutorRegisterDTO
     {
         [Required(ErrorMessage = "You must enter your name")]
@@ -38,11 +70,10 @@ namespace BusinessObjects.DTO.Tutor
         public string? Description { get; set; }
 
         [Required(ErrorMessage = "You must enter your major")]
-        public string Major { get; set; } = null!;
+        public Major? Major { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
-        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
-        public string Grade { get; set; }
+        public Grade? Grade { get; set; }
 
     }
 }

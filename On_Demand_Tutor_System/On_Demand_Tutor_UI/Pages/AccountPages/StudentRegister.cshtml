@@ -42,7 +42,9 @@
                         </div>
                         <div class="form-group">
                             <label asp-for="Student.Grade" class="control-label"></label>
-                            <input asp-for="Student.Grade" class="form-control" />
+                            <select asp-for="Student.Grade" asp-items="Model.GradeOptions" class="form-control">
+                                <option value="">-- Select Grade --</option>
+                            </select>
                             <span asp-validation-for="Student.Grade" class="text-danger"></span>
                         </div>
                         <div class="form-group">

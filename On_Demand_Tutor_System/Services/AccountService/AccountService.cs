@@ -39,7 +39,7 @@ namespace Services.AccountService
                 Phone = registerDTO.Phone,
                 Fullname = registerDTO.FullName,
                 Address = registerDTO.Address,
-                Grade = registerDTO.Grade,
+                Grade = registerDTO.Grade.ToString(),
                 Status = registerDTO.Status
             };
 
@@ -57,10 +57,10 @@ namespace Services.AccountService
                 Email = registerDTO.Email,
                 Password = hashedPassword,
                 Fullname = registerDTO.Fullname,
-                Major = registerDTO.Major,
+                Major = registerDTO.Major.ToString(),
                 Status = registerDTO.Status,
                 Description = registerDTO.Description,
-                Grade = registerDTO.Grade,
+                Grade = registerDTO.Grade.ToString(),
                 Avatar = ""
             };
 

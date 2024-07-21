@@ -11,6 +11,25 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.DTO.Student
 {
+    public enum Grade
+    {
+        [Display(Name = "Grade 9")]
+        Grade9,
+        [Display(Name = "Grade 10")]
+        Grade10,
+        [Display(Name = "Grade 11")]
+        Grade11,
+        [Display(Name = "Grade 12")]
+        Grade12,
+        [Display(Name = "1st Year")]
+        FirstYear,
+        [Display(Name = "2nd Year")]
+        SecondYear,
+        [Display(Name = "3rd Year")]
+        ThirdYear,
+        [Display(Name = "4th Year")]
+        FourthYear
+    }
     public class StudentRegisterDTO
     {
         [Required(ErrorMessage = "Email is required")]
@@ -39,8 +58,7 @@ namespace BusinessObjects.DTO.Student
         public string Address { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
-        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
-        public string Grade { get; set; }
+        public Grade? Grade { get; set; }
 
         [Required(ErrorMessage = "You must enter your current grade")]
         public string Status = UserStatus.Active;
