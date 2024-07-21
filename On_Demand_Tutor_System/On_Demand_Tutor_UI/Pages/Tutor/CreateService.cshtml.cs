@@ -60,9 +60,9 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         {
             var accTutor = HttpContext.Session.GetString("UserEmail");
             var tutorAll = _tutorAccountService.GetTutorByEmail(accTutor);
-            if (TutorService.Price < 100000 || TutorService.Price > 200000)
+            if (TutorService.Price < 100000 || TutorService.Price > 5000000)
             {
-                ModelState.AddModelError("TutorService.Price", "Price must be between 100,000 and 200,000 Vnđ.");
+                ModelState.AddModelError("TutorService.Price", "Price must be between 100,000 and 5,00,000 Vnđ.");
 
                 var tutorServices = _tutorService.GetTutorServices().Where(ts => ts.TutorId == tutorAll.TutorId).ToList();
                 TutorServices = tutorServices;

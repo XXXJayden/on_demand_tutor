@@ -7,6 +7,7 @@ using Microsoft.VisualBasic;
 using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.BookingService;
 using Services.FeedBackServices;
+using Services.ReportServices;
 using Services.StudentServices;
 using Services.Tutors;
 using Services.VnPay;
@@ -21,18 +22,20 @@ namespace On_Demand_Tutor_UI.Pages.Student
 		private readonly IFeedBackService _feedbackService;
 		private readonly ITutorService _tutorService;
 		private readonly IVnPayService _vnPayService;
+        private readonly IReportService _reportService;
 
-		public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService, IFeedBackService feedbackService, ITutorService tutorService, IVnPayService vnPayService)
+        public ViewHistoryComplete(IBookingService bookingService, IStudentService studentService, IFeedBackService feedbackService, ITutorService tutorService, IVnPayService vnPayService, IReportService reportService)
 		{
 			_bookingService = bookingService;
 			_studentService = studentService;
 			_feedbackService = feedbackService;
 			_tutorService = tutorService;
 			_vnPayService = vnPayService;
+			_reportService = reportService;
 		}
 
 		public IList<BookingComplete> LearningComplete { get; set; } = default!;
-
+		public string? ReportStatus {  get; set; } 
 		public async Task OnGetAsync()
 		{
 			var accountStudent = HttpContext.Session.GetString("UserEmail");
@@ -64,6 +67,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
 			{
 				booking.Feedbacks = await _feedbackService.GetFeedBackByBookingId(booking.Id);
 			}
+			//var reportList = _reportService.GetAllReport().Where(x => x.StudentId == allStudent.StudentId && x.ServiceId == LearningComplete.ServiceId);
 		}
 
 		[BindProperty]

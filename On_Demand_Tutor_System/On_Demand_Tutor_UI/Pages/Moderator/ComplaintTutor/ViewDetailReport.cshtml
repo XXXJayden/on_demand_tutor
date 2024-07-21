@@ -50,9 +50,15 @@
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-page="./Edit" asp-route-id="@Model.Report.Id">Edit</a> |
-</div>
+@if (!Model.ModelState.IsValid)
+{
+    <div class="alert alert-danger">
+        @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
+        {
+            <p>@error.ErrorMessage</p>
+        }
+    </div>
+}
 
 <form method="post" asp-page-handler="Cancel">
     <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
@@ -61,8 +67,9 @@
 
 <form method="post" asp-page-handler="Ban">
     <input type="hidden" name="TutorId" value="@Model.Report.TutorId" asp-route-id="@Model.Report.Id" />
-    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to ban this tutor?');">Ban Account Tutor</button>
+    <button type="submit" class="btn btn-danger">Ban</button>
 </form>
+
 <div class="text-center mt-3">
     <a asp-page="/Moderator/Index" class="btn btn-secondary">Back to Index</a>
 </div>

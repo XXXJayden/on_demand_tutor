@@ -19,6 +19,8 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
         }
 
         public IList<ProcessingTeachingRespone> ProcessingTeach { get; set; } = default!;
+        [TempData]
+        public string ErrorMessage { get; set; } = string.Empty;
 
         public async Task OnGetAsync()
         {
@@ -42,6 +44,7 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                                                 Schedules = x.BookingSchedules.Select(bs => bs.Sc.Slot).ToList(),
                                             });
             ProcessingTeach = bookingList.ToList();
+
         }
 
         public async Task<IActionResult> OnPostDoneAsync(int id)
@@ -52,8 +55,15 @@ namespace On_Demand_Tutor_UI.Pages.Tutor
                 return NotFound();
             }
 
+            var currentDate = DateOnly.FromDateTime(DateTime.Now);
+            if (currentDate < booking.DateStart)
+            {
+                ErrorMessage = "Cannot complete the booking because the teaching period has not yet started.";
+                return RedirectToPage();
+            }
+
             booking.Status = BookingStatus.Complete;
-            booking.DateEnd = DateOnly.FromDateTime(DateTime.Now);
+            booking.DateEnd = currentDate;
             _bookingService.UpdateBooking(booking);
 
             return RedirectToPage();

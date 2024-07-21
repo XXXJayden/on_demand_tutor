@@ -45,24 +45,42 @@ namespace On_Demand_Tutor_UI.Pages.Moderator.ComplaintTutor
         public IActionResult OnPostCancel(short TutorId, int Id)
         {
             var report = _reportService.GetReportById(Id);
-            if (report != null)
+            if (report == null)
             {
-                report.Status = "Cancel";
-                _reportService.UpdateStatus(report);
+                return NotFound();
             }
+
+            if (report.Status == "Cancel" || report.Status == "Approve")
+            {
+                OnGet(Id);
+                ModelState.AddModelError(string.Empty, "This report has already been processed.");
+                return Page();
+            }
+
+            report.Status = "Cancel";
+            _reportService.UpdateStatus(report);
             return RedirectToPage("/Moderator/Index");
         }
 
         public IActionResult OnPostBan(short TutorId, int Id)
         {
             var report = _reportService.GetReportById(Id);
-            if (report != null)
+            if (report == null)
             {
-                report.Status = "Approve";
-                _reportService.UpdateStatus(report);
-                _tutorAccountService.DeleteTutor(TutorId);
+                return NotFound();
             }
-            return RedirectToPage("/Moderator/Index");
+
+            if (report.Status == "Approve" || report.Status == "Cancel")
+            {
+                OnGet(Id);
+                ModelState.AddModelError(string.Empty, "This report has already been processed.");
+                return Page();
+            }
+
+            report.Status = "Approve";
+            _reportService.UpdateStatus(report);
+            return RedirectToPage("./DeleteAccount", new { id = TutorId, Role = "Tutor" });
         }
     }
 }
+

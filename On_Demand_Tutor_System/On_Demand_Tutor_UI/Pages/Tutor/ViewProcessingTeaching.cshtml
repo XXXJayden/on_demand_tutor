@@ -8,6 +8,13 @@
 
 <h1 class="text-center text-primary mb-4">View Student Learning</h1>
 
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+    <div class="alert alert-danger text-center">
+        @Model.ErrorMessage
+    </div>
+}
+
 <div class="container">
     <div class="table-responsive">
         <table class="table table-bordered table-hover">
@@ -35,7 +42,7 @@
                             <ul>
                                 @foreach (var slot in item.Schedules)
                                 {
-                                    @slot
+                                    <li>@slot</li>
                                 }
                             </ul>
                         </td>
@@ -56,6 +63,6 @@
 </div>
 <script>
     function confirmDone() {
-        return confirm("Are you sure you want to done this booking?");
+        return confirm("Are you sure you want to mark this booking as done?");
     }
 </script>
