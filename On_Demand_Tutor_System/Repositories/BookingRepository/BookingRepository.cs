@@ -15,8 +15,10 @@ namespace Repositories.BookingRepository
 
         public Booking GetBookingById(int id) => BookingDAO.GetBookingById(id);
 
-        public Booking GetDetailsBookingById(int id) => BookingDAO.GetDetailsBookingById(id);   
+        public Booking GetDetailsBookingById(int id) => BookingDAO.GetDetailsBookingById(id);
 
         public void UpdateBooking(Booking booking) => BookingDAO.UpdateBooking(booking);
+
+        public void UpdateBookingStatusToPaid(int bookingId) => BookingDAO.UpdateBookingStatusToPaid(bookingId);
     }
 }

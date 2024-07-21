@@ -10,7 +10,7 @@ namespace Services.VnPay
 {
     public interface IVnPayService
     {
-        string CreatePaymentUrl(string ipAddress, VnPaymentRequestModel model);
+        string CreatePaymentUrl(HttpContext context, VnPaymentRequestModel model);
         VnPaymentResponseModel PaymentResponse(IQueryCollection collection);
     }
 }

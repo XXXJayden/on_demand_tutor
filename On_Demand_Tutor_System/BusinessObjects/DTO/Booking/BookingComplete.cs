@@ -34,5 +34,6 @@ namespace BusinessObjects.DTO.Booking
         public IList<BusinessObjects.Models.Feedback> Feedbacks { get; set; } = new List<BusinessObjects.Models.Feedback>();
 
         public string PaymentStatus { get; set; } = "UnPaid";
+
     }
 }
