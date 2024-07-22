@@ -28,7 +28,6 @@ namespace BusinessObjects.DTO.Student
         public string Address { get; set; }
 
         [Required(ErrorMessage = "You must enter your grade")]
-        [CustomValidation(typeof(CustomValidationMethods), nameof(CustomValidationMethods.ValidateGrade))]
-        public string Grade { get; set; }
+        public Grade? Grade { get; set; }
     }
 }

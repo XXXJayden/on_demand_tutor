@@ -20,5 +20,16 @@ namespace Repositories.BookingRepository
         public void UpdateBooking(Booking booking) => BookingDAO.UpdateBooking(booking);
 
         public void UpdateBookingStatusToPaid(int bookingId) => BookingDAO.UpdateBookingStatusToPaid(bookingId);
+
+        public async Task<List<Booking>> GetStudentBookingById(int id)
+        {
+            BookingDAO dao = new BookingDAO();
+            return await dao.GetStudentBookingById(id);
+        }
+        public async Task<List<Booking>> GetTutorBookingById(int id)
+        {
+            BookingDAO dao = new BookingDAO();
+            return await dao.GetTutorBookingById(id);
+        }
     }
 }
