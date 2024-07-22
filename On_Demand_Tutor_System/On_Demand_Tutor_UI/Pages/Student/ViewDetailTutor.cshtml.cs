@@ -153,10 +153,11 @@ namespace On_Demand_Tutor_UI.Pages.Student
                     ScId = scService.Id,
                     Date = selectedDate,
                 };
-                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
                 _bookingScheduleService.AddBookingSchedule(bookingSchedule);
+                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
 
                 return RedirectToPage("./ViewWaitingApprove");
+
             }
             catch (Exception ex)
             {

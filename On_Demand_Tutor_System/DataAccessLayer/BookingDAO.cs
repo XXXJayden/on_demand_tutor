@@ -132,5 +132,19 @@ namespace DataAccessLayer
             }
         }
 
+        public async Task<List<Booking>> GetStudentBookingById(int id)
+        {
+            using var context = new OnDemandTutorDbContext();
+            return await context.Bookings.Where(b => b.StudentId == id)
+                    .ToListAsync();
+        }
+        public async Task<List<Booking>> GetTutorBookingById(int id)
+        {
+            using var context = new OnDemandTutorDbContext();
+            return await context.Bookings.Where(b => b.TutorId == id)
+                    .ToListAsync();
+        }
+
+
     }
 }

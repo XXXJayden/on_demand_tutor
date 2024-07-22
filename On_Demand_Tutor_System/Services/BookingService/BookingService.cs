@@ -71,6 +71,14 @@ namespace Services.BookingService
             bookingRepository.UpdateBookingStatusToPaid(bookId);
         }
 
+        public async Task<List<Booking>> GetStudentBookingById(int id)
+        {
+            return await bookingRepository.GetStudentBookingById(id);
+        }
+        public async Task<List<Booking>> GetTutorBookingById(int id)
+        {
+            return await bookingRepository.GetTutorBookingById(id);
+        }
 
     }
 }

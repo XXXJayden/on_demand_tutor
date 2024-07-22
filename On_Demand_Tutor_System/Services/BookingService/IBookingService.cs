@@ -13,5 +13,7 @@ namespace Services.BookingService
         Booking GetDetailsBookingById(int id);
         (int Complete, int Pending, int Approve, int Cancel, int Processing) GetBookingStatusCounts();
         void UpdateBookingStatusToPaid(int bookId);
+        Task<List<Booking>> GetStudentBookingById(int id);
+        Task<List<Booking>> GetTutorBookingById(int id);
     }
 }

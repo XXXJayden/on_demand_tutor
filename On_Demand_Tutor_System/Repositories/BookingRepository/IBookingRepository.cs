@@ -15,5 +15,7 @@ namespace Repositories.BookingRepository
 
         Booking GetDetailsBookingById(int id);
         void UpdateBookingStatusToPaid(int bookingId);
+        Task<List<Booking>> GetStudentBookingById(int id);
+        Task<List<Booking>> GetTutorBookingById(int id);
     }
 }
