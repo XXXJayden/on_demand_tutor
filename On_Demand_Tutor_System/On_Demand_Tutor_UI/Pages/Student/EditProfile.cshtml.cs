@@ -70,7 +70,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
                                 }), "Value", "Text", Student.Grade);
             var existingStudent = await _studentService.GetStudentByEmailAsync(userEmail);
             var bookings = await _bookingService.GetStudentBookingById(existingStudent.StudentId);
-            HasRestrictedBooking = bookings.Any(b => b.Status != BookingStatus.Complete || b.Status != BookingStatus.Cancel);
+            HasRestrictedBooking = bookings.Any(b => b.Status != BookingStatus.Complete && b.Status != BookingStatus.Cancel);
 
             return Page();
         }
@@ -101,7 +101,7 @@ namespace On_Demand_Tutor_UI.Pages.Student
 
             var existingStudent = await _studentService.GetStudentByEmailAsync(userEmail);
             var bookings = await _bookingService.GetStudentBookingById(existingStudent.StudentId);
-            HasRestrictedBooking = bookings.Any(b => b.Status != BookingStatus.Complete || b.Status != BookingStatus.Cancel);
+            HasRestrictedBooking = bookings.Any(b => b.Status != BookingStatus.Complete && b.Status != BookingStatus.Cancel);
 
             if (HasRestrictedBooking)
             {

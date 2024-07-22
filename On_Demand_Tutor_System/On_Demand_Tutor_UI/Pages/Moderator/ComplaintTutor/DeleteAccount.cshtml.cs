@@ -6,6 +6,7 @@ using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ModService;
 using Services.StudentServices;
 using Services.TutorServices;
+using System.Data;
 
 namespace On_Demand_Tutor_UI.Pages.Moderator
 {
@@ -25,7 +26,7 @@ namespace On_Demand_Tutor_UI.Pages.Moderator
         [BindProperty]
         public GetAccountDTO AccountToDelete { get; set; }
 
-        public async Task<IActionResult> OnGetAsync(short id, string Role)
+        public async Task<IActionResult> OnGetAsync(short id)
         {
            
                     var tutor = _tutorService.GetTutorById(id);
@@ -49,9 +50,19 @@ namespace On_Demand_Tutor_UI.Pages.Moderator
             return Page();
         }
 
-        public async Task<IActionResult> OnPostAsync(short id, string Role)
+        public async Task<IActionResult> OnPostAsync(short id)
         {
-                    _tutorService.ChangeStatusToActive(id);
+            var accTutor = _tutorService.GetTutorById(id);
+            if (accTutor.Status == UserStatus.InActive)
+            {
+                OnGetAsync(id);
+                ModelState.Clear();
+                ModelState.AddModelError(string.Empty, "This account have been banned.");
+                return Page();
+            }else
+            {
+                _tutorService.ChangeStatusToActive(id);
+            }
 
             return RedirectToPage("./ViewReport");
         }

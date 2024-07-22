@@ -4,17 +4,21 @@ using BusinessObjects.Models;
 using Microsoft.AspNetCore.Mvc;
 using On_Demand_Tutor_UI.Pages.AccountPages;
 using Services.ServiceServices;
+using Services.StudentServices;
 using Services.TutorServices;
 
 namespace On_Demand_Tutor_UI.Pages.Student
 {
     public class LookingTutorModel : AuthenPageModel
     {
+        private readonly IStudentService _studentService;
         private readonly IServiceServices _serviceServices;
         private readonly ITutorAccountService _tutorAccountService;
 
-        public LookingTutorModel(IServiceServices serviceServices, ITutorAccountService tutorAccountService)
+        public LookingTutorModel(IServiceServices serviceServices, ITutorAccountService tutorAccountService, IStudentService 
+            studentService)
         {
+            _studentService = studentService;
             _serviceServices = serviceServices;
             _tutorAccountService = tutorAccountService;
         }
@@ -43,12 +47,14 @@ namespace On_Demand_Tutor_UI.Pages.Student
             var searchGrade = searchTutor.grade;
             var searchSubject = searchTutor.subject;
             var searchService = searchTutor.serviceId;
+            var accStu = HttpContext.Session.GetString("UserEmail");
+            var accProfile = _studentService.GetStudentByEmail(accStu);
 
             TutorServiceResponses = listTutorService.Where(x =>
-                (string.IsNullOrEmpty(searchGrade) || x.Grade.ToLower().Contains(searchGrade.ToLower())) &&
-                (string.IsNullOrEmpty(searchSubject) || x.Major.ToLower().Contains(searchSubject.ToLower())) &&
-                (string.IsNullOrEmpty(searchService) || x.Services.Any(sv => sv.ToLower().Contains(searchService.ToLower())))
-            ).ToList();
+        (string.IsNullOrEmpty(searchGrade) || x.Grade.ToLower().Contains(searchGrade.ToLower())) &&
+        (string.IsNullOrEmpty(searchSubject) || x.Major.ToLower().Contains(searchSubject.ToLower())) &&
+        (string.IsNullOrEmpty(searchService) || x.Services.Any(sv => sv.ToLower().Contains(searchService.ToLower()))) &&
+        (string.IsNullOrEmpty(accProfile.Grade) || x.Grade.ToLower().Contains(accProfile.Grade.ToLower()))).ToList();
         }
 
         public async Task<IActionResult> OnGetAsync(SearchTutorDTO searchTutorDTO)

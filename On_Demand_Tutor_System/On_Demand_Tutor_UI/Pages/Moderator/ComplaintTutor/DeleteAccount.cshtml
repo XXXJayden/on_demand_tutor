@@ -31,11 +31,19 @@
                 @Html.DisplayFor(model => model.AccountToDelete.Status)
             </dd>
         </dl>
-
         <form method="post" style="margin-top: 20px;">
             <input type="hidden" asp-for="AccountToDelete.Id" />
-            <button type="submit" class="btn btn-danger" style="padding: 10px 20px; border-radius: 5px;">Change Status</button> |
+            <button type="submit" class="btn btn-danger" style="padding: 10px 20px; border-radius: 5px;">Ban Account</button> |
             <a asp-page="./ViewReport" class="btn btn-secondary" style="padding: 10px 20px; border-radius: 5px;">Back to List</a>
         </form>
     </div>
 </div>
+        @if (!Model.ModelState.IsValid)
+        {
+            <div class="alert alert-danger">
+                @foreach (var error in Model.ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    <p>@error.ErrorMessage</p>
+                }
+            </div>
+        }
