@@ -93,10 +93,14 @@ namespace On_Demand_Tutor_UI.Pages.Student
             return new JsonResult(availableSlots);
         }
 
-        public async Task<IActionResult> OnPostAsync(string selectedService, string selectedDate, string selectedSlot, string selectedPaymentMethod, short id)
+        public async Task<IActionResult> OnPostAsync( string selectedService, string selectedDate, string selectedSlot, string selectedPaymentMethod, short id)
         {
             DateOnly parsedDate;
             DateOnly.TryParse(selectedDate, out parsedDate);
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            var accStudent = _studentService.GetStudentByEmail(userEmail);
+            var tutor = _tutorAccountService.GetTutorById(id);
+            var availableSlots = await _scheduleService.GetAvailableSlotsAsync(tutor.TutorId, accStudent.StudentId, selectedDate);
             if (string.IsNullOrEmpty(selectedDate))
             {
                 ModelState.AddModelError(string.Empty, "Please select a date.");
@@ -124,11 +128,16 @@ namespace On_Demand_Tutor_UI.Pages.Student
                 await OnGetAsync(id, parsedDate);
                 return Page();
             }
+            if (!availableSlots.Contains(selectedSlot))
+            {
+                ModelState.AddModelError(string.Empty, "Sorry, this slot has been booked.");
+                await OnGetAsync(id, parsedDate);
+                return Page();
+            }
 
             try
             {
-                var userEmail = HttpContext.Session.GetString("UserEmail");
-                var accStudent = _studentService.GetStudentByEmail(userEmail);
+
                 var serviceId = _serviceService.GetServiceIdByName(selectedService);
 
                 var booking = new Booking
@@ -154,7 +163,6 @@ namespace On_Demand_Tutor_UI.Pages.Student
                     Date = selectedDate,
                 };
                 _bookingScheduleService.AddBookingSchedule(bookingSchedule);
-                await _hubContext.Clients.All.SendAsync("ReceiveMessage");
 
                 return RedirectToPage("./ViewWaitingApprove");
 
